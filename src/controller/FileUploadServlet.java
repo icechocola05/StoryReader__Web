@@ -46,10 +46,9 @@ public class FileUploadServlet extends HttpServlet {
     	File file = multipartRequest.getFile("file");
 
     	Table t_res = new loadText().FileRead(file,t);
-    	
+    	    	
     	HttpSession session = request.getSession(true);
     	session.setAttribute("table", t_res);
-    	
     	
     	RequestDispatcher rd = request.getRequestDispatcher("/setting.jsp");
         rd.forward(request, response);

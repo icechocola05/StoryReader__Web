@@ -19,7 +19,7 @@
 	<div class="content1">
 		<textarea rows="10" cols="90"><%= t.getMainTxt() %></textarea>
 	</div>
-	<form method="Post" action="result.jsp">
+	<form method="Post" action="setVoiceEmoServlet">
 	<table>
 		<thead>
 			<th>화자</th>
@@ -40,7 +40,7 @@
 				<!-- voice option 붙이기-->
 				<select id='voice' name='voice'>
 					<% for (int j=0 ; j<21 ; j++){ %>
-					<option value=(String)<%=t.getVoiceVal(j) %>><%=t.getVoiceOp(j) %></option>
+					<option value=<%=t.getVoiceVal(j)%>><%=t.getVoiceOp(j) %></option>
 					<% } %>
 				</select>
 			</td>
@@ -48,7 +48,7 @@
 				<!-- emotion option 붙이기-->
 				<select id='emotion' name='emotion'>
 					<% for (int j=0 ; j<5 ; j++){ %>
-					<option value=(String)<%=t.getEmoVal(j) %>><%=t.getEmoOp(j) %></option>
+					<option value=<%=t.getEmoVal(j) %>><%=t.getEmoOp(j) %></option>
 					<% } %>
 				</select>
 			</td>

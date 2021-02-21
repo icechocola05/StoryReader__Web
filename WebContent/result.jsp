@@ -12,10 +12,7 @@
 
 	<%
 	session = request.getSession();
-	model.Table t = (Table)session.getAttribute("table");
-	int n = t.getLength();
-	for (int i = 0; i < n; i++)
-		out.println(t.getVoiceName(i) + " " + t.getEmo1(i) + " " + t.getEmo2(i) + " " + t.getSent(i) + "<br>");
+	out.println("sucess");
 	%>
 
 	<form method="post" action="makeJsonServlet">

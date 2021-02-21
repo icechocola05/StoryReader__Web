@@ -1,4 +1,5 @@
 <%@page import="java.io.*"%>
+<%@page import="java.util.ArrayList" %>
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
@@ -15,9 +16,16 @@
 
 </head>
 <body>
-	<% Table t=(Table)session.getAttribute("table"); %>
+	<% 
+		ArrayList<TextInfo> t = new ArrayList<TextInfo>();
+		t=(ArrayList<TextInfo>)session.getAttribute("textInfo"); 
+		
+		String mainTxt=(String)session.getAttribute("mainTxt");
+		
+		Table table=new Table();
+	%>
 	<div class="content1">
-		<textarea rows="10" cols="90"><%= t.getMainTxt() %></textarea>
+		<textarea rows="10" cols="90"><%= mainTxt %></textarea>
 	</div>
 	<form method="Post" action="setVoiceEmoServlet">
 	<table>
@@ -29,18 +37,15 @@
 			<th>문장</th>
 		</thead>
 		<%
-			for(int i=0;i<t.getLength();i++){//table객체의 문장 수 만큼 
+			for(int i=0;i<t.size();i++){//table객체의 문장 수 만큼 
 			%>
 		<tbody>
-			<!--request attribute로 Table 객체 받아오기-->
-			
-			
-			<td><%=t.getSpeaker(i) %></td>
+			<td><%=t.get(i).getSpeaker()%></td>
 			<td>
 				<!-- voice option 붙이기-->
 				<select id='voice' name='voice'>
 					<% for (int j=0 ; j<21 ; j++){ %>
-					<option value=<%=t.getVoiceVal(j)%>><%=t.getVoiceOp(j) %></option>
+					<option value=<%=table.getVoiceVal(j)%>><%=table.getVoiceOp(j) %></option>
 					<% } %>
 				</select>
 			</td>
@@ -48,7 +53,7 @@
 				<!-- emotion option 붙이기-->
 				<select id='emotion' name='emotion'>
 					<% for (int j=0 ; j<5 ; j++){ %>
-					<option value=<%=t.getEmoVal(j) %>><%=t.getEmoOp(j) %></option>
+					<option value=<%=table.getEmoVal(j) %>><%=table.getEmoOp(j) %></option>
 					<% } %>
 				</select>
 			</td>
@@ -57,7 +62,7 @@
 				<input type="range" name="range" min="0" max ="1" step="0.1">
 			</td>
 			<!-- sentence 붙이기-->
-			<td><%=t.getSent(i) %></td>
+			<td><%=t.get(i).getText()%></td>
 		
 		</tbody>
 		<%} %>

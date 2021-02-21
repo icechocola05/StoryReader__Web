@@ -1,7 +1,11 @@
 package controller;
  
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,8 +18,7 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.oreilly.servlet.MultipartRequest;
 
-import model.Table;
-import model.loadText; 
+import model.TextInfo;
  
 @WebServlet("/fileUploadServlet")
 public class FileUploadServlet extends HttpServlet {
@@ -38,17 +41,46 @@ public class FileUploadServlet extends HttpServlet {
 
     	int maxSize = 1024 * 1024 * 100;
     	String encType = "UTF-8";
-    	Table t=new Table();
+    	ArrayList<TextInfo> textArr=new ArrayList<TextInfo>();
     	
     	MultipartRequest multipartRequest = new MultipartRequest(request, ATTACHES_DIR, maxSize, encType,
     	    	new DefaultFileRenamePolicy());
 
     	File file = multipartRequest.getFile("file");
+    	
+    	int len=0;
+		String str="";
+		String mainTxt="";
 
-    	Table t_res = new loadText().FileRead(file,t);
-    	    	
+    	try {
+			FileInputStream ins = new FileInputStream(file);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
+			
+			while(true) {
+				str = reader.readLine();
+				if (str == null) break;
+				mainTxt+=str+"\n";
+				if(str.contains(":")) {//텍스트에서 화자 제거
+					int beginIndex = str.indexOf(":");
+					int endIndex = str.length();
+					str = str.substring(beginIndex, endIndex);
+				}
+				TextInfo nt=new TextInfo();
+				nt.setText(str);
+				textArr.add(nt);
+				len++;
+			}
+			
+			reader.close();
+			ins.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	   
     	HttpSession session = request.getSession(true);
-    	session.setAttribute("table", t_res);
+    	session.setAttribute("mainTxt", mainTxt);
+    	session.setAttribute("textInfo", textArr);
+    	
     	
     	RequestDispatcher rd = request.getRequestDispatcher("/setting.jsp");
         rd.forward(request, response);

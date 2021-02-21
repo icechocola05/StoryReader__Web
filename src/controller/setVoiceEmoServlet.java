@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Table;
+import model.TextInfo;
 
 /**
  * Servlet implementation class setVoiceEmo
@@ -32,8 +34,19 @@ public class setVoiceEmoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
-	    Table t=(Table)session.getAttribute("table");
-	    t.setVoiceEmo(request.getParameterValues("voice"),request.getParameterValues("emotion"),request.getParameterValues("range"));
+	    ArrayList<TextInfo> textInfo = new ArrayList<TextInfo>();
+	    textInfo=(ArrayList<TextInfo>)session.getAttribute("textInfo");
+	    for(int i=0;i<textInfo.size();i++) {
+	    	String number = request.getParameter("value");
+	    	if (number == null) {
+	    	number = "0";
+	    	}
+	    	int num = Integer.parseInt(number);
+	    	textInfo.get(i).setVoiceEmo(request.getParameter("voice"),request.getParameter("emotion"),num);
+	    	//textInfo.get(i).setVoice(request.getParameter("voice"));
+	    	//textInfo.get(i).setEmo(request.getParameter("emotion"));
+	    	//textInfo.get(i).setVal(Integer.parseInt(request.getParameter("value")));
+	    }
 	    
 	    RequestDispatcher rd = request.getRequestDispatcher("/result.jsp");
         rd.forward(request, response);

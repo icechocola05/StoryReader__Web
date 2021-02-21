@@ -9,7 +9,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
  
 public class makeJson {
-	public String createJson(ArrayList<TextInfo> t) {
+	public JSONArray createJson(ArrayList<TextInfo> t) {
 		JSONArray jsonArray=new JSONArray();
 		
 		for(int i=0;i<t.size();i++) {
@@ -18,10 +18,13 @@ public class makeJson {
 			JSONObject emoInfo=new JSONObject();
 			
 			jsonObject.put("text",t.get(i).getText());
-			
+			jsonObject.put("lang", "ko");
+
 			voiceInfo.put("name", t.get(i).getVoice());
 			voiceInfo.put("gender", "");
 			voiceInfo.put("age", ""); 
+			voiceInfo.put("variant", "");
+			voiceInfo.put("onvoicefailure", "priorityselect");
 			jsonObject.put("voice", voiceInfo);
 	        
 			emoInfo.put("name", t.get(i).getEmotion());
@@ -31,7 +34,7 @@ public class makeJson {
 	        jsonArray.add(jsonObject);
 	        
 		}
-		return jsonArray.toJSONString();
+		return jsonArray;
 			
 	 }
 }

@@ -11,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import model.*;
 
@@ -28,7 +30,9 @@ public class fileConnectionServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		makeJson commandlist = new makeJson();
+		HttpSession session = request.getSession(true);
+		JSONArray resultJson = new JSONArray();
+		resultJson = (JSONArray) session.getAttribute("resultJson");
 		
         try {
             String text = URLEncoder.encode("만나서 반갑습니다.", "UTF-8"); // 13자
@@ -38,12 +42,11 @@ public class fileConnectionServlet extends HttpServlet {
             con.setRequestProperty("Content-Type", "application/json");
             
             // post request
-            String postParams = "speaker=mijin&speed=0&text=" + text;
+            JSONObject postParams = (JSONObject) resultJson.get(0);
+            String result = postParams.toString();
             con.setDoOutput(true); //출력 가능한 상태로 만들기
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-            JSONObject commands = new JSONObject();
-            commands.put("commands", commandlist);
-            wr.writeBytes(postParams); //json 보내야함
+            wr.writeBytes(result); //json 보내야함
             wr.flush();
             wr.close();
             

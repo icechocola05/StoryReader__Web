@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+
 import model.Table;
 import model.TextInfo;
 import model.makeJson;
@@ -39,9 +41,9 @@ public class makeJsonServlet extends HttpServlet {
 	    ArrayList<TextInfo> t=(ArrayList<TextInfo>)session.getAttribute("textInfo");
 	    
 	   	makeJson jf=new makeJson();
-		String str =jf.createJson(t);
+		JSONArray resultJson =jf.createJson(t);
 		
-		session.setAttribute("jsoncheck", str);
+		session.setAttribute("resultJson", resultJson);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/result2.jsp");
         rd.forward(request, response);

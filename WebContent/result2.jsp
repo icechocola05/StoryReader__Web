@@ -14,5 +14,8 @@
 	<div style="background-color:yellow">
 	<%out.println(t);%>
 	</div>
+	<form method="post" action="fileConnection">
+	<input type="submit">
+	</form>
 </body>
 </html>

@@ -39,15 +39,10 @@ public class makeJsonServlet extends HttpServlet {
 	    ArrayList<TextInfo> t=(ArrayList<TextInfo>)session.getAttribute("textInfo");
 	    
 	   	makeJson jf=new makeJson();
-<<<<<<< HEAD
 		String str =jf.createJson(t);
 		
 		session.setAttribute("jsoncheck", str);
 		
-=======
-		jf.createJson(t);
-	   	
->>>>>>> feature/server
 		RequestDispatcher rd = request.getRequestDispatcher("/result2.jsp");
         rd.forward(request, response);
 	}

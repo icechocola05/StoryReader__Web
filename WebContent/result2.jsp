@@ -9,7 +9,7 @@
 <body>
 	<%
 	session = request.getSession();
-	String t = (String)session.getAttribute("jsoncheck");
+	String t = session.getAttribute("resultJson").toString();
 	%>
 	<div style="background-color:yellow">
 	<%out.println(t);%>

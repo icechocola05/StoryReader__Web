@@ -1,6 +1,8 @@
 package model;
 
-public class TextInfo {
+import java.io.Serializable;
+
+public class TextInfo implements Serializable{
 	String text;
 	String speaker;
 	String voice;
@@ -37,8 +39,8 @@ public class TextInfo {
 	public String getSpeaker() {
 		return speaker;
 	}
-	public int getVoice() {
-		return voiceid;
+	public String getVoice() {
+		return voice;
 	}
 	public String getEmotion() {
 		return emotion;

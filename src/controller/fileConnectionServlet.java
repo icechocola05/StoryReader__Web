@@ -35,8 +35,7 @@ public class fileConnectionServlet extends HttpServlet {
 		resultJson = (JSONArray) session.getAttribute("resultJson");
 		
         try {
-            String text = URLEncoder.encode("만나서 반갑습니다.", "UTF-8"); // 13자
-            URL url = new URL("220.69.171.32:5000/tts"); //음성합성기 URL 넣기
+            URL url = new URL("http://220.69.171.32:5000/tts"); //음성합성기 URL 넣기
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json");
@@ -44,6 +43,8 @@ public class fileConnectionServlet extends HttpServlet {
             // post request
             JSONObject postParams = (JSONObject) resultJson.get(0);
             String result = postParams.toString();
+            //String text = URLEncoder.encode(result, "UTF-8"); // 13자
+            System.out.println(result);
             con.setDoOutput(true); //출력 가능한 상태로 만들기
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
             wr.writeBytes(result); //json 보내야함

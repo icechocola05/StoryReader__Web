@@ -1,48 +1,37 @@
 package model;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
- 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
  
 public class makeJson {
-	public void createJsonFile(Table t) {
-		for(int i=0;i<t.getLength();i++) {
-			FileWriter writer=null;
-			JsonObject jsonobject = new JsonObject();
-			jsonobject.addProperty("text",t.getSent(i));
-	    
-			JsonObject voiceInfo = new JsonObject();
-			voiceInfo.addProperty("name", t.getVoiceName(i));
-			voiceInfo.addProperty("gender", t.getVoiceGender(i));
-			voiceInfo.addProperty("age", t.getVoiceAge(i));
-			jsonobject.add("voice", voiceInfo);
+	public String createJson(ArrayList<TextInfo> t) {
+		JSONArray jsonArray=new JSONArray();
+		
+		for(int i=0;i<t.size();i++) {
+			JSONObject jsonObject=new JSONObject(); 
+			JSONObject voiceInfo=new JSONObject();
+			JSONObject emoInfo=new JSONObject();
+			
+			jsonObject.put("text",t.get(i).getText());
+			
+			voiceInfo.put("name", t.get(i).getVoice());
+			voiceInfo.put("gender", "");
+			voiceInfo.put("age", ""); 
+			jsonObject.put("voice", voiceInfo);
 	        
-			JsonObject emoInfo = new JsonObject();
-			emoInfo.addProperty("name", t.getEmo1(i));
-			emoInfo.addProperty("value", t.getEmo2(i));
-			jsonobject.add("emotionInfo", emoInfo);
-	    
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	        	String json = gson.toJson(jsonobject);
-	        	try {
-	        		File file = new File("C:\\Users\\leejiwon\\Desktop\\jsonfile\\info"+i+1+".json");
-	        		writer = new FileWriter(file);
-	        		writer.write(json);
-	        	} catch (IOException e) {
-	        		// TODO Auto-generated catch block
-	        		e.printStackTrace();
-	        	}finally {
-	        		try {
-	        			writer.close();
-	        		} catch (IOException e) {
-	        			// TODO Auto-generated catch block
-	        			e.printStackTrace();
-	        			
-	        		}
-	        	}
+			emoInfo.put("name", t.get(i).getEmotion());
+			emoInfo.put("value", t.get(i).getValue());
+			jsonObject.put("emotionInfo", emoInfo);
+			
+	        jsonArray.add(jsonObject);
+	        
 		}
+		return jsonArray.toJSONString();
+			
 	 }
 }

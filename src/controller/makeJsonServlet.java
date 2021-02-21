@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Table;
+import model.TextInfo;
 import model.makeJson;
 
 /**
@@ -34,11 +36,13 @@ public class makeJsonServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession(true);
-	    Table t=(Table)session.getAttribute("table");
+	    ArrayList<TextInfo> t=(ArrayList<TextInfo>)session.getAttribute("textInfo");
 	    
 	   	makeJson jf=new makeJson();
-		jf.createJsonFile(t);
-	   	
+		String str =jf.createJson(t);
+		
+		session.setAttribute("jsoncheck", str);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/result2.jsp");
         rd.forward(request, response);
 	}

@@ -37,7 +37,7 @@ public class makeJsonServlet extends HttpServlet {
 	    Table t=(Table)session.getAttribute("table");
 	    
 	   	makeJson jf=new makeJson();
-		jf.createJsonFile(t);
+		jf.createJson(t);
 	   	
 		RequestDispatcher rd = request.getRequestDispatcher("/result2.jsp");
         rd.forward(request, response);

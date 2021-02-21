@@ -13,8 +13,8 @@ public class Table {
 	String resultName[]=new String[50];
 	String resultGender[]=new String[50];
 	String resultAge[]=new String[50];
-	String resultEmo1[] = new String[50];
-	String resultEmo2[] = new String[50];
+	String resultEmo1[] = new String[50]; //감정 종류
+	String resultEmo2[] = new String[50]; //세기
 	
 	String voiceOp[] = {"--------voice-------", "ema&amp;nea/여/82년생", "emb&amp;neb/여/84년생", "emc&amp;nec/여/74년생",
                         "emd&amp;ned/여/91년생", "eme&amp;nee/여/86년생", "emf&amp;nek/남/82년생",
@@ -103,13 +103,6 @@ public class Table {
 	public String getVoiceName(int i) {
 		return resultName[i];
 	}
-	public String getVoiceGender(int i) {
-		return resultGender[i];
-	}
-	public String getVoiceAge(int i) {
-		return resultAge[i];
-	}
-	
 	public String getEmo1(int i) {
 		return resultEmo1[i];
 	}

@@ -45,7 +45,8 @@ public class TextInfo implements Serializable{
 	public String getEmotion() {
 		return emotion;
 	}
-	public int getValue() {
-		return value;
+	public String getValue() {
+		String v = Integer.toString(value);
+		return v;
 	}
 }

@@ -44,6 +44,7 @@ public class makeJsonServlet extends HttpServlet {
 		JSONArray resultJson =jf.createJson(t);
 		
 		session.setAttribute("resultJson", resultJson);
+		session.setAttribute("i", 0);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/result2.jsp");
         rd.forward(request, response);

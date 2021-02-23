@@ -48,7 +48,7 @@ public class setVoiceEmoServlet extends HttpServlet {
 	    	//textInfo.get(i).setVal(Integer.parseInt(request.getParameter("value")));
 	    }
 	    
-	    RequestDispatcher rd = request.getRequestDispatcher("/result.jsp");
+	    RequestDispatcher rd = request.getRequestDispatcher("/makeJsonServlet");
         rd.forward(request, response);
 	}
 

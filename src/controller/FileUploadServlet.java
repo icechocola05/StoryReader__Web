@@ -51,22 +51,24 @@ public class FileUploadServlet extends HttpServlet {
     	int len=0;
 		String str="";
 		String mainTxt="";
-
+		String tempTxt[]=new String[3]; 
     	try {
 			FileInputStream ins = new FileInputStream(file);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
 			
 			while(true) {
+				TextInfo nt=new TextInfo();
 				str = reader.readLine();
 				if (str == null) break;
 				mainTxt+=str+"\n";
 				if(str.contains(":")) {//텍스트에서 화자 제거
-					int beginIndex = str.indexOf(":");
-					int endIndex = str.length();
-					str = str.substring(beginIndex, endIndex);
+					tempTxt=str.split(":");
+					nt.setSpeaker(tempTxt[0]);
+					nt.setText(tempTxt[1]);
+				}else {
+					nt.setSpeaker("해설");
+					nt.setText(str);
 				}
-				TextInfo nt=new TextInfo();
-				nt.setText(str);
 				textArr.add(nt);
 				len++;
 			}

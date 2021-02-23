@@ -43,7 +43,7 @@
 			<td><%=t.get(i).getSpeaker()%></td>
 			<td>
 				<!-- voice option 붙이기-->
-				<select id='voice' name='voice'>
+				<select id='voice' name='voice<%=i%>'>
 					<% for (int j=0 ; j<21 ; j++){ %>
 					<option value=<%=table.getVoiceVal(j)%>><%=table.getVoiceOp(j) %></option>
 					<% } %>
@@ -51,7 +51,7 @@
 			</td>
 			<td>
 				<!-- emotion option 붙이기-->
-				<select id='emotion' name='emotion'>
+				<select id='emotion' name='emotion<%=i%>'>
 					<% for (int j=0 ; j<5 ; j++){ %>
 					<option value=<%=table.getEmoVal(j) %>><%=table.getEmoOp(j) %></option>
 					<% } %>
@@ -59,7 +59,7 @@
 			</td>
 			<td>
 				<!-- emotion intensity 붙이기-->
-				<input type="range" name="range" min="0" max ="1" step="0.1">
+				<input type="range" name="range<%=i%>" min="0" max ="1" step="0.1" value="0.5">
 			</td>
 			<!-- sentence 붙이기-->
 			<td><%=t.get(i).getText()%></td>

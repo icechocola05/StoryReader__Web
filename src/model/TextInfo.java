@@ -8,7 +8,7 @@ public class TextInfo implements Serializable{
 	String voice;
 	int voiceid;
 	String emotion;
-	int value;
+	String value;
 	
 	public void setText(String s) {
 		text=s;
@@ -17,19 +17,13 @@ public class TextInfo implements Serializable{
 		speaker=s;
 	}
 	//
-	public void setVoiceEmo(String v, String e, int n) {
-		voice=v;
-		emotion=e;
-		value=n;
-	}
-	//
 	public void setVoice(String s) {
 		voice=s;
 	}
 	public void setEmotion(String s) {
 		emotion=s;
 	}
-	public void setValue(int n) {
+	public void setValue(String n) {
 		value=n;
 	}
 	//
@@ -46,7 +40,6 @@ public class TextInfo implements Serializable{
 		return emotion;
 	}
 	public String getValue() {
-		String v = Integer.toString(value);
-		return v;
+		return value;
 	}
 }

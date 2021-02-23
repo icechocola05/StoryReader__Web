@@ -20,42 +20,43 @@ import model.TextInfo;
 @WebServlet("/setVoiceEmoServlet")
 public class setVoiceEmoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public setVoiceEmoServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
-	    ArrayList<TextInfo> textInfo = new ArrayList<TextInfo>();
-	    textInfo=(ArrayList<TextInfo>)session.getAttribute("textInfo");
-	    for(int i=0;i<textInfo.size();i++) {
-	    	String number = request.getParameter("value");
-	    	if (number == null) {
-	    	number = "0";
-	    	}
-	    	int num = Integer.parseInt(number);
-	    	textInfo.get(i).setVoiceEmo(request.getParameter("voice"),request.getParameter("emotion"),num);
-	    	//textInfo.get(i).setVoice(request.getParameter("voice"));
-	    	//textInfo.get(i).setEmo(request.getParameter("emotion"));
-	    	//textInfo.get(i).setVal(Integer.parseInt(request.getParameter("value")));
-	    }
-	    
-	    RequestDispatcher rd = request.getRequestDispatcher("/makeJsonServlet");
-        rd.forward(request, response);
+	public setVoiceEmoServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(true);
+		ArrayList<TextInfo> textInfo = new ArrayList<TextInfo>();
+		textInfo = (ArrayList<TextInfo>) session.getAttribute("textInfo");
+		for (int i = 0; i < textInfo.size(); i++) {
+			String n = Integer.toString(i);
+
+			textInfo.get(i).setVoice(request.getParameter("voice" + n));
+			textInfo.get(i).setEmotion(request.getParameter("emotion" + n));
+			textInfo.get(i).setValue(request.getParameter("range" + n));
+
+		}
+
+		RequestDispatcher rd = request.getRequestDispatcher("/makeJsonServlet");
+		rd.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

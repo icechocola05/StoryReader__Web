@@ -13,7 +13,7 @@ public class Table {
                        "emi&nen", "emj&neo", "nef", "neg", "neh", "nei", "nej", "nep", "neq", "ner", "nes", "net"};
 	
 	String emoOp[] = {"----emotion----", "기쁨", "화남","슬픔", "중립"};
-	String emoVal[] = {"neutral", "joy", "angry", "sad", "neutral"};
+	String emoVal[] = {"neutral", "happiness", "anger", "sadness", "neutral"};
 	
 	public String getVoiceOp(int i) {
 		return voiceOp[i];

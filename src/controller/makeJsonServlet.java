@@ -43,9 +43,10 @@ public class makeJsonServlet extends HttpServlet {
 	   	makeJson jf=new makeJson();
 		JSONArray resultJson =jf.createJson(t);
 		
+		byte[][] byteArray= new byte[50][1024];
+		
 		session.setAttribute("resultJson", resultJson);
 		session.setAttribute("i", 0);
-		
 		RequestDispatcher rd = request.getRequestDispatcher("/result.jsp");
         rd.forward(request, response);
 	}

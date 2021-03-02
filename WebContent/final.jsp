@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.io.*"%>
+<%@page import="org.json.simple.JSONArray" %>
+<%@page import="org.json.simple.JSONObject" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,16 +10,24 @@
 <title>Insert title here</title>
 </head>
 <body>
-This is final.
 <%
 	session = request.getSession();
 	int index = (int)session.getAttribute("i");
-	String finalPath = (String)session.getAttribute("path");
+	JSONArray resultJson = new JSONArray();
+	resultJson = (JSONArray) session.getAttribute("resultJson");
+	String finalPath = (String) session.getAttribute("path");
+	System.out.println(finalPath);
+	
 	for(int i=0; i<index+1; i++) { %>
-		<audio>
-		<source src="<%= finalPath %>" alt="오디오 입니다">
-		</audio>
-		<% } %>
+	<% 
+	//JSONObject innerObj = resultJson.getJSONObject(i);
+	//String text = innerObj.getString("text");
+	%>
+	<audio controls>
+    <source src="output/<%= i %>.wav" type="audio/wav">
+	</audio>
+	<br>
+	<% } %>
 	
 	
 </body>

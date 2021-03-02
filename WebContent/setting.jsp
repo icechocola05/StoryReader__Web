@@ -17,6 +17,7 @@
 </head>
 <body>
 	<% 
+		//path 설정
 		ArrayList<TextInfo> t = new ArrayList<TextInfo>();
 		t=(ArrayList<TextInfo>)session.getAttribute("textInfo"); 
 		

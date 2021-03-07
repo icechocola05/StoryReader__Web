@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Table;
 import model.TextInfo;
+import controller.DBUtils;
 
 /**
  * Servlet implementation class setVoiceEmo
@@ -35,6 +36,8 @@ public class setVoiceEmoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//for DB connection
+		
 		HttpSession session = request.getSession(true);
 		ArrayList<TextInfo> textInfo = new ArrayList<TextInfo>();
 		textInfo = (ArrayList<TextInfo>) session.getAttribute("textInfo");

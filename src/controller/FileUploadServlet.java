@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import java.sql.*;
+
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +22,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.oreilly.servlet.MultipartRequest;
 
 import model.TextInfo;
- 
+import controller.DBUtils;
+
 @WebServlet("/fileUploadServlet")
 public class FileUploadServlet extends HttpServlet {
 
@@ -32,6 +36,7 @@ public class FileUploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request,  HttpServletResponse response)
             throws ServletException, IOException {
+    	
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
@@ -52,20 +57,43 @@ public class FileUploadServlet extends HttpServlet {
 		String str="";
 		String mainTxt="";
 		String tempTxt[]=new String[3]; 
+		
+
+		//for DB connection
+		ServletContext sc = getServletContext();
+		Connection conn = (Connection)sc.getAttribute("DBconnection");
+		
     	try {
 			FileInputStream ins = new FileInputStream(file);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
+			DBUtils db = new DBUtils();
+			String title = "";
+			String author = "";
 			
 			while(true) {
 				TextInfo nt=new TextInfo();
 				str = reader.readLine();
 				if (str == null) break;
 				mainTxt+=str+"\n";
+				if(len == 0) // 제목 뽑기
+				{
+					title = str;
+				}
+				if(len == 1) // 제목 뽑기
+				{
+					author = str;
+					db.insertStory(conn, title, author);
+					System.out.println("넣기 성공");
+				}
+				
 				if(str.contains(":")) {//텍스트에서 화자 제거
 					tempTxt=str.split(":");
 					nt.setSpeaker(tempTxt[0]);
 					nt.setText(tempTxt[1]);
-				}else {
+					
+					
+				}
+				else {
 					nt.setSpeaker("해설");
 					nt.setText(str);
 				}
@@ -75,7 +103,7 @@ public class FileUploadServlet extends HttpServlet {
 			
 			reader.close();
 			ins.close();
-		} catch (IOException e) {
+		} catch (IOException | SQLException e) {
 			e.printStackTrace();
 		}
     	   

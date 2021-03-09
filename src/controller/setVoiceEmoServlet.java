@@ -37,6 +37,7 @@ public class setVoiceEmoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//for DB connection
+		DBUtils db = new DBUtils();
 		
 		HttpSession session = request.getSession(true);
 		ArrayList<TextInfo> textInfo = new ArrayList<TextInfo>();
@@ -47,6 +48,8 @@ public class setVoiceEmoServlet extends HttpServlet {
 			textInfo.get(i).setVoice(request.getParameter("voice" + n));
 			textInfo.get(i).setEmotion(request.getParameter("emotion" + n));
 			textInfo.get(i).setValue(request.getParameter("range" + n));
+			
+			
 
 		}
 

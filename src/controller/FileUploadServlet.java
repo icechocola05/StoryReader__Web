@@ -39,6 +39,7 @@ public class FileUploadServlet extends HttpServlet {
     	
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(true);
 
     	File sDir = new File(ATTACHES_DIR);
     	if (!sDir.exists())
@@ -69,33 +70,32 @@ public class FileUploadServlet extends HttpServlet {
 			DBUtils db = new DBUtils();
 			String title = "";
 			String author = "";
+			int id;
 			
 			while(true) {
 				TextInfo nt=new TextInfo();
 				str = reader.readLine();
 				if (str == null) break;
 				mainTxt+=str+"\n";
-				if(len == 0) // 제목 뽑기
-				{
-					title = str;
-				}
-				if(len == 1) // 제목 뽑기
-				{
-					author = str;
-					db.insertStory(conn, title, author);
-					System.out.println("넣기 성공");
-				}
 				
 				if(str.contains(":")) {//텍스트에서 화자 제거
 					tempTxt=str.split(":");
 					nt.setSpeaker(tempTxt[0]);
 					nt.setText(tempTxt[1]);
-					
-					
 				}
 				else {
 					nt.setSpeaker("해설");
 					nt.setText(str);
+					if(len == 0) // 제목 뽑기
+					{
+						title = str;
+					}
+					if(len == 1) // 작가 뽑기
+					{
+						author = str;
+						id = db.insertStory(conn, title, author);
+						session.setAttribute("story_id", id);
+					}
 				}
 				textArr.add(nt);
 				len++;
@@ -107,7 +107,6 @@ public class FileUploadServlet extends HttpServlet {
 			e.printStackTrace();
 		}
     	   
-    	HttpSession session = request.getSession(true);
     	session.setAttribute("mainTxt", mainTxt);
     	session.setAttribute("textInfo", textArr);
     	

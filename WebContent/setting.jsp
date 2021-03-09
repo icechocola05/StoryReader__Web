@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="model.*"%>
+<%@ page import="java.sql.*" %>
 
 <!DOCTYPE html>
 <html>
@@ -19,14 +20,15 @@
 </head>
 <body>
 	<% 
-		//path 설정
+		ArrayList<TextInfo> t = new ArrayList<TextInfo>();
+		t=(ArrayList<TextInfo>)session.getAttribute("textInfo"); //문장 받아오기
+		String mainTxt=(String)session.getAttribute("mainTxt"); //full text 받아오기
+		
+		//DB와 연결
 		ServletContext sc = getServletContext();
 		Connection conn = (Connection)sc.getAttribute("DBconnection");
-				
-		String book_title = request.getParameter("bookname");
-		String book_author = request.getParameter("bookauthor");
-		
-		String mainTxt=(String)session.getAttribute("mainTxt");
+
+		//Table table=new Table();
 	%>
 	<div class="content1">
 		<textarea rows="10" cols="90"><%= mainTxt %></textarea>
@@ -41,23 +43,37 @@
 			<th>문장</th>
 		</thead>
 		<%
-			for(int i=0;i<t.size();i++){//table객체의 문장 수 만큼 
+			try {
+				Statement voiceSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
+				Statement emotionSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
+				
+				voiceSt.execute("SELECT * FROM voice");
+				emotionSt.execute("SELECT * FROM emotion");
+				
+				ResultSet voiceRS = voiceSt.getResultSet();
+				ResultSet emotionRS = emotionSt.getResultSet();
+			
+				for(int i=0;i<t.size();i++){ //문장 수 만큼 행 생성
 			%>
 		<tbody>
-			<td><%=t.get(i).getSpeaker()%></td>
+			<td> <%=t.get(i).getSpeaker()%> </td> 
 			<td>
 				<!-- voice option 붙이기-->
 				<select id='voice' name='voice<%=i%>'>
-					<% for (int j=0 ; j<21 ; j++){ %>
-					<option value=<%=table.getVoiceVal(j)%>><%=table.getVoiceOp(j) %></option>
+					<%voiceRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
+					<option value=<%= voiceRS.getString("voice_name") %>><%= voiceRS.getString("voice_kr_name") %></option>
+					<% while(voiceRS.next()) { %>
+					<option value= <%=voiceRS.getString("voice_name")%>> <%=voiceRS.getString("voice_kr_name")%> </option>
 					<% } %>
 				</select>
 			</td>
 			<td>
 				<!-- emotion option 붙이기-->
 				<select id='emotion' name='emotion<%=i%>'>
-					<% for (int j=0 ; j<5 ; j++){ %>
-					<option value=<%=table.getEmoVal(j) %>><%=table.getEmoOp(j) %></option>
+					<%emotionRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
+					<option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
+					<% while(emotionRS.next()){ %>
+					<option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
 					<% } %>
 				</select>
 			</td>
@@ -69,7 +85,12 @@
 			<td><%=t.get(i).getText()%></td>
 		
 		</tbody>
-		<%} %>
+		<%
+			} //for문 
+		}catch(SQLException e) {
+		e.printStackTrace();
+		}
+		%>
 
 	</table>
 	<input type="SUBMIT">

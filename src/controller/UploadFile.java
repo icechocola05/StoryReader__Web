@@ -32,6 +32,7 @@ public class UploadFile extends HttpServlet {
     	
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(true);
 
     	File sDir = new File(ATTACHES_DIR);
     	if (!sDir.exists())

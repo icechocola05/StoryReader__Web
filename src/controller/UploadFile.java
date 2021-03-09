@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.oreilly.servlet.MultipartRequest;
 
-@WebServlet("/fileUploadServlet")
+@WebServlet("/uploadFile")
 public class UploadFile extends HttpServlet {
 
     /**
@@ -76,7 +76,6 @@ public class UploadFile extends HttpServlet {
 			e.printStackTrace();
 		}
     	   
-    	HttpSession session = request.getSession(true);
     	session.setAttribute("bookname", title);
     	session.setAttribute("mainTxt", mainTxt);
     	

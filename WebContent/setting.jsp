@@ -19,21 +19,17 @@
 
 </head>
 <body>
-	<% 
-		ArrayList<TextInfo> t = new ArrayList<TextInfo>();
-		t=(ArrayList<TextInfo>)session.getAttribute("textInfo"); //문장 받아오기
-		String mainTxt=(String)session.getAttribute("mainTxt"); //full text 받아오기
+	<% 		
+		ArrayList<String> sent = (ArrayList<String>)session.getAttribute("sent");
+		ArrayList<String> speaker = (ArrayList<String>)session.getAttribute("speaker");
 		
 		//DB와 연결
 		ServletContext sc = getServletContext();
 		Connection conn = (Connection)sc.getAttribute("DBconnection");
 
-		//Table table=new Table();
 	%>
-	<div class="content1">
-		<textarea rows="10" cols="90"><%= mainTxt %></textarea>
-	</div>
-	<form method="Post" action="setVoiceEmoServlet">
+	
+	<form method="Post" action="setVoiceEmotion">
 	<table>
 		<thead>
 			<th>화자</th>
@@ -52,11 +48,12 @@
 				
 				ResultSet voiceRS = voiceSt.getResultSet();
 				ResultSet emotionRS = emotionSt.getResultSet();
-			
-				for(int i=0;i<t.size();i++){ //문장 수 만큼 행 생성
+				
+				int len = sent.size();
+				for(int i=0; i<len; i++) { //문장 수 만큼 행 생성
 			%>
 		<tbody>
-			<td> <%=t.get(i).getSpeaker()%> </td> 
+			<td> <%= speaker.get(i) %> </td> 
 			<td>
 				<!-- voice option 붙이기-->
 				<select id='voice' name='voice<%=i%>'>
@@ -82,7 +79,7 @@
 				<input type="range" name="range<%=i%>" min="0" max ="1" step="0.1" value="0.5">
 			</td>
 			<!-- sentence 붙이기-->
-			<td><%=t.get(i).getText()%></td>
+			<td><%= sent.get(i) %></td>
 		
 		</tbody>
 		<%

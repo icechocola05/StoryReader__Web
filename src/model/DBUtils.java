@@ -32,14 +32,17 @@ public class DBUtils {
 		return id;
 	}
 	
-	public void insertSent(Connection con, String mainTxt) throws SQLException {
+	public void insertSent(Connection con, String sentence, int voiceVal, int emotionVal, float intensity, int story_id) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
 			con.setAutoCommit(false);
 			
-			pstmt = con.prepareStatement("INSERT INTO sentence (sent_id, sent_txt) VALUES (?, ?)");
-			pstmt.setInt(1, 0);
-			pstmt.setString(2, mainTxt);
+			pstmt = con.prepareStatement("INSERT INTO sentence (sent_txt, sent_intensity, voice_id, emotion_id, story_id) VALUES (?, ?, ?, ?, ?)");
+			pstmt.setString(1, sentence);
+			pstmt.setFloat(2, intensity);
+			pstmt.setInt(3, voiceVal);
+			pstmt.setInt(4, emotionVal);
+			pstmt.setInt(5, story_id);
 			
 			pstmt.executeUpdate();
 			

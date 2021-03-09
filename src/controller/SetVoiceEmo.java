@@ -11,21 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.DBUtils;
 import model.Table;
 import model.TextInfo;
-import controller.DBUtils;
 
 /**
  * Servlet implementation class setVoiceEmo
  */
 @WebServlet("/setVoiceEmoServlet")
-public class setVoiceEmoServlet extends HttpServlet {
+public class SetVoiceEmo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public setVoiceEmoServlet() {
+	public SetVoiceEmo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

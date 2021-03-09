@@ -1,6 +1,5 @@
-package controller;
+package model;
 
-import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,12 +15,12 @@ import javax.servlet.annotation.WebListener;
  *
  */
 @WebListener
-public class DBconnection implements ServletContextListener {
+public class DBConnection implements ServletContextListener {
 
     /**
      * Default constructor. 
      */
-    public DBconnection() {
+    public DBConnection() {
         // TODO Auto-generated constructor stub
     }
 
@@ -30,11 +29,13 @@ public class DBconnection implements ServletContextListener {
      */
     public void contextDestroyed(ServletContextEvent sce)  { 
     	Connection conn=(Connection) sce.getServletContext().getAttribute("DBconnection");
+    	
     	try {
-    	conn.close();
+    		conn.close();
     	} catch (SQLException e) {
-    	e.printStackTrace();
+    		e.printStackTrace();
     	}
+    
     }
 
 	/**
@@ -51,11 +52,9 @@ public class DBconnection implements ServletContextListener {
 		String DBpasswd = sc.getInitParameter("DBpasswd");
 		String DBTimeZone = sc.getInitParameter("DBTimeZone");
 		
-		
 		connectionProps.put("user", DBuser);
 		connectionProps.put("password", DBpasswd);
 		connectionProps.put("serverTimezone", DBTimeZone);
-		
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

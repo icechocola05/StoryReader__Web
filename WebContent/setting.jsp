@@ -3,6 +3,8 @@
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.SQLException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="model.*"%>
@@ -18,12 +20,13 @@
 <body>
 	<% 
 		//path 설정
-		ArrayList<TextInfo> t = new ArrayList<TextInfo>();
-		t=(ArrayList<TextInfo>)session.getAttribute("textInfo"); 
+		ServletContext sc = getServletContext();
+		Connection conn = (Connection)sc.getAttribute("DBconnection");
+				
+		String book_title = request.getParameter("bookname");
+		String book_author = request.getParameter("bookauthor");
 		
 		String mainTxt=(String)session.getAttribute("mainTxt");
-		
-		Table table=new Table();
 	%>
 	<div class="content1">
 		<textarea rows="10" cols="90"><%= mainTxt %></textarea>

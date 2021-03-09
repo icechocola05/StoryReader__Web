@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import java.sql.*;
 
@@ -8,7 +8,7 @@ public class DBUtils {
 		try {
 			con.setAutoCommit(false);
 			
-			pstmt = con.prepareStatement("INSERT INTO story (story_name, story_author) VALUES (?, ?)");
+			pstmt = con.prepareStatement("INSERT INTO story (story_name,story_author) VALUES (?,?)");
 			pstmt.setString(1, title);
 			pstmt.setString(2, author);
 			

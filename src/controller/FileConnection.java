@@ -21,13 +21,13 @@ import org.json.simple.JSONObject;
 import model.*;
 
 @WebServlet("/fileConnection")
-public class fileConnectionServlet extends HttpServlet {
+public class FileConnection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public fileConnectionServlet() {
+	public FileConnection() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

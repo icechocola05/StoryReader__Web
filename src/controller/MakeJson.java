@@ -21,13 +21,13 @@ import model.makeJson;
  * Servlet implementation class makeJsonServlet
  */
 @WebServlet("/makeJsonServlet")
-public class makeJsonServlet extends HttpServlet {
+public class MakeJson extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public makeJsonServlet() {
+    public MakeJson() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -60,6 +60,20 @@ public class MakeJson extends HttpServlet {
 				int emotionId = rsSent.getInt(7);
 				float intensityVal = rsSent.getFloat(8);
 				
+				//voice_name, emotion_name 받아오기
+				String voiceq = "SELECT voice_name FROM voice WHERE voice_id=?";
+				String emotionq= "SELECT emotion_name FROM emotion WHERE emotion_id=?";
+				PreparedStatement voiceps = con.prepareStatement(voiceq);
+				PreparedStatement emotionps = con.prepareStatement(emotionq);
+				voiceps.setInt(1,voiceId);
+				emotionps.setInt(1,emotionId);
+				ResultSet rsVoice = voiceps.executeQuery();
+				ResultSet rsEmotion = emotionps.executeQuery();
+				String voice_name="";
+				String emotion_name="";
+				while(rsVoice.next()) {voice_name=rsVoice.getString(1);}
+				while(rsEmotion.next()) {emotion_name=rsEmotion.getString(1);}
+				
 				//JSON 생성
 				JSONObject jsonObject=new JSONObject(); 
 				JSONObject voiceInfo=new JSONObject();
@@ -68,14 +82,14 @@ public class MakeJson extends HttpServlet {
 				jsonObject.put("text", text);
 				jsonObject.put("lang", "ko");
 	
-				voiceInfo.put("name", voiceId);
+				voiceInfo.put("name", voice_name);
 				voiceInfo.put("gender", "");
 				voiceInfo.put("age", ""); 
 				voiceInfo.put("variant", "");
 				voiceInfo.put("onvoicefailure", "priorityselect");
 				jsonObject.put("voice", voiceInfo);
 		        
-				emoInfo.put("name", emotionId);
+				emoInfo.put("name", emotion_name);
 				emoInfo.put("value", intensityVal);
 				jsonObject.put("emotionInfo", emoInfo);
 				
@@ -88,7 +102,7 @@ public class MakeJson extends HttpServlet {
 		}
 		
 		session.setAttribute("resultJson", jsonArray);
-		session.setAttribute("i", 0);
+		session.setAttribute("i", 0);//0으로 초기화?
 		RequestDispatcher rd = request.getRequestDispatcher("/result.jsp");
         rd.forward(request, response);
 	}

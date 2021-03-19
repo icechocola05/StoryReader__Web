@@ -20,7 +20,7 @@
   </context-param>
   <context-param>
   	<param-name>DBpasswd</param-name>
-  	<param-value>storyreader</param-value>
+  	<param-value>zhzhsjt193@</param-value>
   </context-param>
   <context-param>
   	<param-name>DBTimeZone</param-name>

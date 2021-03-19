@@ -1,6 +1,11 @@
 package model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBUtils {
 	public int insertStory(Connection con, String title, String author) throws SQLException {
@@ -56,6 +61,18 @@ public class DBUtils {
 		}
 	}
 	
-	
+	public void updateWav(Connection con, int story_id, int sent_id, File audioFile) throws SQLException, FileNotFoundException {		
+		
+		PreparedStatement psmnt = con.prepareStatement("UPDATE sentence SET sent_wav = ? where sent_id = ? AND story_id = ?");
+		
+		psmnt.setInt(2, sent_id);
+		psmnt.setInt(3, story_id);
+		
+
+		FileInputStream fis = new FileInputStream(audioFile); 
+		psmnt.setBinaryStream(1, (InputStream) fis, (int) (audioFile.length()));
+
+		int s = psmnt.executeUpdate();
+	}
 
 }

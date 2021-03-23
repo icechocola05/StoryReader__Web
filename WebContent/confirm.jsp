@@ -25,6 +25,7 @@
 				<textarea rows="10" cols="20" id="booktext" name="booktext"><%=session.getAttribute("mainTxt") %></textarea>
 				
 				<button type="submit" id="submit-btn">전송</button>
+				
 			</div>
 		</form>
 	</div>

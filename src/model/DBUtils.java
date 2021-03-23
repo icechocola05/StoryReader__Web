@@ -74,5 +74,16 @@ public class DBUtils {
 
 		int s = psmnt.executeUpdate();
 	}
+	public void updateImg(Connection con, int story_id, int sent_id, File ImgFile) throws SQLException, FileNotFoundException {
+		PreparedStatement psmnt = con.prepareStatement("UPDATE sentence SET sent_img = ? where sent_id = ? AND story_id = ?");
+		
+		psmnt.setInt(2, sent_id);
+		psmnt.setInt(3, story_id);
+		
+		FileInputStream fis = new FileInputStream(ImgFile); 
+		psmnt.setBinaryStream(1, (InputStream) fis, (int) (ImgFile.length()));
+
+		int s = psmnt.executeUpdate();
+	}
 
 }

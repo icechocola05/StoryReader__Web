@@ -81,8 +81,8 @@ public class SetVoiceEmotion extends HttpServlet {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-
-		RequestDispatcher rd = request.getRequestDispatcher("/makeJsonServlet");
+		session.setAttribute("isBegan", 1);
+		RequestDispatcher rd = request.getRequestDispatcher("/setImg.do");
 		rd.forward(request, response);
 	}
 

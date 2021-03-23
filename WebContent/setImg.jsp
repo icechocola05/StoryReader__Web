@@ -4,9 +4,7 @@
 <title>Story Reader</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
-	crossorigin="anonymous">
+	rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="CSS/index.css">
@@ -16,10 +14,16 @@
 		Story Reader
 	</div>
 	<div class="main">
-		<form method="Post" action="uploadFile" enctype="multipart/form-data">
+		<form method="Post" action="setImg.do" enctype="multipart/form-data">
 			<div class="content">
-				<input type="button" id="" name="">
-				<input type="text" id="bookname" name="bookname" value="<%=session.getAttribute("bookname")%>">
+				<input type="submit" name="move_btn" value="pre">
+				<input type="text" id="<%=session.getAttribute("sent_id")%>"value="<%=session.getAttribute("sent")%>">
+				<input type="submit" name="move_btn" value="next">
+			</div>
+		</form>
+		<form method="Post" action="makeJsonServlet" enctype="multipart/form-data">
+			<div class="content">
+				<input type="submit" name="제출"></button>
 			</div>
 		</form>
 	</div>

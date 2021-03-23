@@ -88,12 +88,17 @@ public class FileConnection extends HttpServlet {
 				byte[] bytes = new byte[1024];
 				
 				String path = getServletContext().getRealPath("output/");
-				System.out.println(path);
-				
-				
-				
-				File audioFile = new File(path, index + ".wav");
-				audioFile.createNewFile();
+	            System.out.println(path);
+	            session.setAttribute("path", path);
+
+	            File fileSaveDir = new File(path);
+	            // 파일 경로 없으면 생성
+	            if (!fileSaveDir.exists()) {
+	               fileSaveDir.mkdirs();
+	            }
+
+	            File audioFile = new File(path, index + ".wav");
+	            audioFile.createNewFile();
 
 				OutputStream outputStream = new FileOutputStream(audioFile);
 				while ((read = is.read(bytes)) != -1) {

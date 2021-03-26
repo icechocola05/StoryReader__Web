@@ -82,7 +82,7 @@ public class SetVoiceEmotion extends HttpServlet {
 			e.printStackTrace();
 		}
 		session.setAttribute("isBegan", 1);
-		RequestDispatcher rd = request.getRequestDispatcher("/setImg.do");
+		RequestDispatcher rd = request.getRequestDispatcher("/makeJsonServlet");
 		rd.forward(request, response);
 	}
 

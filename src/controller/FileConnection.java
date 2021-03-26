@@ -54,7 +54,7 @@ public class FileConnection extends HttpServlet {
 		System.out.println(index);
 
 		if (index== resultJson.size()) {
-			RequestDispatcher rd = request.getRequestDispatcher("/final.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/setImg.do");
 			rd.forward(request, response);
 			return;
 		} else {

@@ -43,6 +43,8 @@ public class setImg extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(true);
 		int n=(int)session.getAttribute("story_id");//현재 문장
+		int sentNum = 0;
+		session.setAttribute("sentNum", sentNum);
 		ServletContext sc = getServletContext();
 		Connection conn = (Connection)sc.getAttribute("DBconnection");
 		
@@ -82,14 +84,21 @@ public class setImg extends HttpServlet {
 					rsSent.next();
 					if(!rsSent.next()) {
 						rsSent.previous();
-					}else {rsSent.next();}
+					}else {
+					rsSent.next();
+					session.setAttribute("sentNum", sentNum + 1);}
 				}
 				if(button.equals("pre")) {
 					System.out.println("previousBegan");
 					if(!rsSent.previous()) {
 						rsSent.next();
-					}else {rsSent.previous();}
+						session.setAttribute("sentNum", 0);
+					}else {
+						rsSent.previous();
+						session.setAttribute("sentNum", sentNum - 1);
+						}
 				}
+				
 				session.setAttribute("rsSent", rsSent);
 				session.setAttribute("sent_id", rsSent.getInt("sent_id"));
 				session.setAttribute("sent",rsSent.getString("sent_txt"));

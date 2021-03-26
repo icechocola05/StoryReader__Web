@@ -103,7 +103,7 @@ public class MakeJson extends HttpServlet {
 		
 		session.setAttribute("resultJson", jsonArray);
 		session.setAttribute("i", 0);//0으로 초기화?
-		RequestDispatcher rd = request.getRequestDispatcher("/result.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/fileConnection");
         rd.forward(request, response);
 	}
 

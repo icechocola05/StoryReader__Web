@@ -19,11 +19,10 @@
 				<input type="submit" name="move_btn" value="pre">
 				<input type="text" id="<%=session.getAttribute("sent_id")%>"value="<%=session.getAttribute("sent")%>">
 				<input type="submit" name="move_btn" value="next">
-			</div>
-		</form>
-		<form method="Post" action="makeJsonServlet" enctype="multipart/form-data">
-			<div class="content">
-				<input type="submit" name="제출"></button>
+				<br><br>
+				<audio controls>
+			    <source src="output/<%=session.getAttribute("sentNum")%>.wav" type="audio/wav">
+				</audio>
 			</div>
 		</form>
 	</div>

@@ -42,9 +42,9 @@ public class setImg extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(true);
-		int n=(int)session.getAttribute("story_id");//현재 문장
-		int sentNum = 0;
-		session.setAttribute("sentNum", sentNum);
+		int n=(int)session.getAttribute("story_id");//�쁽�옱 臾몄옣
+		//int sentNum = 0;
+		//session.setAttribute("sentNum", sentNum);
 		ServletContext sc = getServletContext();
 		Connection conn = (Connection)sc.getAttribute("DBconnection");
 		
@@ -63,11 +63,12 @@ public class setImg extends HttpServlet {
 				System.out.println(rsSent.getString("sent_txt"));
 				session.setAttribute("sent_id", rsSent.getInt("sent_id"));
 				session.setAttribute("sent",rsSent.getString("sent_txt"));
+				session.setAttribute("sentNum", 0);
 				session.setAttribute("isBegan", 0);
 			}
 			else {
 				ResultSet rsSent=(ResultSet)session.getAttribute("rsSent");
-				
+				int sentNum=(int)session.getAttribute("sentNum");
 				File sDir = new File(ATTACHES_DIR);
 		    	if (!sDir.exists())
 		    		sDir.mkdirs();
@@ -81,12 +82,13 @@ public class setImg extends HttpServlet {
 				System.out.println("//"+button+" Clicked//");
 				if(button.equals("next")) {
 					System.out.println("nextBegan");	
-					rsSent.next();
+					//rsSent.next();
 					if(!rsSent.next()) {
 						rsSent.previous();
 					}else {
-					rsSent.next();
-					session.setAttribute("sentNum", sentNum + 1);}
+						//rsSent.next();
+						session.setAttribute("sentNum", sentNum + 1);
+					}
 				}
 				if(button.equals("pre")) {
 					System.out.println("previousBegan");
@@ -94,7 +96,7 @@ public class setImg extends HttpServlet {
 						rsSent.next();
 						session.setAttribute("sentNum", 0);
 					}else {
-						rsSent.previous();
+						//rsSent.previous();
 						session.setAttribute("sentNum", sentNum - 1);
 						}
 				}
@@ -106,7 +108,7 @@ public class setImg extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		//다음 문장 or 이전 문장 받아오기
+		//�떎�쓬 臾몄옣 or �씠�쟾 臾몄옣 諛쏆븘�삤湲�
 			
 		RequestDispatcher rd = request.getRequestDispatcher("/setImg.jsp");
 		rd.forward(request, response);

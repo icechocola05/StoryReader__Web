@@ -1,12 +1,10 @@
 <html>
-<head>	<head>
+<head>
 <meta charset="UTF-8">
 <title>Story Reader</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
-	crossorigin="anonymous">
+	rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="CSS/index.css">
@@ -16,11 +14,15 @@
 		Story Reader
 	</div>
 	<div class="main">
-		<form method="Post" action="uploadFile" enctype="multipart/form-data">
+		<form method="Post" action="setImg.do" enctype="multipart/form-data">
 			<div class="content">
-				텍스트 파일을 등록하고 음성 설정 하면 완성! <br> <br>
-				<input class="form-control form-control-lg center-block" name="file" id="input-file" type="file"> <br> <br>
-				<input type="SUBMIT" class="center-block" id="submit-btn">
+				<input type="submit" name="move_btn" value="pre">
+				<input type="text" id="<%=session.getAttribute("sent_id")%>"value="<%=session.getAttribute("sent")%>">
+				<input type="submit" name="move_btn" value="next">
+				<br><br>
+				<audio controls>
+			    <source src="output/<%=session.getAttribute("sentNum")%>.wav" type="audio/wav">
+				</audio>
 			</div>
 		</form>
 	</div>

@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,10 +17,8 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.oreilly.servlet.MultipartRequest;
 
-import model.TextInfo;
- 
-@WebServlet("/fileUploadServlet")
-public class FileUploadServlet extends HttpServlet {
+@WebServlet("/uploadFile")
+public class UploadFile extends HttpServlet {
 
     /**
 	 * 
@@ -32,8 +29,10 @@ public class FileUploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request,  HttpServletResponse response)
             throws ServletException, IOException {
+    	
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(true);
 
     	File sDir = new File(ATTACHES_DIR);
     	if (!sDir.exists())
@@ -41,7 +40,6 @@ public class FileUploadServlet extends HttpServlet {
 
     	int maxSize = 1024 * 1024 * 100;
     	String encType = "UTF-8";
-    	ArrayList<TextInfo> textArr=new ArrayList<TextInfo>();
     	
     	MultipartRequest multipartRequest = new MultipartRequest(request, ATTACHES_DIR, maxSize, encType,
     	    	new DefaultFileRenamePolicy());
@@ -49,27 +47,26 @@ public class FileUploadServlet extends HttpServlet {
     	File file = multipartRequest.getFile("file");
     	
     	int len=0;
-		String str="";
+		
+    	String str="";
+		String title = "";
 		String mainTxt="";
-		String tempTxt[]=new String[3]; 
+		
     	try {
 			FileInputStream ins = new FileInputStream(file);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
 			
 			while(true) {
-				TextInfo nt=new TextInfo();
 				str = reader.readLine();
+				
 				if (str == null) break;
-				mainTxt+=str+"\n";
-				if(str.contains(":")) {//텍스트에서 화자 제거
-					tempTxt=str.split(":");
-					nt.setSpeaker(tempTxt[0]);
-					nt.setText(tempTxt[1]);
+				if(len == 0) // 제목 뽑기
+				{
+					title = str;
 				}else {
-					nt.setSpeaker("해설");
-					nt.setText(str);
+					mainTxt+=str+"\n";
 				}
-				textArr.add(nt);
+				
 				len++;
 			}
 			
@@ -79,12 +76,10 @@ public class FileUploadServlet extends HttpServlet {
 			e.printStackTrace();
 		}
     	   
-    	HttpSession session = request.getSession(true);
+    	session.setAttribute("bookname", title);
     	session.setAttribute("mainTxt", mainTxt);
-    	session.setAttribute("textInfo", textArr);
     	
-    	
-    	RequestDispatcher rd = request.getRequestDispatcher("/setting.jsp");
+    	RequestDispatcher rd = request.getRequestDispatcher("/confirm.jsp");
         rd.forward(request, response);
     }
 }

@@ -14,10 +14,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Story Reader</title>
-<link rel="stylesheet" href="CSS/setting.css">
-
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+	crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
+	<div class="head">
+		Story Reader
+	</div>
+	<br>
 	<% 		
 		ArrayList<String> sent = (ArrayList<String>)session.getAttribute("sent");
 		ArrayList<String> speaker = (ArrayList<String>)session.getAttribute("speaker");
@@ -51,7 +61,7 @@
 				int len = sent.size();
 				for(int i=0; i<len; i++) { //문장 수 만큼 행 생성
 			%>
-		<tbody>
+		<tbody border=1>
 			<td> <%= speaker.get(i) %> </td> 
 			<td>
 				<!-- voice option 붙이기-->

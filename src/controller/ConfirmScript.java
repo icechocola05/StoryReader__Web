@@ -77,7 +77,7 @@ public class ConfirmScript extends HttpServlet {
 		}
 		
 		session.setAttribute("sent", sent);
-		session.setAttribute("speaker", speaker);
+		session.setAttribute("speaker", speaker);//sessionAttribute: ArrayList로 본문 내용 저장
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/setting.jsp");
         rd.forward(request, response);

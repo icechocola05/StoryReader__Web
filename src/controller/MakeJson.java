@@ -56,8 +56,8 @@ public class MakeJson extends HttpServlet {
 			
 			while(rsSent.next()) {
 				String text = rsSent.getString(2);
-				int voiceId = rsSent.getInt(6);
-				int emotionId = rsSent.getInt(7);
+				int voiceId = rsSent.getInt(5);
+				int emotionId = rsSent.getInt(6);
 				float intensityVal = rsSent.getFloat(8);
 				
 				//voice_name, emotion_name 받아오기

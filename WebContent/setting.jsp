@@ -21,6 +21,7 @@
 	crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
@@ -35,8 +36,30 @@
 		//DB와 연결
 		ServletContext sc = getServletContext();
 		Connection conn = (Connection)sc.getAttribute("DBconnection");
-
+		try {
 	%>
+	
+	<script>
+		function changeSpeakerVoice(i){
+			//alert(i);
+			var vID="voice"+i;
+    		var voiceSelect = document.getElementById(vID);
+     
+    		//select element에서 선택된 option의 value가 저장된다.
+    		//var selectSpeakerValue = voiceSelect.options[voiceSelect.selectedIndex].value;
+    		//alert(document.getElementById("speaker"+i).innerText);
+    		var j=0;
+    		for(; j < <%=sent.size()%> ; j++){
+  //  			alert(j);
+    			var jID="speaker"+j;
+    			var iID="speaker"+i;
+    			if(document.getElementById(jID).innerText == document.getElementById(iID).innerText){
+    				//alert("if");
+    				document.getElementById(jID).options[voiceSelect.selectedIndex].selected=true;
+    			}
+    		}
+		}
+	</script>
 	
 	<form method="Post" action="setVoiceEmotion">
 	<table>
@@ -47,8 +70,7 @@
 			<th>감정 세기</th>
 			<th>문장</th>
 		</thead>
-		<%
-			try {
+		<%	
 				Statement voiceSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
 				Statement emotionSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
 				
@@ -60,12 +82,12 @@
 				
 				int len = sent.size();
 				for(int i=0; i<len; i++) { //문장 수 만큼 행 생성
-			%>
+		%>
 		<tbody border=1>
-			<td> <%= speaker.get(i) %> </td> 
+			<td id='speaker<%=i%>'> <%= speaker.get(i) %> </td> 
 			<td>
 				<!-- voice option 붙이기-->
-				<select id='voice' name='voice<%=i%>'>
+				<select id='voice<%=i%>' name='voice<%=i%>'onchange="changeSpeakerVoice(<%=i%>)">
 					<%voiceRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
 					<option value=<%= voiceRS.getString("voice_name") %>><%= voiceRS.getString("voice_kr_name") %></option>
 					<% while(voiceRS.next()) { %>
@@ -75,7 +97,7 @@
 			</td>
 			<td>
 				<!-- emotion option 붙이기-->
-				<select id='emotion' name='emotion<%=i%>'>
+				<select id='emotion<%=i%>' name='emotion<%=i%>'>
 					<%emotionRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
 					<option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
 					<% while(emotionRS.next()){ %>

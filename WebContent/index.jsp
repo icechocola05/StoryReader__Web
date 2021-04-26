@@ -1,5 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
-<head>	<head>
+<head>
 <meta charset="UTF-8">
 <title>Story Reader</title>
 <link
@@ -12,6 +15,7 @@
 <link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
+	<% session.invalidate(); %>
 	<div class="head">
 		Story Reader
 	</div>
@@ -27,8 +31,6 @@
 			<input type="SUBMIT" class="center-block" id="submit-btn" value="직접 입력하기">
 		</form>
 		</div>
-		
-	
 	
 	<script>
 		function check(num){

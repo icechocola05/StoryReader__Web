@@ -53,39 +53,36 @@ public class UploadFile extends HttpServlet {
 		String mainTxt="";
 		
 		System.out.println(request.getParameter("write"));
+	
 		
-		if(request.getParameter("write") != null) {
-			RequestDispatcher rd = request.getRequestDispatcher("/confirm.jsp");
-            rd.forward(request, response);
-		}
-		
-		else {
-			try {
-	    		FileInputStream ins = new FileInputStream(file);
-				BufferedReader reader = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
+		try {
+			FileInputStream ins = new FileInputStream(file);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
+			
+			while(true) {
+				str = reader.readLine();
 				
-				while(true) {
-					str = reader.readLine();
-					
-					if (str == null) break;
-					if(len == 0) // 제목 뽑기
-					{
-						title = str;
-					}else {
-						mainTxt+=str+"\n";
-					}
-					
-					len++;
+				if (str == null) break;
+				if(len == 0) // 제목 뽑기
+				{
+					title = str;
+				}else {
+					mainTxt+=str+"\n";
 				}
 				
-				reader.close();
-				ins.close();
-			} catch (IOException e) {
-				//e.printStackTrace();
+				len++;
 			}
+			
+			reader.close();
+			ins.close();
+		} catch (IOException e) {
+			//e.printStackTrace();
 		}
-    	session.setAttribute("bookname", title);
-    	session.setAttribute("mainTxt", mainTxt);
+		
+
+		session.setAttribute("bookname", title);
+		session.setAttribute("mainTxt", mainTxt);
+		
     	RequestDispatcher rd = request.getRequestDispatcher("/confirm.jsp");
         rd.forward(request, response);
     }

@@ -15,9 +15,10 @@
 	</div>
 	<div class="main">
 		<form method="Post" action="setImg.do" enctype="multipart/form-data">
+			<input type="submit" name="전체재생" value="entire audio">
 			<div class="content">
 				<input type="submit" name="move_btn" value="pre">
-				<input type="text" id="<%=session.getAttribute("sent_id")%>"value="<%=session.getAttribute("sent")%>">
+				<input type="text" id="<%=session.getAttribute("sent_id")%>"value="<%=session.getAttribute("sent")%>" size="70" style = "text-align:center;">
 				<input type="submit" name="move_btn" value="next">
 				<br><br>
 				<audio controls>

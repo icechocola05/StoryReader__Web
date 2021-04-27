@@ -40,22 +40,17 @@
 	%>
 	
 	<script>
-		function changeSpeakerVoice(i){
-			//alert(i);
+		function changeSpeakerVoice(i){	
 			var vID="voice"+i;
     		var voiceSelect = document.getElementById(vID);
-     
-    		//select element에서 선택된 option의 value가 저장된다.
-    		//var selectSpeakerValue = voiceSelect.options[voiceSelect.selectedIndex].value;
-    		//alert(document.getElementById("speaker"+i).innerText);
-    		var j=0;
-    		for(; j < <%=sent.size()%> ; j++){
-  //  			alert(j);
+    		var length=<%=speaker.size()%>;
+    		for(var j=0; j < length ; j++){
     			var jID="speaker"+j;
     			var iID="speaker"+i;
+    			var jVID="voice"+j;
     			if(document.getElementById(jID).innerText == document.getElementById(iID).innerText){
     				//alert("if");
-    				document.getElementById(jID).options[voiceSelect.selectedIndex].selected=true;
+    				document.getElementById(jVID).options[voiceSelect.selectedIndex].selected=true;
     			}
     		}
 		}

@@ -62,7 +62,7 @@ public class setImg extends HttpServlet {
 				System.out.println(rsSent.getInt("sent_id"));
 				System.out.println(rsSent.getString("sent_txt"));
 				session.setAttribute("sent_id", rsSent.getInt("sent_id"));
-				session.setAttribute("sent",rsSent.getString("sent_txt"));
+				session.setAttribute("sentence",rsSent.getString("sent_txt"));
 				session.setAttribute("sentNum", 0);
 				session.setAttribute("isBegan", 0);
 			}
@@ -103,14 +103,14 @@ public class setImg extends HttpServlet {
 				
 				session.setAttribute("rsSent", rsSent);
 				session.setAttribute("sent_id", rsSent.getInt("sent_id"));
-				session.setAttribute("sent",rsSent.getString("sent_txt"));
+				session.setAttribute("sentence",rsSent.getString("sent_txt"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		//�떎�쓬 臾몄옣 or �씠�쟾 臾몄옣 諛쏆븘�삤湲�
 			
-		RequestDispatcher rd = request.getRequestDispatcher("/setImg.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/result.jsp");
 		rd.forward(request, response);
 
 	}

@@ -105,7 +105,7 @@
 				<input type="range" name="range<%=i%>" min="0" max ="1" step="0.1" value="0.5">
 			</td>
 			<!-- sentence 붙이기-->
-			<td><%= sent.get(i) %></td>
+			<td><input type="text" id="sent<%=i%>" name="sent<%=i%>"value="<%= sent.get(i) %>" size="<%=sent.get(i).length()*1.7 %>" style = "text-align:center;"></td>
 		
 		</tbody>
 		<%
@@ -116,8 +116,9 @@
 		%>
 
 	</table>
-	<input type="SUBMIT">
-	
+	<div style="text-align:center;">
+	<input type="SUBMIT" class="center-block" id="submit-btn">
+	</div>
 
 </form>
 </body>

@@ -86,3 +86,6 @@ form {
 	display: inline;
 	margin: auto;
 }
+#sent_input{
+	border:none;
+}

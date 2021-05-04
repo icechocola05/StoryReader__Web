@@ -43,7 +43,6 @@ public class setImg extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(true);
-		PrintWriter out = response.getWriter();
 		
 		int n=(int)session.getAttribute("story_id");//�쁽�옱 臾몄옣
 		//int sentNum = 0;
@@ -87,7 +86,6 @@ public class setImg extends HttpServlet {
 					System.out.println("nextBegan");	
 					//rsSent.next();
 					if(!rsSent.next()) {
-						out.println("<script> alert('마지막 문장입니다'); </script>");
 						rsSent.previous();
 						
 					}else {
@@ -98,7 +96,6 @@ public class setImg extends HttpServlet {
 				if(button.equals("pre")) {
 					System.out.println("previousBegan");
 					if(!rsSent.previous()) {
-						out.println("<script> alert('첫번째 문장입니다'); </script>");
 						rsSent.next();
 						session.setAttribute("sentNum", 0);
 					}else {

@@ -45,7 +45,8 @@
 			<div class="content">
 				<br>
 				<input type="submit" name="move_btn" value="pre" id="pre_btn">
-				<input type="text" id="<%=session.getAttribute("sent_id")%>"value="<%=session.getAttribute("sent")%>" size="60" style = "text-align:center;">
+				<%String s=(String)session.getAttribute("sentence"); int len=s.length(); %>
+				 <input type="text" id="<%=session.getAttribute("sent_id")%>"value="<%=session.getAttribute("sentence")%>" size="<%=len*1.7%>" style = "text-align:center;">
 				<input type="submit" id="next_btn" name="move_btn" value="next">
 				<br><br>
 				<audio id='player' autoplay controls onended="next(<%=session.getAttribute("sentNum")%>, <%=session.getAttribute("lastNum")%>)">

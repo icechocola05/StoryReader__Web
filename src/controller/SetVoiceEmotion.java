@@ -46,11 +46,16 @@ public class SetVoiceEmotion extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		
 		//문장마다 받아온 화자, 감정 정보 설정해서 DB 등록
-		ArrayList<String> sent = (ArrayList<String>) session.getAttribute("sent");
+		ArrayList<String> speak = (ArrayList<String>) session.getAttribute("speaker");
+		ArrayList<String> sent = new ArrayList<String>();
+		String temp;
+		for(int i=0;i<speak.size();i++) {
+			temp=(String)request.getParameter("sent"+i);
+			sent.add(temp);
+		}
 		int len = sent.size();
-		
 		try {
-			String sentence, voiceVal, emotionVal;
+			String sentence, speaker, voiceVal, emotionVal;
 			float intensity;
 			String voiceq = "SELECT voice_id FROM voice WHERE voice_name=?";
 			String emotionq = "SELECT emotion_id FROM emotion WHERE emotion_name=?";
@@ -60,6 +65,7 @@ public class SetVoiceEmotion extends HttpServlet {
 			
 			for (int i = 0; i < len; i++) {
 				String n = Integer.toString(i);
+				speaker = speak.get(i);
 				sentence = sent.get(i);
 				voiceVal = request.getParameter("voice" + n);
 				emotionVal = request.getParameter("emotion" + n);
@@ -75,13 +81,14 @@ public class SetVoiceEmotion extends HttpServlet {
 				
 				int story_id = (int) session.getAttribute("story_id");
 				
-				db.insertSent(con, sentence, rsVoice.getInt(1), rsEmotion.getInt(1), intensity, story_id);
+				db.insertSent(con, sentence, speaker, rsVoice.getInt(1), rsEmotion.getInt(1), intensity, story_id);
 			}
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
 		session.setAttribute("isBegan", 1);
+		session.setAttribute("playAll","false");
 		RequestDispatcher rd = request.getRequestDispatcher("/makeJsonServlet");
 		rd.forward(request, response);
 	}

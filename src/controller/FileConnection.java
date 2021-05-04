@@ -52,6 +52,7 @@ public class FileConnection extends HttpServlet {
 		int story_id=(int)session.getAttribute("story_id");
 		System.out.println("hello");
 		System.out.println(index);
+		session.setAttribute("lastNum", resultJson.size() - 1);
 
 		if (index== resultJson.size()) {
 			RequestDispatcher rd = request.getRequestDispatcher("/setImg.do");

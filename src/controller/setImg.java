@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,6 +43,8 @@ public class setImg extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(true);
+		PrintWriter out = response.getWriter();
+		
 		int n=(int)session.getAttribute("story_id");//�쁽�옱 臾몄옣
 		//int sentNum = 0;
 		//session.setAttribute("sentNum", sentNum);
@@ -62,7 +65,7 @@ public class setImg extends HttpServlet {
 				System.out.println(rsSent.getInt("sent_id"));
 				System.out.println(rsSent.getString("sent_txt"));
 				session.setAttribute("sent_id", rsSent.getInt("sent_id"));
-				session.setAttribute("sent",rsSent.getString("sent_txt"));
+				session.setAttribute("sentence",rsSent.getString("sent_txt"));
 				session.setAttribute("sentNum", 0);
 				session.setAttribute("isBegan", 0);
 			}
@@ -84,7 +87,9 @@ public class setImg extends HttpServlet {
 					System.out.println("nextBegan");	
 					//rsSent.next();
 					if(!rsSent.next()) {
+						out.println("<script> alert('마지막 문장입니다'); </script>");
 						rsSent.previous();
+						
 					}else {
 						//rsSent.next();
 						session.setAttribute("sentNum", sentNum + 1);
@@ -93,6 +98,7 @@ public class setImg extends HttpServlet {
 				if(button.equals("pre")) {
 					System.out.println("previousBegan");
 					if(!rsSent.previous()) {
+						out.println("<script> alert('첫번째 문장입니다'); </script>");
 						rsSent.next();
 						session.setAttribute("sentNum", 0);
 					}else {
@@ -103,16 +109,15 @@ public class setImg extends HttpServlet {
 				
 				session.setAttribute("rsSent", rsSent);
 				session.setAttribute("sent_id", rsSent.getInt("sent_id"));
-				session.setAttribute("sent",rsSent.getString("sent_txt"));
+				session.setAttribute("sentence",rsSent.getString("sent_txt"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		//�떎�쓬 臾몄옣 or �씠�쟾 臾몄옣 諛쏆븘�삤湲�
 			
-		RequestDispatcher rd = request.getRequestDispatcher("/setImg.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/result.jsp");
 		rd.forward(request, response);
-
 	}
 
 	/**

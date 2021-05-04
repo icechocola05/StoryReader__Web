@@ -43,6 +43,7 @@
 		
 		<form method="Post" action="setImg.do" enctype="multipart/form-data">
 			<div class="content">
+				<input type="text" id="<%=session.getAttribute("sent_id")%>"value="<%=session.getAttribute("speaker")%>" style = "text-align:center;">
 				<br>
 				<input type="submit" name="move_btn" value="pre" id="pre_btn">
 				<%String s=(String)session.getAttribute("sentence"); int len=s.length(); %>

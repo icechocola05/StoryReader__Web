@@ -53,7 +53,7 @@ public class setImg extends HttpServlet {
 		try {
 			if((int)session.getAttribute("isBegan")==1) {
 				System.out.println("isBegan");
-				String query="SELECT sent_id,sent_txt FROM sentence WHERE story_id=?";
+				String query="SELECT sent_id,sent_txt,sent_speaker FROM sentence WHERE story_id=?";
 				PreparedStatement sent_ps = conn.prepareStatement(query,
                         ResultSet.TYPE_SCROLL_SENSITIVE, 
                     ResultSet.CONCUR_UPDATABLE);
@@ -65,6 +65,7 @@ public class setImg extends HttpServlet {
 				System.out.println(rsSent.getString("sent_txt"));
 				session.setAttribute("sent_id", rsSent.getInt("sent_id"));
 				session.setAttribute("sentence",rsSent.getString("sent_txt"));
+				session.setAttribute("speaker",rsSent.getString("sent_speaker"));
 				session.setAttribute("sentNum", 0);
 				session.setAttribute("isBegan", 0);
 			}
@@ -107,6 +108,7 @@ public class setImg extends HttpServlet {
 				session.setAttribute("rsSent", rsSent);
 				session.setAttribute("sent_id", rsSent.getInt("sent_id"));
 				session.setAttribute("sentence",rsSent.getString("sent_txt"));
+				session.setAttribute("speaker", rsSent.getString("sent_speaker"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

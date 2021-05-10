@@ -32,57 +32,56 @@
 	<% 		
 		ArrayList<String> sent = (ArrayList<String>)session.getAttribute("sent");
 		ArrayList<String> speaker = (ArrayList<String>)session.getAttribute("speaker");
+		int len = sent.size();
 		
 		//DB와 연결
 		ServletContext sc = getServletContext();
 		Connection conn = (Connection)sc.getAttribute("DBconnection");
 		try {
+			Statement voiceSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
+			Statement emotionSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
+			
+			voiceSt.execute("SELECT * FROM voice");
+			emotionSt.execute("SELECT * FROM emotion");
+			
+			ResultSet voiceRS = voiceSt.getResultSet();
+			ResultSet emotionRS = emotionSt.getResultSet();
 	%>
 	
-	<script>
-		function changeSpeakerVoice(i){	
-			var vID="voice"+i;
-    		var voiceSelect = document.getElementById(vID);
-    		var length=<%=speaker.size()%>;
-    		for(var j=0; j < length ; j++){
-    			var jID="speaker"+j;
-    			var iID="speaker"+i;
-    			var jVID="voice"+j;
-    			if(document.getElementById(jID).innerText == document.getElementById(iID).innerText){
-    				//alert("if");
-    				document.getElementById(jVID).options[voiceSelect.selectedIndex].selected=true;
-    			}
-    		}
-		}
-	</script>
 	
 	<form method="Post" action="setVoiceEmotion">
 	<table>
 		<thead>
 			<th>화자</th>
 			<th>목소리</th>
-			<th>감정 종류</th>
-			<th>감정 세기</th>
-			<th>문장</th>
 		</thead>
-		<%	
-				Statement voiceSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
-				Statement emotionSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
+		<% 
+		
+			ArrayList<String> speaker_t=new ArrayList<String>();//중복을 제외한 화자 리스트
+			int flag=0;//0-같은 speaker 없음.1-있음
+			int j_loc=0;
+			for(int i=0; i<speaker.size(); i++) { //문장 수 만큼 행 생성
+				System.out.println("==================i = "+i+"===================");
+				flag=0;
+				for(int j=0;j<speaker_t.size();j++){
+					System.out.println("<<"+j+">>");
+					System.out.println(speaker_t.get(j));
+					System.out.println(speaker_t.get(j)+" vs "+speaker.get(i));
+					if(speaker.get(i).equals(speaker_t.get(j))){
+						flag=1;//이전 화자 목록에 현재 화자가 있는지
+						System.out.println("중복 확인");
+					}
+				}
+				if(flag==1) continue;
+				speaker_t.add(speaker.get(i));
+				j_loc=speaker_t.size()-1;
 				
-				voiceSt.execute("SELECT * FROM voice");
-				emotionSt.execute("SELECT * FROM emotion");
-				
-				ResultSet voiceRS = voiceSt.getResultSet();
-				ResultSet emotionRS = emotionSt.getResultSet();
-				
-				int len = sent.size();
-				for(int i=0; i<len; i++) { //문장 수 만큼 행 생성
 		%>
-		<tbody border=1>
-			<td id='speaker<%=i%>'> <%= speaker.get(i) %> </td> 
+		<tbody>
+			<td id='speaker_t<%=j_loc%>'> <%= speaker_t.get(j_loc) %> </td> 
 			<td>
 				<!-- voice option 붙이기-->
-				<select id='voice<%=i%>' name='voice<%=i%>'onchange="changeSpeakerVoice(<%=i%>)">
+				<select id='voice<%=j_loc%>' name='voice<%=j_loc%>'>
 					<%voiceRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
 					<option value=<%= voiceRS.getString("voice_name") %>><%= voiceRS.getString("voice_kr_name") %></option>
 					<% while(voiceRS.next()) { %>
@@ -90,11 +89,30 @@
 					<% } %>
 				</select>
 			</td>
+		</tbody>
+		<%} 
+		session.setAttribute("speaker_t", speaker_t);%>
+	</table>
+	
+	<br><br>
+	<table>
+		<thead>
+			<th>화자</th>
+			<th>감정 종류</th>
+			<th>감정 세기</th>
+			<th>문장</th>
+		</thead>
+		<%	
+		for(int i=0; i<len; i++) { //문장 수 만큼 행 생성
+		%>
+		<tbody border=1>
+			<td id='speaker<%=i%>'> <%= speaker.get(i) %> </td> 
+			
 			<td>
 				<!-- emotion option 붙이기-->
 				<select id='emotion<%=i%>' name='emotion<%=i%>'>
-					<%emotionRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
-					<option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
+					<% emotionRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
+					<option value=<%=emotionRS.getString("emotion_name") %>><%=emotionRS.getString("emotion_kr_name") %></option>
 					<% while(emotionRS.next()){ %>
 					<option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
 					<% } %>
@@ -113,6 +131,7 @@
 		}catch(SQLException e) {
 		e.printStackTrace();
 		}
+		
 		%>
 
 	</table>

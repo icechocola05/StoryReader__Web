@@ -34,7 +34,7 @@ html,body {
 	text-align: center;
 	height: 30%;
 	padding-top: 7%;
-	padding-bottom: 7%;
+	padding-bottom: 3%;
 	margin-left: auto;
 	margin-right: auto;
 	background-color: #FFFFFF;
@@ -50,7 +50,7 @@ html,body {
 
 .pro1 {
 	position: absolute;
-	color: #3A91DA;
+	color: #AFAFAF;
 	left: 30%;
 	top: 20%;
 	display: inline-block;
@@ -63,13 +63,13 @@ html,body {
 	/* identical to box height */
 	
 	text-align: center;
-	letter-spacing: -0.1em;
+	letter-spacing: -0.02em;
 }
 
 .pro2 {
 	position: absolute;
-	color: #AFAFAF;
-	left: 42%;
+	color: #3A91DA;
+	left: 43%;
 	top: 20%;
 	display: inline-block;
 	
@@ -81,7 +81,7 @@ html,body {
 	/* identical to box height */
 	
 	text-align: center;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.1em;
 }
 
 .pro3 {
@@ -122,22 +122,22 @@ html,body {
 
 .dot1 {
 	position: absolute;
-	height: 2.8%;
-	width: 2%;
+	height: 1.6%;
+	width: 1.1%;
 	left: 31%;
+	margin-top: 0.2%;
 	border-radius: 50%;
-	background-color: #97C6EE;
+	background-color: #AFAFAF;
 	display: inline-block;
 }
 
 .dot2 {
 	position: absolute;
-	height: 1.6%;
-	width: 1.1%;
+	height: 2.8%;
+	width: 2%;
 	left: 43.5%;
-	margin-top: 0.2%;
 	border-radius: 50%;
-	background-color: #AFAFAF;
+	background-color: #97C6EE;
 	display: inline-block;
 }
 
@@ -163,14 +163,16 @@ html,body {
 	display: inline-block;
 }
 
-.select {
+/* ------------------------------ */
+
+.input {
 	width: 65%;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.select span {
+.input #title {
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: bold;
@@ -182,32 +184,69 @@ html,body {
 	
 }
 
-.select .input_btn1 {
+.content {
+	padding-top: 2.5%;
 	
-	margin-top: 5%;
-	width: inherit;
-	padding: 2% 20% 2% 20%;
-	background-color: #97C6EE;
-	border: none;
+}
+
+.content-text {
+	width: 60%;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+label {
+	padding-right: 1.5%;
 	
 	font-family: Noto Sans;
 	font-style: normal;
 	font-weight: 600;
-	font-size: 33px;
-	line-height: 48px;
+	font-size: 25px;
+	line-height: 34px;
 	/* identical to box height */
 	
 	text-align: center;
 	
-	color: #FFFFFF;
+	color: #000000;
 }
 
-.select .input_btn2 {
+#bookname, #bookauthor, #booktext {
+	border: 2px solid #C4C4C4;
+	box-sizing: border-box;
+	border-radius: 20px;
+	padding: 0.5%;
+	margin: 1%;
+		
+	font-family: Noto Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 25px;
+	line-height: 34px;
+	/* identical to box height */
 	
-	margin-top: 5%;
+}
+
+.content #sub {
+	padding-top: 0%;
+	font-family: Noto Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 5px;
+	text-align: center;
+	
+	color: #C4C4C4;
+}
+
+
+
+#submit-btn {
+	
+	margin-top: 2%;
 	width: inherit;
 	padding: 2% 20% 2% 20%;
-	background-color: #BBBBBB;;
+	background-color: #97C6EE;
 	border: none;
 	
 	font-family: Noto Sans;

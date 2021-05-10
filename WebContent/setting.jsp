@@ -21,25 +21,166 @@
 	crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 
-<link rel="stylesheet" href="CSS/index.css">
+<link rel="stylesheet" href="CSS/setting.css">	
 </head>
+
 <body>
 	<div class="head">
-		Story Reader
+		<span>Story Reader</span>
 	</div>
-	<br>
+	
+	<div class="main">
+		<div class="progress">
+			<span class="pro1">등록 방식 설정</span>
+			<span class="pro2">텍스트 등록</span>
+			<span class="pro3">화자 설정</span>
+			<span class="pro4">완성</span>
+			<hr />
+			<span class="dot1"></span>
+			<span class="dot2"></span>
+			<span class="dot3"></span>
+			<span class="dot4"></span>
+		</div>
+	</div>
+	
+	
 	<% 		
 		ArrayList<String> sent = (ArrayList<String>)session.getAttribute("sent");
 		ArrayList<String> speaker = (ArrayList<String>)session.getAttribute("speaker");
+		
+		//emotion 그림 설정
+		ArrayList<String> emotionImg = new ArrayList<String>();
+		
+		emotionImg.add(0, "<span class='iconify' data-inline='false' data-icon='noto:angry-face'></span>"); //화
+		emotionImg.add(1, "<span class='iconify' data-inline='false' data-icon='noto:crying-face'></span>"); //슬픔
+		emotionImg.add(2, "<span class='iconify' data-inline='false' data-icon='noto:neutral-face'></span>"); //중립
+		emotionImg.add(3, "<span class='iconify' data-inline='false' data-icon='noto:grinning-face-with-smiling-eyes'></span>"); //기쁨
+		
+		
 		
 		//DB와 연결
 		ServletContext sc = getServletContext();
 		Connection conn = (Connection)sc.getAttribute("DBconnection");
 		try {
+			
+			Statement voiceSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
+			Statement emotionSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
+			
+			voiceSt.execute("SELECT * FROM voice");
+			emotionSt.execute("SELECT * FROM emotion");
+			
+			ResultSet voiceRS = voiceSt.getResultSet();
+			ResultSet emotionRS = emotionSt.getResultSet();
+			
 	%>
 	
-	<script>
+	
+	<div class="content">
+		<div class="speakers">
+			<%
+				//화자 목소리 설정
+				for(int i=0; i<speaker.size(); i++) { %>
+				<span> <%=	speaker.get(i) %> </span> 
+					<select id='voice<%=i%>' name='voice<%=i%>'onchange="changeSpeakerVoice(<%=i%>)">
+						<%voiceRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
+						<option value=<%= voiceRS.getString("voice_name") %>><%= voiceRS.getString("voice_kr_name") %></option>
+						<% while(voiceRS.next()) { %>
+						<option value= <%=voiceRS.getString("voice_name")%>> <%=voiceRS.getString("voice_kr_name")%> </option>
+						<% } %>
+					</select>
+			<% } %>
+		</div>
+		
+		<br>
+	
+		<form method="Post" action="setVoiceEmotion">
+			<%	//문장 수 만큼 div 생성
+				int len = sent.size();
+				for(int i=0; i<len; i++) { 
+			%>
+			
+			<div class="sent-table">
+				<!-- speaker 붙이기-->
+				<span class="speak"> <%= speaker.get(i) %> </span>
+			
+				<!-- emotion option 붙이기-->
+				<label id="emotionFace">
+					<span class='iconify' data-inline='false' data-icon='noto:angry-face' ></span>
+				</label>
+				
+				<select class='emoSelect' id='emotion<%=i%>' name='emotion<%=i%>' onchange="changeEmotion(<%=i%>)">
+	               <%emotionRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
+	               <option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
+	               <% while(emotionRS.next()){ %>
+	               <option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
+	               <% } %>
+	            </select>
+				
+				<!-- emotion intensity 붙이기-->
+				<input type="range" class="emoRange" name="range<%=i%>" min="0" max ="1" step="0.1" value="0.5">
+				
+				<!-- sentence 붙이기-->
+				<input type="text" id="sent<%=i%>" class="sentTxt" name="sent<%=i%>"value="<%= sent.get(i) %>" size="<%=sent.get(i).length()*1.2 %>">
+			</div>
+				<% 
+					} //for문 
+				}catch(SQLException e) {
+				e.printStackTrace();
+				}
+				%>
+				
+			<div class="btn">
+				<button type="SUBMIT" class="submit-btn"> 다음 단계로 >  </button>
+			</div>
+		</form>
+		<br>
+	</div>
+
+<script>
+
+		function changeEmotion(i) {
+			var element = document.getElementById("emotionFace");
+			var target = document.getElementById("emotion"+i);
+			var val = target.options[target.selectedIndex].text;
+			
+			while( element.hasChildNodes()) {
+				element.removeChild(element.firstChild);
+			}
+			
+			if(val == "화남") {
+				var added = document.createElement('span');
+				added.setAttribute('class', 'iconify');
+				added.setAttribute('data-inline', 'false');
+				added.setAttribute('data-icon', 'noto:angry-face');
+				element.appendChild(added);
+			}
+			if(val == "슬픔") {
+				var added = document.createElement('span');
+				added.setAttribute('class', 'iconify');
+				added.setAttribute('data-inline', 'false');
+				added.setAttribute('data-icon', 'noto:crying-face');
+				element.appendChild(added);
+			}
+			if(val == "중립") {
+				var added = document.createElement('span');
+				added.setAttribute('class', 'iconify');
+				added.setAttribute('data-inline', 'false');
+				added.setAttribute('data-icon', 'noto:neutral-face');
+				element.appendChild(added);
+			}
+			if(val == "기쁨") {
+				var added = document.createElement('span');
+				added.setAttribute('class', 'iconify');
+				added.setAttribute('data-inline', 'false');
+				added.setAttribute('data-icon', 'noto:grinning-face-with-smiling-eyes');
+				element.appendChild(added);
+			}
+			
+		}
+		
 		function changeSpeakerVoice(i){	
 			var vID="voice"+i;
     		var voiceSelect = document.getElementById(vID);
@@ -54,72 +195,7 @@
     			}
     		}
 		}
-	</script>
-	
-	<form method="Post" action="setVoiceEmotion">
-	<table>
-		<thead>
-			<th>화자</th>
-			<th>목소리</th>
-			<th>감정 종류</th>
-			<th>감정 세기</th>
-			<th>문장</th>
-		</thead>
-		<%	
-				Statement voiceSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
-				Statement emotionSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
-				
-				voiceSt.execute("SELECT * FROM voice");
-				emotionSt.execute("SELECT * FROM emotion");
-				
-				ResultSet voiceRS = voiceSt.getResultSet();
-				ResultSet emotionRS = emotionSt.getResultSet();
-				
-				int len = sent.size();
-				for(int i=0; i<len; i++) { //문장 수 만큼 행 생성
-		%>
-		<tbody border=1>
-			<td id='speaker<%=i%>'> <%= speaker.get(i) %> </td> 
-			<td>
-				<!-- voice option 붙이기-->
-				<select id='voice<%=i%>' name='voice<%=i%>'onchange="changeSpeakerVoice(<%=i%>)">
-					<%voiceRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
-					<option value=<%= voiceRS.getString("voice_name") %>><%= voiceRS.getString("voice_kr_name") %></option>
-					<% while(voiceRS.next()) { %>
-					<option value= <%=voiceRS.getString("voice_name")%>> <%=voiceRS.getString("voice_kr_name")%> </option>
-					<% } %>
-				</select>
-			</td>
-			<td>
-				<!-- emotion option 붙이기-->
-				<select id='emotion<%=i%>' name='emotion<%=i%>'>
-					<%emotionRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
-					<option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
-					<% while(emotionRS.next()){ %>
-					<option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
-					<% } %>
-				</select>
-			</td>
-			<td>
-				<!-- emotion intensity 붙이기-->
-				<input type="range" name="range<%=i%>" min="0" max ="1" step="0.1" value="0.5">
-			</td>
-			<!-- sentence 붙이기-->
-			<td><input type="text" id="sent<%=i%>" name="sent<%=i%>"value="<%= sent.get(i) %>" size="<%=sent.get(i).length()*1.7 %>" style = "text-align:center;"></td>
-		
-		</tbody>
-		<%
-			} //for문 
-		}catch(SQLException e) {
-		e.printStackTrace();
-		}
-		%>
-
-	</table>
-	<div style="text-align:center;">
-	<input type="SUBMIT" class="center-block" id="submit-btn">
-	</div>
-
-</form>
+</script>
 </body>
+
 </html>

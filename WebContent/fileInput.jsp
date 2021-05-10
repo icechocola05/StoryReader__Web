@@ -10,13 +10,11 @@
 	rel="stylesheet"
 	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
 	crossorigin="anonymous">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="CSS/index.css">
+<link rel="stylesheet" href="CSS/fileInput.css">
 </head>
 <body>
-	<% session.invalidate(); %>
+<% session.invalidate(); %>
 	<div class="head">
 		<span>Story Reader</span>
 	</div>
@@ -33,14 +31,21 @@
 			<span class="dot4"></span>
 		</div>
 		
-		<div class="select">
-			<span>텍스트 등록 방식을 정해주세요!</span> <br>
+		<div class="input">
+			<span id="title">텍스트를 등록해주세요!</span> <br>
 			
-			<button class="input_btn1" onclick="location='fileInput.jsp'">텍스트 파일로 등록하기</button> <br>
-			<button class="input_btn2" onclick="location='textInput.jsp'">직접 입력하기</button>
+			<div class="content">
+				<form method="Post" action="uploadFile" enctype="multipart/form-data" onsubmit="return check(this.submitted);">
+				<div class="content-file">
+					<input class="form-control form-control-lg center-block" name="file" id="input-file" type="file"> <br> <br>
+					<span id="sub"> txt 확장자만 가능합니다. </span> <br>
+				</div>
+					<input type="SUBMIT" class="center-block" id="submit-btn" value="다음 단계로  >" onclick="this.form.submitted=this.value" >
+				</form>
+			</div>
 		</div>
 		
 	</div>
-		
+
 </body>
-</html> 
+</html>

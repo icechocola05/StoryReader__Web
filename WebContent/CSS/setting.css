@@ -1,19 +1,291 @@
 @charset "UTF-8";
 
+	
 
-table {
-	width: 90%;
-	border: 1px solid #444444;
-	border-collapse: collapse;
+html,body {
+	background-color: #FFFFFF;
 }
 
-th {
-	font-size: 11px;
-	font-weight: bold;
-}
-
-th, td {
-	border: 1px solid #444444;
-	padding: 10px;
+.head {
+	position: relative;
+	padding-top: 1.5%;
+	padding-bottom: 1.5%;
+	background: #97C6EE;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 	text-align: center;
+}
+
+.head span {
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 30px;
+	line-height: 43px;
+	letter-spacing: -0.02em;
+	color: #FFFFFF;
+}
+
+.main {
+	background-color: #FFFFFF;
+}
+
+.progress {
+	width: 60%;
+	text-align: center;
+	height: 30%;
+	padding-top: 7%;
+	padding-bottom: 3%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #FFFFFF;
+}
+
+.progress hr {
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #AFAFAF;
+	z-index: 0;
+}
+
+.pro1 {
+	position: absolute;
+	color: #AFAFAF;
+	left: 30%;
+	top: 20%;
+	display: inline-block;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	/* identical to box height */
+	
+	text-align: center;
+	letter-spacing: -0.02em;
+}
+
+.pro2 {
+	position: absolute;
+	color: #AFAFAF;
+	left: 43%;
+	top: 20%;
+	display: inline-block;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	/* identical to box height */
+	
+	text-align: center;
+	letter-spacing: -0.02em;
+}
+
+.pro3 {
+	position: absolute;
+	color: #3A91DA;
+	left: 54.7%;
+	top: 20%;
+	display: inline-block;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	/* identical to box height */
+	
+	text-align: center;
+	letter-spacing: -0.1em;
+}
+
+.pro4 {
+	position: absolute;
+	color: #AFAFAF;
+	left: 66.7%;
+	top: 20%;
+	display: inline-block;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	/* identical to box height */
+	
+	text-align: center;
+	letter-spacing: -0.02em;
+}
+
+.dot1 {
+	position: absolute;
+	height: 1.6%;
+	width: 1.1%;
+	left: 31%;
+	margin-top: 0.2%;
+	border-radius: 50%;
+	background-color: #AFAFAF;
+	display: inline-block;
+}
+
+.dot2 {
+	position: absolute;
+	height: 1.6%;
+	width: 1.1%;
+	left: 43.5%;
+	margin-top: 0.2%;
+	border-radius: 50%;
+	background-color: #AFAFAF;
+	display: inline-block;
+
+}
+
+.dot3 {
+	position: absolute;
+	height: 2.8%;
+	width: 2%;
+	left: 55%;
+	border-radius: 50%;
+	background-color: #97C6EE;
+	display: inline-block;
+}
+
+.dot4 {
+	position: absolute;
+	height: 1.6%;
+	width: 1.1%;
+	left: 67%;
+	margin-top: 0.2%;
+	border-radius: 50%;
+	background-color: #AFAFAF;
+	display: inline-block;
+}
+
+
+/* ------------------------------ */
+
+.speakers {
+	background: #97C6EE;
+	border-radius: 20px;
+	
+	width: 30%;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	
+	padding: 2% 5% 2% 5%;
+}
+
+form {
+	width: 65%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.sent-table {
+	border: 2px solid #C4C4C4;
+	box-sizing: border-box;
+	border-radius: 20px;
+	padding: 3% 0% 3% 3%;
+	margin: 1%;
+}
+
+.speak {
+	margin-right: 8%;
+	font-family: Noto Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 25px;
+	line-height: 34px;
+	/* identical to box height */
+	
+	text-align: center;
+	
+	color: #3A91DA;
+}
+
+svg[data-icon='noto:angry-face'] {
+	position: relative;
+	font-size: 80px;
+	z-index: 1;
+	pointer-events: none;
+}
+
+svg[data-icon='noto:crying-face'] {
+	position: relative;
+	font-size: 80px;
+	z-index: 1;
+	pointer-events: none;
+}
+
+svg[data-icon='noto:neutral-face'] {
+	position: relative;
+	font-size: 80px;
+	z-index: 1;
+	pointer-events: none;
+}
+
+svg[data-icon='noto:grinning-face-with-smiling-eyes'] {
+	position: relative;
+	font-size: 80px;
+	z-index: 1;
+	pointer-events: none;
+}
+
+.emoSelect {
+	position: relative;
+	right: 5%;
+	z-index: 0;
+	
+}
+
+.emoRange {
+	margin-left: 8%;
+	
+}
+
+.sentTxt {
+	border: 0;
+	border-bottom: 1px solid #000000;
+	margin-left: 8%;
+	
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 26px;
+	line-height: 45px;
+	/* or 173% */
+	
+	letter-spacing: -0.03em;
+	
+	color: #000000;
+}
+
+.btn {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.submit-btn {
+	margin-top: 2%;
+	width: 100%;
+	padding: 2% 20% 2% 20%;
+	background-color: #97C6EE;
+	border: none;
+	
+	font-family: Noto Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 33px;
+	line-height: 48px;
+	/* identical to box height */
+	
+	text-align: center;
+	
+	color: #FFFFFF;
 }

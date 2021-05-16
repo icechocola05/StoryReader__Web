@@ -55,6 +55,7 @@ public class SetVoiceEmotion extends HttpServlet {
 			temp=(String)request.getParameter("sent"+i);
 			sent.add(temp);
 		}
+		
 		for(int i=0;i<speak_t.size();i++) {
 			voice_t.add(request.getParameter("voice" + i));
 		}
@@ -98,7 +99,7 @@ public class SetVoiceEmotion extends HttpServlet {
 				int story_id = (int) session.getAttribute("story_id");
 				
 				
-				System.out.println(rsEmotion.getInt(i));
+				System.out.println(sentence + speaker + rsVoice.getInt(1) + rsEmotion.getInt(1) + intensity + story_id);
 				
 				
 				db.insertSent(con, sentence, speaker, rsVoice.getInt(1), rsEmotion.getInt(1), intensity, story_id);

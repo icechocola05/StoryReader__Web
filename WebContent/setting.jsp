@@ -109,7 +109,6 @@
 	
 		
 			<%	//문장 수 만큼 div 생성
-				int len = sent.size();
 				for(int i=0; i<len; i++) { 
 			%>
 			

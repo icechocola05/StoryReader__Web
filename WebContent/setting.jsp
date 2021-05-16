@@ -51,16 +51,6 @@
 		ArrayList<String> sent = (ArrayList<String>)session.getAttribute("sent");
 		ArrayList<String> speaker = (ArrayList<String>)session.getAttribute("speaker");
 		
-		//emotion 그림 설정
-		ArrayList<String> emotionImg = new ArrayList<String>();
-		
-		emotionImg.add(0, "<span class='iconify' data-inline='false' data-icon='noto:angry-face'></span>"); //화
-		emotionImg.add(1, "<span class='iconify' data-inline='false' data-icon='noto:crying-face'></span>"); //슬픔
-		emotionImg.add(2, "<span class='iconify' data-inline='false' data-icon='noto:neutral-face'></span>"); //중립
-		emotionImg.add(3, "<span class='iconify' data-inline='false' data-icon='noto:grinning-face-with-smiling-eyes'></span>"); //기쁨
-		
-		
-		
 		//DB와 연결
 		ServletContext sc = getServletContext();
 		Connection conn = (Connection)sc.getAttribute("DBconnection");
@@ -77,6 +67,7 @@
 			
 	%>
 	
+	<form method="Post" action="setVoiceEmotion">
 	
 	<div class="content">
 		<div class="speakers">
@@ -96,7 +87,7 @@
 		
 		<br>
 	
-		<form method="Post" action="setVoiceEmotion">
+		
 			<%	//문장 수 만큼 div 생성
 				int len = sent.size();
 				for(int i=0; i<len; i++) { 
@@ -104,10 +95,10 @@
 			
 			<div class="sent-table">
 				<!-- speaker 붙이기-->
-				<span class="speak"> <%= speaker.get(i) %> </span>
+				<span class="speak" id='speaker<%=i%>'> <%= speaker.get(i) %> </span>
 			
 				<!-- emotion option 붙이기-->
-				<label id="emotionFace">
+				<label id="emotionFace<%=i%>">
 					<span class='iconify' data-inline='false' data-icon='noto:angry-face' ></span>
 				</label>
 				
@@ -142,8 +133,8 @@
 <script>
 
 		function changeEmotion(i) {
-			var element = document.getElementById("emotionFace");
-			var target = document.getElementById("emotion"+i);
+			var element = document.getElementById("emotionFace" + i);
+			var target = document.getElementById("emotion" + i);
 			var val = target.options[target.selectedIndex].text;
 			
 			while( element.hasChildNodes()) {

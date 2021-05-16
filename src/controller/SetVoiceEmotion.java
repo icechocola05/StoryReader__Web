@@ -63,23 +63,30 @@ public class SetVoiceEmotion extends HttpServlet {
 			PreparedStatement voiceps = con.prepareStatement(voiceq);
 			PreparedStatement emotionps = con.prepareStatement(emotionq);
 			
+			
 			for (int i = 0; i < len; i++) {
 				String n = Integer.toString(i);
 				speaker = speak.get(i);
 				sentence = sent.get(i);
-				voiceVal = request.getParameter("voice" + n);
-				emotionVal = request.getParameter("emotion" + n);
+				voiceVal = (String) request.getParameter("voice" + n);
+				emotionVal = (String) request.getParameter("emotion" + n);
 				intensity = Float.parseFloat(request.getParameter("range" + n));
 				
 				voiceps.setString(1, voiceVal);
 				emotionps.setString(1, emotionVal);
 				
+				
 				ResultSet rsVoice = voiceps.executeQuery();
 				rsVoice.next();
+				
 				ResultSet rsEmotion = emotionps.executeQuery();
 				rsEmotion.next();
 				
 				int story_id = (int) session.getAttribute("story_id");
+				
+				
+				System.out.println(rsEmotion.getInt(i));
+				
 				
 				db.insertSent(con, sentence, speaker, rsVoice.getInt(1), rsEmotion.getInt(1), intensity, story_id);
 			}

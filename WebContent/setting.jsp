@@ -36,7 +36,7 @@
 	</div>
 	
 	<div class="main">
-		<div class="progress">
+		<div class="prog">
 			<span class="pro1">등록 방식 설정</span>
 			<span class="pro2">텍스트 등록</span>
 			<span class="pro3">화자 설정</span>
@@ -47,6 +47,7 @@
 			<span class="dot3"></span>
 			<span class="dot4"></span>
 		</div>
+	</div>
 	
 	
 	
@@ -96,23 +97,23 @@
 					j_loc=speaker_t.size()-1;
 					
 			%>
-			<div class="col-sm-3">
-			<span id='speaker_t<%=j_loc%>' class="fs-1"> <%= speaker_t.get(j_loc) %> </span>
-				<!-- voice option 붙이기-->
+				<div class="col-sm-3">
+				<span id='speaker_t<%=j_loc%>' class="fs-1"> <%= speaker_t.get(j_loc) %> </span>
+					<!-- voice option 붙이기-->
+				</div>
+				
+				<div class="col-sm-7">
+				<select id='voice<%=j_loc%>' class='form-select fs-2' name='voice<%=j_loc%>' >
+					<%voiceRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
+					<option value=<%= voiceRS.getString("voice_name") %>><%= voiceRS.getString("voice_kr_name") %></option>
+					<% while(voiceRS.next()) { %>
+					<option value= <%=voiceRS.getString("voice_name")%>> <%=voiceRS.getString("voice_kr_name")%> </option>
+					<% } %>
+				</select> <br>
+				</div>
+				<%} 
+				session.setAttribute("speaker_t", speaker_t);%>
 			</div>
-			
-			<div class="col-sm-7">
-			<select id='voice<%=j_loc%>' class='form-select fs-2' name='voice<%=j_loc%>' >
-				<%voiceRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
-				<option value=<%= voiceRS.getString("voice_name") %>><%= voiceRS.getString("voice_kr_name") %></option>
-				<% while(voiceRS.next()) { %>
-				<option value= <%=voiceRS.getString("voice_name")%>> <%=voiceRS.getString("voice_kr_name")%> </option>
-				<% } %>
-			</select> <br>
-			</div>
-			<%} 
-			session.setAttribute("speaker_t", speaker_t);%>
-		</div>
 		</div>
 		
 
@@ -162,7 +163,6 @@
 				e.printStackTrace();
 				}
 				%>
-		</div>
 		</div>
 			<div class="btn">
 				<button type="SUBMIT" class="submit-btn"> 다음 단계로 >  </button>

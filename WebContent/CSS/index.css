@@ -1,223 +1,48 @@
 @charset "UTF-8";
 
-	
-
 html,body {
 	background-color: #FFFFFF;
+	font-family: Noto Sans KR;
 }
 
-.head {
-	position: relative;
-	padding-top: 1.5%;
-	padding-bottom: 1.5%;
-	background: #97C6EE;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-	text-align: center;
+.top {
+	margin-top: 10%;
+	margin-left: 7%;
+	width: 50%;
+	float: left;
 }
 
-.head span {
+.img {
+	margin-top: 0%;
+	margin-right: 40%;
+	float: right;
+}
+.sub {
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 30px;
 	line-height: 43px;
 	letter-spacing: -0.02em;
-	color: #FFFFFF;
-}
-
-.main {
-	background-color: #FFFFFF;
-}
-
-.progress {
-	width: 60%;
-	text-align: center;
-	height: 30%;
-	padding-top: 7%;
-	padding-bottom: 7%;
-	margin-left: auto;
-	margin-right: auto;
-	background-color: #FFFFFF;
-}
-
-.progress hr {
-	width: 60%;
-	margin-left: auto;
-	margin-right: auto;
-	border: 1px solid #AFAFAF;
-	z-index: 0;
-}
-
-.pro1 {
-	position: absolute;
-	color: #3A91DA;
-	left: 30%;
-	top: 20%;
-	display: inline-block;
-	
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 20px;
-	line-height: 29px;
-	/* identical to box height */
-	
-	text-align: center;
-	letter-spacing: -0.1em;
-}
-
-.pro2 {
-	position: absolute;
-	color: #AFAFAF;
-	left: 42%;
-	top: 20%;
-	display: inline-block;
-	
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 20px;
-	line-height: 29px;
-	/* identical to box height */
-	
-	text-align: center;
-	letter-spacing: -0.02em;
-}
-
-.pro3 {
-	position: absolute;
-	color: #AFAFAF;
-	left: 54.7%;
-	top: 20%;
-	display: inline-block;
-	
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 20px;
-	line-height: 29px;
-	/* identical to box height */
-	
-	text-align: center;
-	letter-spacing: -0.02em;
-}
-
-.pro4 {
-	position: absolute;
-	color: #AFAFAF;
-	left: 66.7%;
-	top: 20%;
-	display: inline-block;
-	
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 20px;
-	line-height: 29px;
-	/* identical to box height */
-	
-	text-align: center;
-	letter-spacing: -0.02em;
-}
-
-.dot1 {
-	position: absolute;
-	height: 2.8%;
-	width: 2%;
-	left: 31%;
-	border-radius: 50%;
-	background-color: #97C6EE;
-	display: inline-block;
-}
-
-.dot2 {
-	position: absolute;
-	height: 1.6%;
-	width: 1.1%;
-	left: 43.5%;
-	margin-top: 0.2%;
-	border-radius: 50%;
-	background-color: #AFAFAF;
-	display: inline-block;
-}
-
-.dot3 {
-	position: absolute;
-	height: 1.6%;
-	width: 1.1%;
-	left: 56%;
-	margin-top: 0.2%;
-	border-radius: 50%;
-	background-color: #AFAFAF;
-	display: inline-block;
-}
-
-.dot4 {
-	position: absolute;
-	height: 1.6%;
-	width: 1.1%;
-	left: 67%;
-	margin-top: 0.2%;
-	border-radius: 50%;
-	background-color: #AFAFAF;
-	display: inline-block;
-}
-
-.select {
-	width: 65%;
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.select span {
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 30px;
-	line-height: 43px;
-	letter-spacing: -0.05em;
 	
 	color: #000000;
+}
+.title {
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 100px;
+	line-height: 145px;
+	/* identical to box height */
+	
+	letter-spacing: -0.02em;
+	
+	color: #000000;
+}
+
+.faces {
 	
 }
 
-.select .input_btn1 {
-	
-	margin-top: 5%;
-	width: inherit;
-	padding: 2% 20% 2% 20%;
-	background-color: #97C6EE;
-	border: none;
-	
-	font-family: Noto Sans;
-	font-style: normal;
-	font-weight: 600;
-	font-size: 33px;
-	line-height: 48px;
-	/* identical to box height */
-	
-	text-align: center;
-	
-	color: #FFFFFF;
-}
-
-.select .input_btn2 {
-	
-	margin-top: 5%;
-	width: inherit;
-	padding: 2% 20% 2% 20%;
-	background-color: #BBBBBB;;
-	border: none;
-	
-	font-family: Noto Sans;
-	font-style: normal;
-	font-weight: 600;
-	font-size: 33px;
-	line-height: 48px;
-	/* identical to box height */
-	
-	text-align: center;
-	
-	color: #FFFFFF;
+.button {
 }

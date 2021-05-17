@@ -30,31 +30,179 @@ html,body {
 	background-color: #FFFFFF;
 }
 
-.progress {
+
+@media (min-width: 800px) and (max-width: 1499px) {/*태블릿 가로*/
+
+.prog {
 	width: 60%;
 	text-align: center;
-	height: 30%;
+	height: 70%;
+	padding-top: 30%;
+	padding-bottom: 7%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #FFFFFF;
+	background-image: none;
+}
+
+.prog hr {
+	position: absolute;
+	width: 571px;
+	height: 0px;
+	left: 262px;
+	top: 270px;
+	
+	border: 1px solid #AFAFAF;
+}
+
+.pro1 {
+	
+	position: absolute;
+	width: 125px;
+	height: 17px;
+	left: 203px;
+	top: 237px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 23px;
+	line-height: 29px;
+	text-align: center;
+	letter-spacing: -0.1em;
+	
+	color: #3A91DA;
+}
+
+.pro2 {
+	
+	position: absolute;
+	width: 109px;
+	height: 17px;
+	left: 389px;
+	top: 237px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	text-align: center;
+	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
+
+}
+
+.pro3 {
+	position: absolute;
+	width: 109px;
+	height: 17px;
+	left: 587px;
+	top: 237px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	text-align: center;
+	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
+
+}
+
+.pro4 {
+	position: absolute;
+	width: 109px;
+	height: 17px;
+	left: 778px;
+	top: 237px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	text-align: center;
+	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
+}
+
+.dot1 {
+	position: absolute;
+	width: 21px;
+	height: 21px;
+	left: 251px;
+	top: 283px;
+	border-radius: 50%;
+	background: #97C6EE;
+}
+
+.dot2 {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	left: 439px;
+	top: 289px;
+	border-radius: 50%;
+	background: #AFAFAF;
+}
+
+.dot3 {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	left: 637px;
+	top: 289px;
+	border-radius: 50%;
+	background: #AFAFAF;
+}
+
+.dot4 {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	left: 828px;
+	top: 289px;
+	border-radius: 50%;
+	background: #AFAFAF;
+}
+
+}
+
+
+@media (min-width: 1500px) {/*데스크탑 일반*/
+
+.prog {
+	width: 60%;
+	text-align: center;
+	height: 70%;
 	padding-top: 7%;
-	padding-bottom: 3%;
+	padding-bottom: 7%;
 	margin-left: auto;
 	margin-right: auto;
 	background-color: #FFFFFF;
 }
 
-.progress hr {
-	width: 60%;
-	margin-left: auto;
-	margin-right: auto;
+.prog hr {
+	position: absolute;
+	width: 1000px;
+	height: 0px;
+	left: 780px;
+	top: 305px;
+	
 	border: 1px solid #AFAFAF;
-	z-index: 0;
 }
 
 .pro1 {
 	position: absolute;
-	color: #AFAFAF;
-	left: 30%;
-	top: 20%;
-	display: inline-block;
+	width: 190px;
+	height: 29px;
+	left: 685px;
+	top: 250px;
 	
 	font-family: Noto Sans KR;
 	font-style: normal;
@@ -65,14 +213,16 @@ html,body {
 	
 	text-align: center;
 	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
 }
 
 .pro2 {
 	position: absolute;
-	color: #AFAFAF;
-	left: 43%;
-	top: 20%;
-	display: inline-block;
+	width: 190px;
+	height: 29px;
+	left: 1025px;
+	top: 250px;
 	
 	font-family: Noto Sans KR;
 	font-style: normal;
@@ -83,32 +233,36 @@ html,body {
 	
 	text-align: center;
 	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
 }
 
 .pro3 {
 	position: absolute;
-	color: #3A91DA;
-	left: 54.7%;
-	top: 20%;
-	display: inline-block;
+	width: 190px;
+	height: 29px;
+	left: 1358px;
+	top: 243px;
 	
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: 500;
-	font-size: 20px;
+	font-size: 25px;
 	line-height: 29px;
 	/* identical to box height */
 	
 	text-align: center;
 	letter-spacing: -0.1em;
+	
+	color: #3A91DA;
 }
 
 .pro4 {
 	position: absolute;
-	color: #AFAFAF;
-	left: 66.7%;
-	top: 20%;
-	display: inline-block;
+	width: 190px;
+	height: 29px;
+	left: 1685px;
+	top: 250px;
 	
 	font-family: Noto Sans KR;
 	font-style: normal;
@@ -119,52 +273,51 @@ html,body {
 	
 	text-align: center;
 	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
 }
 
 .dot1 {
 	position: absolute;
-	height: 1.6%;
-	width: 1.1%;
-	left: 31%;
-	margin-top: 0.2%;
+	width: 16px;
+	height: 16px;
+	left: 767px;
+	top: 316px;
 	border-radius: 50%;
-	background-color: #AFAFAF;
-	display: inline-block;
+	background: #AFAFAF;
 }
 
 .dot2 {
 	position: absolute;
-	height: 1.6%;
-	width: 1.1%;
-	left: 43.5%;
-	margin-top: 0.2%;
+	width: 16px;
+	height: 16px;
+	left: 1112px;
+	top: 316px;
 	border-radius: 50%;
-	background-color: #AFAFAF;
-	display: inline-block;
-
+	background: #AFAFAF;
 }
 
 .dot3 {
 	position: absolute;
-	height: 2.8%;
-	width: 2%;
-	left: 55%;
+	width: 36px;
+	height: 36px;
+	left: 1442px;
+	top: 305px;
 	border-radius: 50%;
-	background-color: #97C6EE;
-	display: inline-block;
+	background: #97C6EE;
 }
 
 .dot4 {
 	position: absolute;
-	height: 1.6%;
-	width: 1.1%;
-	left: 67%;
-	margin-top: 0.2%;
+	width: 16px;
+	height: 16px;
+	left: 1772px;
+	top: 316px;
 	border-radius: 50%;
-	background-color: #AFAFAF;
-	display: inline-block;
+	background: #AFAFAF;
 }
 
+}
 
 /* ------------------------------ */
 
@@ -185,6 +338,7 @@ form {
 	width: 70%;
 	margin-left: auto;
 	margin-right: auto;
+	background-color: #FFFFFF;
 }
 
 

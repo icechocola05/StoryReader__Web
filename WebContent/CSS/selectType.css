@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 	
 
 html,body {
@@ -27,6 +28,7 @@ html,body {
 .main {
 	background-color: #FFFFFF;
 }
+
 
 @media (min-width: 800px) and (max-width: 1499px) {/*태블릿 가로*/
 
@@ -62,12 +64,12 @@ html,body {
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: 500;
-	font-size: 20px;
+	font-size: 23px;
 	line-height: 29px;
 	text-align: center;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.1em;
 	
-	color: #AFAFAF;
+	color: #3A91DA;
 }
 
 .pro2 {
@@ -81,12 +83,12 @@ html,body {
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: 500;
-	font-size: 23px;
+	font-size: 20px;
 	line-height: 29px;
 	text-align: center;
-	letter-spacing: -0.1em;
+	letter-spacing: -0.02em;
 	
-	color: #3A91DA;
+	color: #AFAFAF;
 
 }
 
@@ -129,22 +131,22 @@ html,body {
 
 .dot1 {
 	position: absolute;
-	width: 10px;
-	height: 10px;
+	width: 21px;
+	height: 21px;
 	left: 251px;
-	top: 289px;
+	top: 283px;
 	border-radius: 50%;
-	background: #AFAFAF;
+	background: #97C6EE;
 }
 
 .dot2 {
 	position: absolute;
-	width: 21px;
-	height: 21px;
+	width: 10px;
+	height: 10px;
 	left: 439px;
-	top: 283px;
+	top: 289px;
 	border-radius: 50%;
-	background: #97C6EE;
+	background: #AFAFAF;
 }
 
 .dot3 {
@@ -198,26 +200,6 @@ html,body {
 	width: 190px;
 	height: 29px;
 	left: 685px;
-	top: 250px;
-	
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 20px;
-	line-height: 29px;
-	/* identical to box height */
-	
-	text-align: center;
-	letter-spacing: -0.02em;
-	
-	color: #AFAFAF;
-}
-
-.pro2 {
-	position: absolute;
-	width: 190px;
-	height: 29px;
-	left: 1025px;
 	top: 243px;
 	
 	font-family: Noto Sans KR;
@@ -231,6 +213,26 @@ html,body {
 	letter-spacing: -0.1em;
 	
 	color: #3A91DA;
+}
+
+.pro2 {
+	position: absolute;
+	width: 190px;
+	height: 29px;
+	left: 1025px;
+	top: 250px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	/* identical to box height */
+	
+	text-align: center;
+	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
 }
 
 .pro3 {
@@ -275,22 +277,22 @@ html,body {
 
 .dot1 {
 	position: absolute;
-	width: 16px;
-	height: 16px;
-	left: 764px;
-	top: 313px;
+	width: 36px;
+	height: 36px;
+	left: 762px;
+	top: 305px;
 	border-radius: 50%;
-	background: #AFAFAF;
+	background: #97C6EE;
 }
 
 .dot2 {
 	position: absolute;
-	width: 36px;
-	height: 36px;
+	width: 16px;
+	height: 16px;
 	left: 1112px;
-	top: 305px;
+	top: 313px;
 	border-radius: 50%;
-	background: #97C6EE;
+	background: #AFAFAF;
 }
 
 .dot3 {
@@ -314,17 +316,14 @@ html,body {
 }
 
 }
-
-/* ------------------------------ */
-
-.input {
+.select {
 	width: 65%;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.input #title {
+.select span {
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: bold;
@@ -336,38 +335,32 @@ html,body {
 	
 }
 
-.content {
-	padding-top: 2.5%;
-	
-}
-
-.content-file {
-	width: 60%;
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.content #sub {
-	padding-top: 0%;
-	font-family: Noto Sans;
-	font-style: normal;
-	font-weight: 600;
-	font-size: 20px;
-	line-height: 5px;
-	text-align: center;
-	
-	color: #C4C4C4;
-}
-
-
-
-#submit-btn {
+.select .input_btn1 {
 	
 	margin-top: 5%;
 	width: inherit;
 	padding: 2% 20% 2% 20%;
 	background-color: #97C6EE;
+	border: none;
+	
+	font-family: Noto Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 33px;
+	line-height: 48px;
+	/* identical to box height */
+	
+	text-align: center;
+	
+	color: #FFFFFF;
+}
+
+.select .input_btn2 {
+	
+	margin-top: 5%;
+	width: inherit;
+	padding: 2% 20% 2% 20%;
+	background-color: #BBBBBB;;
 	border: none;
 	
 	font-family: Noto Sans;

@@ -23,6 +23,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="CSS/setting.css">	
 </head>
@@ -44,7 +47,7 @@
 			<span class="dot3"></span>
 			<span class="dot4"></span>
 		</div>
-	</div>
+	
 	
 	
 	<% 		
@@ -66,10 +69,11 @@
 			ResultSet emotionRS = emotionSt.getResultSet();
 	%>
 	
-	<form method="Post" action="setVoiceEmotion">
+	<form method="Post" action="setVoiceEmotion" >
 	
-	<div class="content">
-		<div class="speakers">
+	<div class="set">
+		<div class="speakers" >
+			<div class="row">
 			<% 
 				//특정 화자만 추리기
 				ArrayList<String> speaker_t=new ArrayList<String>();//중복을 제외한 화자 리스트
@@ -92,62 +96,81 @@
 					j_loc=speaker_t.size()-1;
 					
 			%>
-			<span id='speaker_t<%=j_loc%>'> <%= speaker_t.get(j_loc) %> </span> 
-					<!-- voice option 붙이기-->
-					<select id='voice<%=j_loc%>' name='voice<%=j_loc%>'>
-						<%voiceRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
-						<option value=<%= voiceRS.getString("voice_name") %>><%= voiceRS.getString("voice_kr_name") %></option>
-						<% while(voiceRS.next()) { %>
-						<option value= <%=voiceRS.getString("voice_name")%>> <%=voiceRS.getString("voice_kr_name")%> </option>
-						<% } %>
-					</select>
+			<div class="col-sm-3">
+			<span id='speaker_t<%=j_loc%>' class="fs-1"> <%= speaker_t.get(j_loc) %> </span>
+				<!-- voice option 붙이기-->
+			</div>
+			
+			<div class="col-sm-7">
+			<select id='voice<%=j_loc%>' class='form-select fs-2' name='voice<%=j_loc%>' >
+				<%voiceRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
+				<option value=<%= voiceRS.getString("voice_name") %>><%= voiceRS.getString("voice_kr_name") %></option>
+				<% while(voiceRS.next()) { %>
+				<option value= <%=voiceRS.getString("voice_name")%>> <%=voiceRS.getString("voice_kr_name")%> </option>
+				<% } %>
+			</select> <br>
+			</div>
 			<%} 
 			session.setAttribute("speaker_t", speaker_t);%>
 		</div>
+		</div>
+		
+
 		
 		<br>
-	
-		
 			<%	//문장 수 만큼 div 생성
 				for(int i=0; i<len; i++) { 
 			%>
 			
-			<div class="sent-table">
-				<!-- speaker 붙이기-->
-				<span class="speak" id='speaker<%=i%>'> <%= speaker.get(i) %> </span>
-			
-				<!-- emotion option 붙이기-->
-				<label id="emotionFace<%=i%>">
-					<span class='iconify' data-inline='false' data-icon='noto:angry-face' ></span>
-				</label>
+			<div class="container-fluid align-items-center" style="border:2px solid #C4C4C4; border-radius:20px; margin-bottom: 2%; padding :1% 2% 1% 2%;">
+				<div class="row justify-content-between align-items-center">
 				
-				<select class='emoSelect' id='emotion<%=i%>' name='emotion<%=i%>' onchange="changeEmotion(<%=i%>)">
-	               <%emotionRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
-	               <option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
-	               <% while(emotionRS.next()){ %>
-	               <option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
-	               <% } %>
-	            </select>
-				
-				<!-- emotion intensity 붙이기-->
-				<input type="range" class="emoRange" name="range<%=i%>" min="0" max ="1" step="0.1" value="0.5">
-				
-				<!-- sentence 붙이기-->
-				<input type="text" id="sent<%=i%>" class="sentTxt" name="sent<%=i%>"value="<%= sent.get(i) %>" size="<%=sent.get(i).length()*1.2 %>">
+					<!-- speaker 붙이기-->
+					<div class="col-1 text-center fs-1 fw-bold" style="margin: 1%; color: #3A91DA;">
+					<span id='speaker<%=i%>'> <%= speaker.get(i) %> </span>
+					</div>
+					
+					<!-- emotion option 붙이기-->
+					<div class="col-md-auto text-center" style="margin: 1%;">
+						<label id="emotionFace<%=i%>">
+							<span class='iconify' data-inline='false' data-icon='noto:angry-face' ></span>
+						</label>
+						<select class='form-select fs-2' id='emotion<%=i%>' name='emotion<%=i%>' onchange="changeEmotion(<%=i%>)">
+			               <%emotionRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
+			               <option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
+			               <% while(emotionRS.next()){ %>
+			               <option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
+			               <% } %>
+			            </select>
+		            </div>
+					
+					<!-- emotion intensity 붙이기-->
+					<div class="col-2 text-center" style="margin: 1%;">
+					<input type="range"name="range<%=i%>" min="0" max ="1" step="0.1" value="0.5">
+					</div>
+					
+					<!-- sentence 붙이기-->
+					<div class="col-6 text-center " style="margin: 1%;">
+					<textarea id="sent<%=i%>" class="col-7 form-control fs-1" name="sent<%=i%>"><%= sent.get(i) %></textarea>
+					</div>
+				</div>
 			</div>
+		
 				<% 
 					} //for문 
 				}catch(SQLException e) {
 				e.printStackTrace();
 				}
 				%>
-				
+		</div>
+		</div>
 			<div class="btn">
 				<button type="SUBMIT" class="submit-btn"> 다음 단계로 >  </button>
 			</div>
 		</form>
 		<br>
-	</div>
+		
+
 
 <script>
 

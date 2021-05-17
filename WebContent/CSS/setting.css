@@ -4,6 +4,7 @@
 
 html,body {
 	background-color: #FFFFFF;
+	font-family: Noto Sans KR;
 }
 
 .head {
@@ -171,99 +172,51 @@ html,body {
 	background: #97C6EE;
 	border-radius: 20px;
 	
-	width: 30%;
+	width: 40%;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
 	
-	padding: 2% 5% 2% 5%;
+	padding: 2% 2% 2% 2%;
+	
 }
 
 form {
-	width: 65%;
+	width: 70%;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.sent-table {
-	border: 2px solid #C4C4C4;
-	box-sizing: border-box;
-	border-radius: 20px;
-	padding: 3% 0% 3% 3%;
-	margin: 1%;
-}
-
-.speak {
-	margin-right: 8%;
-	font-family: Noto Sans;
-	font-style: normal;
-	font-weight: 600;
-	font-size: 25px;
-	line-height: 34px;
-	/* identical to box height */
-	
-	text-align: center;
-	
-	color: #3A91DA;
-}
 
 svg[data-icon='noto:angry-face'] {
 	position: relative;
-	font-size: 80px;
+	font-size: 90px;
 	z-index: 1;
 	pointer-events: none;
 }
 
 svg[data-icon='noto:crying-face'] {
 	position: relative;
-	font-size: 80px;
+	font-size: 90px;
 	z-index: 1;
 	pointer-events: none;
 }
 
 svg[data-icon='noto:neutral-face'] {
 	position: relative;
-	font-size: 80px;
+	font-size: 90px;
 	z-index: 1;
 	pointer-events: none;
 }
 
 svg[data-icon='noto:grinning-face-with-smiling-eyes'] {
 	position: relative;
-	font-size: 80px;
+	font-size: 90px;
 	z-index: 1;
 	pointer-events: none;
 }
 
-.emoSelect {
-	position: relative;
-	right: 5%;
-	z-index: 0;
-	
-}
 
-.emoRange {
-	margin-left: 8%;
-	
-}
-
-.sentTxt {
-	border: 0;
-	border-bottom: 1px solid #000000;
-	margin-left: 8%;
-	
-	
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 26px;
-	line-height: 45px;
-	/* or 173% */
-	
-	letter-spacing: -0.03em;
-	
-	color: #000000;
-}
 
 .btn {
 	width: 100%;

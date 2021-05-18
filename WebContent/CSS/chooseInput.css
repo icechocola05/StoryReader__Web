@@ -1,0 +1,375 @@
+@charset "UTF-8";
+
+	
+
+html,body {
+	background-color: #FFFFFF;
+}
+
+.head {
+	position: relative;
+	padding-top: 1.5%;
+	padding-bottom: 1.5%;
+	background: #97C6EE;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+	text-align: center;
+}
+
+.head span {
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 30px;
+	line-height: 43px;
+	letter-spacing: -0.02em;
+	color: #FFFFFF;
+}
+
+.main {
+	background-color: #FFFFFF;
+}
+
+@media (min-width: 800px) and (max-width: 1499px) {/*태블릿 가로*/
+
+.progress {
+	width: 60%;
+	text-align: center;
+	height: 70%;
+	padding-top: 30%;
+	padding-bottom: 7%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #FFFFFF;
+}
+
+.progress hr {
+	position: absolute;
+	width: 571px;
+	height: 0px;
+	left: 262px;
+	top: 278px;
+	
+	border: 1px solid #AFAFAF;
+}
+
+.pro1 {
+	
+	position: absolute;
+	width: 125px;
+	height: 17px;
+	left: 203px;
+	top: 237px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	text-align: center;
+	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
+}
+
+.pro2 {
+	
+	position: absolute;
+	width: 109px;
+	height: 17px;
+	left: 389px;
+	top: 237px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 23px;
+	line-height: 29px;
+	text-align: center;
+	letter-spacing: -0.1em;
+	
+	color: #3A91DA;
+
+}
+
+.pro3 {
+	position: absolute;
+	width: 109px;
+	height: 17px;
+	left: 587px;
+	top: 237px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	text-align: center;
+	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
+
+}
+
+.pro4 {
+	position: absolute;
+	width: 109px;
+	height: 17px;
+	left: 778px;
+	top: 237px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	text-align: center;
+	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
+}
+
+.dot1 {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	left: 251px;
+	top: 289px;
+	border-radius: 50%;
+	background: #AFAFAF;
+}
+
+.dot2 {
+	position: absolute;
+	width: 21px;
+	height: 21px;
+	left: 439px;
+	top: 283px;
+	border-radius: 50%;
+	background: #97C6EE;
+}
+
+.dot3 {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	left: 637px;
+	top: 289px;
+	border-radius: 50%;
+	background: #AFAFAF;
+}
+
+.dot4 {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	left: 828px;
+	top: 289px;
+	border-radius: 50%;
+	background: #AFAFAF;
+}
+
+}
+
+
+@media (min-width: 1500px) {/*데스크탑 일반*/
+
+.progress {
+	width: 60%;
+	text-align: center;
+	height: 70%;
+	padding-top: 7%;
+	padding-bottom: 7%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #FFFFFF;
+}
+
+.progress hr {
+	position: absolute;
+	width: 1000px;
+	height: 0px;
+	left: 780px;
+	top: 305px;
+	
+	border: 1px solid #AFAFAF;
+}
+
+.pro1 {
+	position: absolute;
+	width: 190px;
+	height: 29px;
+	left: 685px;
+	top: 250px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	/* identical to box height */
+	
+	text-align: center;
+	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
+}
+
+.pro2 {
+	position: absolute;
+	width: 190px;
+	height: 29px;
+	left: 1025px;
+	top: 243px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 25px;
+	line-height: 29px;
+	/* identical to box height */
+	
+	text-align: center;
+	letter-spacing: -0.1em;
+	
+	color: #3A91DA;
+}
+
+.pro3 {
+	position: absolute;
+	width: 190px;
+	height: 29px;
+	left: 1355px;
+	top: 250px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	/* identical to box height */
+	
+	text-align: center;
+	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
+}
+
+.pro4 {
+	position: absolute;
+	width: 190px;
+	height: 29px;
+	left: 1685px;
+	top: 250px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	/* identical to box height */
+	
+	text-align: center;
+	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
+}
+
+.dot1 {
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	left: 764px;
+	top: 313px;
+	border-radius: 50%;
+	background: #AFAFAF;
+}
+
+.dot2 {
+	position: absolute;
+	width: 36px;
+	height: 36px;
+	left: 1112px;
+	top: 305px;
+	border-radius: 50%;
+	background: #97C6EE;
+}
+
+.dot3 {
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	left: 1442px;
+	top: 313px;
+	border-radius: 50%;
+	background: #AFAFAF;
+}
+
+.dot4 {
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	left: 1772px;
+	top: 313px;
+	border-radius: 50%;
+	background: #AFAFAF;
+}
+
+}
+.select {
+	width: 65%;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.select span {
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 30px;
+	line-height: 43px;
+	letter-spacing: -0.05em;
+	
+	color: #000000;
+	
+}
+
+.select .input_btn1 {
+	
+	margin-top: 5%;
+	width: inherit;
+	padding: 2% 20% 2% 20%;
+	background-color: #97C6EE;
+	border: none;
+	
+	font-family: Noto Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 33px;
+	line-height: 48px;
+	/* identical to box height */
+	
+	text-align: center;
+	
+	color: #FFFFFF;
+}
+
+.select .input_btn2 {
+	
+	margin-top: 5%;
+	width: inherit;
+	padding: 2% 20% 2% 20%;
+	background-color: #BBBBBB;;
+	border: none;
+	
+	font-family: Noto Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 33px;
+	line-height: 48px;
+	/* identical to box height */
+	
+	text-align: center;
+	
+	color: #FFFFFF;
+}

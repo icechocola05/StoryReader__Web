@@ -1,0 +1,41 @@
+@charset "EUC-KR";
+
+input #next_btn{
+	 background-image: url('./Img/next.png');
+    background-position:  0px 0px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    border: 0px;
+ 	cursor:pointer;
+ 	outline: 0;
+}
+.content_now{
+	position: absolute;
+	width: 912px;
+	height: 235px;
+	left: 260px;
+	top: 491px;
+	
+	text-align:center;
+
+	background: #97C6EE;
+	border-radius: 250px;
+}
+.content_now #speaker{
+	left: 35.76%;
+	right: 18.06%;
+	top: 44.47%;
+	bottom: 48.42%;
+
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 30px;
+	line-height: 45px;
+	/* or 150% */
+
+	letter-spacing: -0.03em;
+
+	color: #FFFFFF;
+}

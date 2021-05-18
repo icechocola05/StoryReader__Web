@@ -9,7 +9,7 @@
 	rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="CSS/index.css">
+<link rel="stylesheet" href="CSS/result.css">
 
 </head>
 <body>
@@ -37,23 +37,27 @@
 	
 </script>
 	<div class="head">
-		Story Reader
+		<span>Story Reader</span>
 	</div>
 	<div class="main">
-		
-		<form method="Post" action="setImg.do" enctype="multipart/form-data">
-			<div class="content">
-				<input type="text" id="<%=session.getAttribute("sent_id")%>"value="<%=session.getAttribute("speaker")%>" style = "text-align:center;">
-				<br>
-				<input type="submit" name="move_btn" value="pre" id="pre_btn">
-				<%String s=(String)session.getAttribute("sentence"); int len=s.length(); %>
-				 <input type="text" id="<%=session.getAttribute("sent_id")%>"value="<%=session.getAttribute("sentence")%>" size="<%=len*1.7%>" style = "text-align:center;">
-				<input type="submit" id="next_btn" name="move_btn" value="next">
-				<br><br>
+		<form method="Post" action="setImg.do">
+			<div class="title"><%=session.getAttribute("story_name") %></div>
+			<div class="content-now">	
+				<div class="speaker" id="<%=session.getAttribute("sent_id")%>"><%=session.getAttribute("speaker")%></div>
+				<div class="sentence" id="<%=session.getAttribute("sent_id")%>"><%=session.getAttribute("sentence")%></div> 
+			</div>
+			<div class="audio">
+				<input type="hidden" name="move_btn" value="previous">
+  				<input type="image" src="./Img/previous.png">
 				<audio id='player' autoplay controls onended="next(<%=session.getAttribute("sentNum")%>, <%=session.getAttribute("lastNum")%>)">
 			    <source src="output/<%=session.getAttribute("sentNum")%>.wav" type="audio/wav">
 				</audio>
+				<!--<input type="submit" id="next_btn" name="move_btn" value="next">-->
+				<input type="hidden" name="move_btn" value="next">
+  				<input type="image" src="./Img/next.png">
+				
 			</div>
+			
 		</form>
 	</div>
 </body>

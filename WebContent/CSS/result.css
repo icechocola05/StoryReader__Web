@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+html,body {
+	background-color: #FFFFFF;
+}
+
+.head {
+	position: relative;
+	padding-top: 1.5%;
+	padding-bottom: 1.5%;
+	background: #97C6EE;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+	text-align: center;
+}
+
+.head span {
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 30px;
+	line-height: 43px;
+	letter-spacing: -0.02em;
+	color: #FFFFFF;
+}
+
+.main {
+	background-color: #FFFFFF;
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+}
+.title{
+	height: 20%;
+	display: inline-block;
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 40px;
+	line-height: 58px;
+	/* identical to box height */
+
+	text-align: center;
+	letter-spacing: -0.05em;
+	transform: translateY(50%);
+
+	color: #3A91DA;
+}
+.content-now{
+	position: absolute;
+	width: 60%;
+	height: 20%;
+	left: 20%;
+	top: 40%;
+	padding:5%;
+	text-align : center;
+	background: #97C6EE;
+	border-radius: 250px;
+	
+}
+.content-now .speaker{
+	width:25%;
+	height: 100%;
+	text-align : center;
+	display:flex;
+	align-items:center;
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 1000;
+	font-size:80px;
+	letter-spacing: -0.03em;
+	
+	color:#ffffff;
+	float:left;
+}
+.content-now .sentence{
+	width:75%;
+	height: 100%;
+	display:flex;
+	align-items : center;
+	text-align : center;
+	vertical-align: middle;
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 30px;
+	letter-spacing: -0.03em;
+	
+	color:#ffffff;
+	float:right;
+}
+.audio{
+	position: absolute;
+	width:100%;
+	top: 70%;
+	text-align:center;
+}

@@ -79,9 +79,8 @@ public class setImg extends HttpServlet {
 		    	int maxSize = 1024 * 1024 * 100;
 		    	String encType = "UTF-8";
 		    	
-				MultipartRequest multipartRequest = new MultipartRequest(request, ATTACHES_DIR, maxSize, encType,
-		    	    	new DefaultFileRenamePolicy());
-				String button=multipartRequest.getParameter("move_btn");
+				
+				String button=request.getParameter("move_btn");
 				System.out.println("//"+button+" Clicked//");
 				if(button.equals("next")) {
 					System.out.println("nextBegan");	

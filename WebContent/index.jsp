@@ -13,15 +13,18 @@
 </head>
 <body>
 
+	<form method="post" action="chooseInput.jsp">
 	<div class="top">
 		<div class="sub">당신의 이야기를 읽어드릴게요</div>
 		<div class="title">Story Reader</div>
 		
 		<button>Story Reader Start  > </button>
 	</div>
+	</form>
 	
 	<div class="img">
 	<img alt="faces" src="Img/faces.png" class="faces">
 	</div>
+	
 </body>
 </html>

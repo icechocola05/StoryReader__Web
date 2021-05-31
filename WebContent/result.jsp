@@ -42,10 +42,22 @@
 	<div class="main">
 		<form method="Post" action="setImg.do">
 			<div class="title"><%=session.getAttribute("story_name") %></div>
-			<div class="content-now">	
-				<div class="speaker" id="<%=session.getAttribute("sent_id")%>"><%=session.getAttribute("speaker")%></div>
-				<div class="sentence" id="<%=session.getAttribute("sent_id")%>"><%=session.getAttribute("sentence")%></div> 
+			<%if((int)session.getAttribute("pre-sent_id")>-1){ //이전 문장이 있는지 id 유무로 확인%>
+			<div class="content-pre">	
+				<div id="pre-speaker"><%=session.getAttribute("pre-speaker")%></div>
+				<div id="pre-sentence"><%=session.getAttribute("pre-sentence")%></div> 
 			</div>
+			<%} %>
+			<div class="content-cur">	
+				<div id="cur-speaker" ><%=session.getAttribute("speaker")%></div>
+				<div id="cur-sentence"><%=session.getAttribute("sentence")%></div> 
+			</div>
+			<%if((int)session.getAttribute("sentNum")!=(int)session.getAttribute("lastNum")){ //마지막 문장인지 확인%>
+			<div class="content-next">	
+				<div id="next-speaker"><%=session.getAttribute("next-speaker")%></div>
+				<div id="next-sentence"><%=session.getAttribute("next-sentence")%></div> 
+			</div>
+			<%} %>
 			<div class="audio">
   				<button type="submit" name="move_btn" value="pre" id="pre_btn">
 					<img src="./Img/previous_w.png" alt="image">

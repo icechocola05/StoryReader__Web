@@ -22,15 +22,18 @@
 	</div>
 	<div class="main">
 		<div class="prog">
-			<hr />
-			<span class="pro1">등록 방식 설정</span>
-			<span class="pro2">텍스트 등록</span>
-			<span class="pro3">화자 설정</span>
-			<span class="pro4">완성</span>
+			<span class="pro1">등록 방식 설정
 			<span class="dot1"></span>
+			</span>
+			<span class="pro2">텍스트 등록
 			<span class="dot2"></span>
+			</span>
+			<span class="pro3">화자 설정
 			<span class="dot3"></span>
+			</span>
+			<span class="pro4">완성
 			<span class="dot4"></span>
+			</span>
 		</div>
 		
 		<div class="select">

@@ -1,56 +1,62 @@
 @charset "UTF-8";
 
 html,body {
-	background-color: #FFFFFF;
-	font-family: Noto Sans KR;
+   background-color: #FFFFFF;
+   font-family: Noto Sans KR;
 }
-
-html,body {
-	background-color: #FFFFFF;
-	font-family: Noto Sans KR;
-}
-
-
-
 
 .top {
-	margin-top: 10%;
-	margin-left: 7%;
-	width: 50%;
-	float: left;
+   margin-top: 10%;
+   margin-left: 7%;
+   width: 50%;
+   float: left;
 }
 
 .img {
-	margin-top: 0%;
-	margin-right: 40%;
-	float: right;
+   margin-top: 8%;
+    margin-left: 3%;
+   float: left;
 }
 .sub {
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 30px;
-	line-height: 43px;
-	letter-spacing: -0.02em;
-	
-	color: #000000;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 30px;
+   line-height: 43px;
+   letter-spacing: -0.02em;
+   
+   color: #000000;
 }
 .title {
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 100px;
-	line-height: 145px;
-	/* identical to box height */
-	
-	letter-spacing: -0.02em;
-	
-	color: #000000;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 100px;
+   line-height: 145px;
+   /* identical to box height */
+   
+   letter-spacing: -0.02em;
+   
+   color: #000000;
 }
 
 .faces {
-	
+   
 }
 
-.button {
+button {
+   margin-top: 5%;
+   width: auto;
+   padding: 2% 20% 2% 20%;
+   background-color: #97C6EE;
+   border: none;
+   
+   font-family: Noto Sans;
+   font-style: normal;
+   font-weight: 600;
+   font-size: 50px;
+   line-height: 68px;
+   letter-spacing: -0.05em;
+   
+   color: #FFFFFF;
 }

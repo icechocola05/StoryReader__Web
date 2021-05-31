@@ -18,10 +18,10 @@
 		var sid = <%=(Integer)session.getAttribute("sentNum")%>;
 		var endid = <%=(Integer)session.getAttribute("lastNum")%>;
 		if(sid == 0) {
-			document.getElementById("pre_btn").style.display="none";
+			document.getElementById("pre_btn").style.display="hidden";
 		}
 		else if(sid == endid) {
-			document.getElementById("next_btn").style.display="none";
+			document.getElementById("next_btn").style.display="hidden";
 		}
 	}
 	var audio = document.getElementById("player");
@@ -47,14 +47,16 @@
 				<div class="sentence" id="<%=session.getAttribute("sent_id")%>"><%=session.getAttribute("sentence")%></div> 
 			</div>
 			<div class="audio">
-				<input type="hidden" name="move_btn" value="previous">
-  				<input type="image" src="./Img/previous.png">
+  				<button type="submit" name="move_btn" value="pre" id="pre_btn">
+					<img src="./Img/previous_w.png" alt="image">
+				</button>
 				<audio id='player' autoplay controls onended="next(<%=session.getAttribute("sentNum")%>, <%=session.getAttribute("lastNum")%>)">
 			    <source src="output/<%=session.getAttribute("sentNum")%>.wav" type="audio/wav">
 				</audio>
 				<!--<input type="submit" id="next_btn" name="move_btn" value="next">-->
-				<input type="hidden" name="move_btn" value="next">
-  				<input type="image" src="./Img/next.png">
+				<button type="submit" name="move_btn" value="next" id="next_btn">
+					<img src="./Img/next_w.png" alt="image">
+				</button>
 				
 			</div>
 			

@@ -47,11 +47,17 @@ public class SetVoiceEmotion extends HttpServlet {
 		
 		//문장마다 받아온 화자, 감정 정보 설정해서 DB 등록
 		ArrayList<String> speak = (ArrayList<String>) session.getAttribute("speaker");
+		ArrayList<String> speak_t=(ArrayList<String>)session.getAttribute("speaker_t");
 		ArrayList<String> sent = new ArrayList<String>();
+		ArrayList<String> voice_t = new ArrayList<String>();
 		String temp;
 		for(int i=0;i<speak.size();i++) {
 			temp=(String)request.getParameter("sent"+i);
 			sent.add(temp);
+		}
+		
+		for(int i=0;i<speak_t.size();i++) {
+			voice_t.add(request.getParameter("voice" + i));
 		}
 		int len = sent.size();
 		try {
@@ -63,23 +69,38 @@ public class SetVoiceEmotion extends HttpServlet {
 			PreparedStatement voiceps = con.prepareStatement(voiceq);
 			PreparedStatement emotionps = con.prepareStatement(emotionq);
 			
+			String n;
+			int j_loc=0;
+			
 			for (int i = 0; i < len; i++) {
-				String n = Integer.toString(i);
+				n = Integer.toString(i);
+				
 				speaker = speak.get(i);
 				sentence = sent.get(i);
-				voiceVal = request.getParameter("voice" + n);
+				for(int j=0;j<speak_t.size();j++) {
+					if(speaker.equals(speak_t.get(j))) {
+						j_loc=j;
+					}
+				}
+				voiceVal = voice_t.get(j_loc);
 				emotionVal = request.getParameter("emotion" + n);
 				intensity = Float.parseFloat(request.getParameter("range" + n));
 				
 				voiceps.setString(1, voiceVal);
 				emotionps.setString(1, emotionVal);
 				
+				
 				ResultSet rsVoice = voiceps.executeQuery();
 				rsVoice.next();
+				
 				ResultSet rsEmotion = emotionps.executeQuery();
 				rsEmotion.next();
 				
 				int story_id = (int) session.getAttribute("story_id");
+				
+				
+				System.out.println(sentence + speaker + rsVoice.getInt(1) + rsEmotion.getInt(1) + intensity + story_id);
+				
 				
 				db.insertSent(con, sentence, speaker, rsVoice.getInt(1), rsEmotion.getInt(1), intensity, story_id);
 			}

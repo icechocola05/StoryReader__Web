@@ -4,7 +4,6 @@
 
 html,body {
 	background-color: #FFFFFF;
-	font-family: Noto Sans KR;
 }
 
 .head {
@@ -30,10 +29,9 @@ html,body {
 	background-color: #FFFFFF;
 }
 
-
 @media (min-width: 800px) and (max-width: 1499px) {/*태블릿 가로*/
 
-.prog {
+.progress {
 	width: 60%;
 	text-align: center;
 	height: 70%;
@@ -42,15 +40,14 @@ html,body {
 	margin-left: auto;
 	margin-right: auto;
 	background-color: #FFFFFF;
-	background-image: none;
 }
 
-.prog hr {
+.progress hr {
 	position: absolute;
 	width: 571px;
 	height: 0px;
 	left: 262px;
-	top: 270px;
+	top: 278px;
 	
 	border: 1px solid #AFAFAF;
 }
@@ -66,12 +63,12 @@ html,body {
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: 500;
-	font-size: 23px;
+	font-size: 20px;
 	line-height: 29px;
 	text-align: center;
-	letter-spacing: -0.1em;
+	letter-spacing: -0.02em;
 	
-	color: #3A91DA;
+	color: #AFAFAF;
 }
 
 .pro2 {
@@ -85,12 +82,12 @@ html,body {
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: 500;
-	font-size: 20px;
+	font-size: 23px;
 	line-height: 29px;
 	text-align: center;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.1em;
 	
-	color: #AFAFAF;
+	color: #3A91DA;
 
 }
 
@@ -133,22 +130,22 @@ html,body {
 
 .dot1 {
 	position: absolute;
-	width: 21px;
-	height: 21px;
+	width: 10px;
+	height: 10px;
 	left: 251px;
-	top: 283px;
+	top: 289px;
 	border-radius: 50%;
-	background: #97C6EE;
+	background: #AFAFAF;
 }
 
 .dot2 {
 	position: absolute;
-	width: 10px;
-	height: 10px;
+	width: 21px;
+	height: 21px;
 	left: 439px;
-	top: 289px;
+	top: 283px;
 	border-radius: 50%;
-	background: #AFAFAF;
+	background: #97C6EE;
 }
 
 .dot3 {
@@ -176,7 +173,7 @@ html,body {
 
 @media (min-width: 1500px) {/*데스크탑 일반*/
 
-.prog {
+.progress {
 	width: 60%;
 	text-align: center;
 	height: 70%;
@@ -187,7 +184,7 @@ html,body {
 	background-color: #FFFFFF;
 }
 
-.prog hr {
+.progress hr {
 	position: absolute;
 	width: 1000px;
 	height: 0px;
@@ -222,26 +219,6 @@ html,body {
 	width: 190px;
 	height: 29px;
 	left: 1025px;
-	top: 250px;
-	
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 20px;
-	line-height: 29px;
-	/* identical to box height */
-	
-	text-align: center;
-	letter-spacing: -0.02em;
-	
-	color: #AFAFAF;
-}
-
-.pro3 {
-	position: absolute;
-	width: 190px;
-	height: 29px;
-	left: 1358px;
 	top: 243px;
 	
 	font-family: Noto Sans KR;
@@ -255,6 +232,26 @@ html,body {
 	letter-spacing: -0.1em;
 	
 	color: #3A91DA;
+}
+
+.pro3 {
+	position: absolute;
+	width: 190px;
+	height: 29px;
+	left: 1355px;
+	top: 250px;
+	
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 29px;
+	/* identical to box height */
+	
+	text-align: center;
+	letter-spacing: -0.02em;
+	
+	color: #AFAFAF;
 }
 
 .pro4 {
@@ -281,30 +278,30 @@ html,body {
 	position: absolute;
 	width: 16px;
 	height: 16px;
-	left: 767px;
-	top: 316px;
+	left: 764px;
+	top: 313px;
 	border-radius: 50%;
 	background: #AFAFAF;
 }
 
 .dot2 {
 	position: absolute;
-	width: 16px;
-	height: 16px;
+	width: 36px;
+	height: 36px;
 	left: 1112px;
-	top: 316px;
+	top: 305px;
 	border-radius: 50%;
-	background: #AFAFAF;
+	background: #97C6EE;
 }
 
 .dot3 {
 	position: absolute;
-	width: 36px;
-	height: 36px;
+	width: 16px;
+	height: 16px;
 	left: 1442px;
-	top: 305px;
+	top: 313px;
 	border-radius: 50%;
-	background: #97C6EE;
+	background: #AFAFAF;
 }
 
 .dot4 {
@@ -312,77 +309,57 @@ html,body {
 	width: 16px;
 	height: 16px;
 	left: 1772px;
-	top: 316px;
+	top: 313px;
 	border-radius: 50%;
 	background: #AFAFAF;
 }
 
 }
-
-/* ------------------------------ */
-
-.speakers {
-	background: #97C6EE;
-	border-radius: 20px;
-	
-	width: 40%;
+.select {
+	width: 65%;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.select span {
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 30px;
+	line-height: 43px;
+	letter-spacing: -0.05em;
 	
-	padding: 2% 2% 2% 2%;
+	color: #000000;
 	
 }
 
-form {
-	width: 70%;
-	margin-left: auto;
-	margin-right: auto;
-	background-color: #FFFFFF;
-}
-
-
-svg[data-icon='noto:angry-face'] {
-	position: relative;
-	font-size: 90px;
-	z-index: 1;
-	pointer-events: none;
-}
-
-svg[data-icon='noto:crying-face'] {
-	position: relative;
-	font-size: 90px;
-	z-index: 1;
-	pointer-events: none;
-}
-
-svg[data-icon='noto:neutral-face'] {
-	position: relative;
-	font-size: 90px;
-	z-index: 1;
-	pointer-events: none;
-}
-
-svg[data-icon='noto:grinning-face-with-smiling-eyes'] {
-	position: relative;
-	font-size: 90px;
-	z-index: 1;
-	pointer-events: none;
-}
-
-
-
-.btn {
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.submit-btn {
-	margin-top: 2%;
-	width: 100%;
+.select .input_btn1 {
+	
+	margin-top: 5%;
+	width: inherit;
 	padding: 2% 20% 2% 20%;
 	background-color: #97C6EE;
+	border: none;
+	
+	font-family: Noto Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 33px;
+	line-height: 48px;
+	/* identical to box height */
+	
+	text-align: center;
+	
+	color: #FFFFFF;
+}
+
+.select .input_btn2 {
+	
+	margin-top: 5%;
+	width: inherit;
+	padding: 2% 20% 2% 20%;
+	background-color: #BBBBBB;;
 	border: none;
 	
 	font-family: Noto Sans;

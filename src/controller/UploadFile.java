@@ -51,9 +51,7 @@ public class UploadFile extends HttpServlet {
     	String str="";
 		String title = "";
 		String mainTxt="";
-		
-		System.out.println(request.getParameter("write"));
-	
+			
 		
 		try {
 			FileInputStream ins = new FileInputStream(file);
@@ -79,11 +77,11 @@ public class UploadFile extends HttpServlet {
 			//e.printStackTrace();
 		}
 		
-
+		System.out.println(title);
 		session.setAttribute("bookname", title);
 		session.setAttribute("mainTxt", mainTxt);
 		
-    	RequestDispatcher rd = request.getRequestDispatcher("/confirm.jsp");
+    	RequestDispatcher rd = request.getRequestDispatcher("/fileConfirm.jsp");
         rd.forward(request, response);
     }
 }

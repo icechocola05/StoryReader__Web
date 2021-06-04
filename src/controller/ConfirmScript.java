@@ -75,7 +75,7 @@ public class ConfirmScript extends HttpServlet {
 				sent.add(tempTxt[i]);
 			}
 		}
-		
+		session.setAttribute("story_name", book_title);
 		session.setAttribute("sent", sent);
 		session.setAttribute("speaker", speaker);//sessionAttribute: ArrayList로 본문 내용 저장
 		

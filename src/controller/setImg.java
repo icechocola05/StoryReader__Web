@@ -97,22 +97,10 @@ public class setImg extends HttpServlet {
 		    	
 				
 				String button=request.getParameter("move_btn");
-				String button2=request.getParameter("replay");
-				if(button==null&&button2!=null) {
-					session.setAttribute("isBegan",1);
-					rsSent.first();
-					session.setAttribute("rsSent", rsSent);
-					RequestDispatcher rd = request.getRequestDispatcher("/result.jsp");
-					rd.forward(request, response);
-					return;
-				}
+				
 				if(button.equals("next")) {	
 					if(!rsSent.next()) {//마지막 문장일 때
 						rsSent.previous();
-						RequestDispatcher rd = request.getRequestDispatcher("/lastPage.jsp");
-						rd.forward(request, response);
-						return;
-						
 					}else {
 						session.setAttribute("sentNum", sentNum + 1);
 					}
@@ -126,6 +114,13 @@ public class setImg extends HttpServlet {
 						//rsSent.previous();
 						session.setAttribute("sentNum", sentNum - 1);
 						}
+				}
+				if(button.equals("replay")) {
+					session.setAttribute("sentNum", 0);
+					session.setAttribute("isBegan", 1);
+					RequestDispatcher rd = request.getRequestDispatcher("/setImg.do");
+					rd.forward(request, response);
+					return;
 				}
 				
 				session.setAttribute("rsSent", rsSent);

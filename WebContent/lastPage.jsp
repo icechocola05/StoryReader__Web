@@ -19,8 +19,10 @@
 	</div>
 	<div class="main">
 	
+	<div class="title"><%=session.getAttribute("story_name") %></div>
+	
 	<form method="post" action="setImg.do">
-		<button id="replay" name="replay">다시 듣기</button>
+		<button id = "replay" name="move_btn" value="replay">다시 듣기</button>
 	</form>
 	<form method="post" action="chooseInput.jsp">
 		<button id="another">다른 동화 읽기</button>

@@ -28,6 +28,9 @@
 	function next(nowNum, lastNum){
 		if(nowNum == lastNum) {
 			alert("마지막 문장입니다");
+			if(window.confirm("종료하시겠습니까?")) {
+			    window.location.href = "/StoryReader__Web/lastPage.jsp"
+			}
 			audio.pause();
 		}
 		else {

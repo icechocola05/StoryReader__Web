@@ -27,16 +27,8 @@
 		<span>Story Reader</span>
 	</div>
 	<div class="main">
-		<div class="prog">
-			<hr />
-			<span class="pro1">등록 방식 설정</span>
-			<span class="pro2">텍스트 등록</span>
-			<span class="pro3">화자 설정</span>
-			<span class="pro4">완성</span>
-			<span class="dot1"></span>
-			<span class="dot2"></span>
-			<span class="dot3"></span>
-			<span class="dot4"></span>
+		<div>
+			<img class="prog" src="./Img/2.png" alt="image">
 		</div>
 		
 		<div class="input">

@@ -7,6 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="model.*"%>
+<%@ page import="dao.*"%>
 <%@ page import="java.sql.*" %>
 
 <!DOCTYPE html>
@@ -41,19 +42,19 @@
 		</div>
 	</div>
 	
-	
-	
-	<% 		
-		ArrayList<String> sent = (ArrayList<String>)session.getAttribute("sent");
-		ArrayList<String> speaker = (ArrayList<String>)session.getAttribute("speaker");
+	<% 
+		//저장한 문장 받아오기
+		ArrayList<String> sent = (ArrayList<String>)request.getAttribute("sent");
+		ArrayList<String> speaker = (ArrayList<String>)request.getAttribute("speaker");
 		int len = sent.size();
 		
-		//DB와 연결
+		//DB의 Emotion, Voice 가져오기
 		ServletContext sc = getServletContext();
-		Connection conn = (Connection)sc.getAttribute("DBconnection");
+		Connection con = (Connection)sc.getAttribute("DBconnection");
+		List<String> voiceSet = SettingDao.getVoice(con);
 		try {
-			Statement voiceSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
-			Statement emotionSt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
+			Statement voiceSt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
+			Statement emotionSt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
 			
 			voiceSt.execute("SELECT * FROM voice");
 			emotionSt.execute("SELECT * FROM emotion");

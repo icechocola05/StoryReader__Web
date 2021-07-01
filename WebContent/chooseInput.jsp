@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="CSS/chooseInput.css">
 </head>
 <body>
-	<% session.invalidate(); %>
 	<div class="head">
 		<span>Story Reader</span>
 	</div>

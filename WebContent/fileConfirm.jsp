@@ -16,16 +16,17 @@
 <body>
 
 	<%
-	      String bookname = "";
-	      String mainTxt = "";
-	      if(session.getAttribute("bookname") != null) bookname = (String) session.getAttribute("bookname");
-	      if(session.getAttribute("mainTxt") != null) mainTxt = (String) session.getAttribute("mainTxt");
-	   %>
-
-
+		//텍스트 전달받기
+		String bookname = "";
+		String mainTxt = "";
+		if(request.getAttribute("bookname") != null) bookname = (String) request.getAttribute("bookname");
+		if(request.getAttribute("mainTxt") != null) mainTxt = (String) request.getAttribute("mainTxt");
+	 %>
+	 
 	<div class="head">
 		<span>Story Reader</span>
 	</div>
+	
 	<div class="main">
 		<div>
 			<img class="prog" src="./Img/2.png" alt="image">
@@ -49,9 +50,7 @@
 				</form>
 				<br><br>
 			</div>
-			
 		</div>
-		
 	</div>
 
 </body>

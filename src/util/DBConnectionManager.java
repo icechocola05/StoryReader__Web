@@ -1,4 +1,4 @@
-package model;
+package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,39 +10,20 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-/**
- * Application Lifecycle Listener implementation class DBconnection
- *
- */
 @WebListener
-public class DBConnection implements ServletContextListener {
+public class DBConnectionManager implements ServletContextListener {
 
-    /**
-     * Default constructor. 
-     */
-    public DBConnection() {
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-     * @see ServletContextListener#contextDestroyed(ServletContextEvent)
-     */
     public void contextDestroyed(ServletContextEvent sce)  { 
     	Connection conn=(Connection) sce.getServletContext().getAttribute("DBconnection");
-    	
     	try {
     		conn.close();
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}
-    
     }
-
-	/**
-     * @see ServletContextListener#contextInitialized(ServletContextEvent)
-     */
+    
     public void contextInitialized(ServletContextEvent sce)  { 
-    	//시작 시 DB 연결
+    	//페이지 시작 시 DB 연결
     	Connection conn = null;
 		Properties connectionProps = new Properties();
 		
@@ -59,9 +40,8 @@ public class DBConnection implements ServletContextListener {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(DBUrl, connectionProps);
-			System.out.println("success!");
+			System.out.println("success DB Connection!");
 		} catch (SQLException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		sc.setAttribute("DBconnection", conn);

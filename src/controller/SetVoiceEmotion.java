@@ -15,43 +15,31 @@ import javax.servlet.http.HttpSession;
 
 import model.DBUtils;
 
-/**
- * Servlet implementation class setVoiceEmo
- */
 @WebServlet("/setVoiceEmotion")
 public class SetVoiceEmotion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public SetVoiceEmotion() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// for DB connection
 		ServletContext sc = getServletContext();
 		Connection con = (Connection)sc.getAttribute("DBconnection");
-		DBUtils db = new DBUtils();
+		//DBUtils db = new DBUtils();
 
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession(true);
+		//HttpSession session = request.getSession(true);
 		
 		//문장마다 받아온 화자, 감정 정보 설정해서 DB 등록
-		ArrayList<String> speak = (ArrayList<String>) session.getAttribute("speaker");
-		ArrayList<String> speak_t=(ArrayList<String>)session.getAttribute("speaker_t");
+		String book_title = (String) request.getAttribute("story_name");
+		ArrayList<String> speak = (ArrayList<String>) request.getAttribute("speaker");
+		ArrayList<String> speak_t=(ArrayList<String>) request.getAttribute("speaker_t");
 		ArrayList<String> sent = new ArrayList<String>();
 		ArrayList<String> voice_t = new ArrayList<String>();
 		String temp;
-		for(int i=0;i<speak.size();i++) {
+		for(int i=0; i<speak.size(); i++) {
 			temp=(String)request.getParameter("sent"+i);
 			sent.add(temp);
 		}

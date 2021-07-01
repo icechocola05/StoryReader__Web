@@ -8,6 +8,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="model.*"%>
 <%@ page import="dao.*"%>
+<%@ page import="dto.*"%>
 <%@ page import="java.sql.*" %>
 
 <!DOCTYPE html>
@@ -44,6 +45,7 @@
 	
 	<% 
 		//저장한 문장 받아오기
+		String book_title = (String) request.getAttribute("story_name");
 		ArrayList<String> sent = (ArrayList<String>)request.getAttribute("sent");
 		ArrayList<String> speaker = (ArrayList<String>)request.getAttribute("speaker");
 		int len = sent.size();
@@ -51,65 +53,52 @@
 		//DB의 Emotion, Voice 가져오기
 		ServletContext sc = getServletContext();
 		Connection con = (Connection)sc.getAttribute("DBconnection");
-		List<String> voiceSet = SettingDao.getVoice(con);
-		try {
-			Statement voiceSt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
-			Statement emotionSt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, Statement.RETURN_GENERATED_KEYS);
-			
-			voiceSt.execute("SELECT * FROM voice");
-			emotionSt.execute("SELECT * FROM emotion");
-			
-			ResultSet voiceRS = voiceSt.getResultSet();
-			ResultSet emotionRS = emotionSt.getResultSet();
+		List<Voice> voiceSet = SettingDao.getVoice(con);
+		List<Emotion> emotionSet = SettingDao.getEmotion(con);
 	%>
 	
 	<form method="Post" action="setVoiceEmotion" >
-	
 	<div class="set">
 		<div class="speakers" >
 			<div class="row">
-			<% 
-				//특정 화자만 추리기
-				ArrayList<String> speaker_t=new ArrayList<String>();//중복을 제외한 화자 리스트
-				int flag=0;//0-같은 speaker 없음.1-있음
-				int j_loc=0;
-				for(int i=0; i<speaker.size(); i++) { //문장 수 만큼 행 생성
-					System.out.println("==================i = "+i+"===================");
-					flag=0;
-					for(int j=0;j<speaker_t.size();j++){
-						System.out.println("<<"+j+">>");
-						System.out.println(speaker_t.get(j));
-						System.out.println(speaker_t.get(j)+" vs "+speaker.get(i));
-						if(speaker.get(i).equals(speaker_t.get(j))){
-							flag=1;//이전 화자 목록에 현재 화자가 있는지
-							System.out.println("중복 확인");
+				<% 
+					//언급되는 화자만 추리기
+					ArrayList<String> speaker_t = new ArrayList<String>();//중복을 제외한 화자 리스트
+					int flag=0;//0-같은 speaker 없음.1-있음
+					int j_loc=0;
+					for(int i=0; i<speaker.size(); i++) { //문장 수 만큼 행 생성
+						System.out.println("==================i = "+i+"===================");
+						flag=0;
+						for(int j=0; j<speaker_t.size(); j++){
+							System.out.println("<<"+j+">>");
+							System.out.println(speaker_t.get(j));
+							System.out.println(speaker_t.get(j)+" vs "+speaker.get(i));
+							if(speaker.get(i).equals(speaker_t.get(j))){
+								flag=1;//이전 화자 목록에 현재 화자가 있는지
+								System.out.println("중복 확인");
+							}
 						}
-					}
-					if(flag==1) continue;
-					speaker_t.add(speaker.get(i));
-					j_loc=speaker_t.size()-1;
-					
-			%>
+						if(flag==1) continue;
+						speaker_t.add(speaker.get(i));
+						j_loc = speaker_t.size()-1;
+				%>
 				<div class="col-sm-3">
-				<span id='speaker_t<%=j_loc%>' class="fs-1"> <%= speaker_t.get(j_loc) %> </span>
-					<!-- voice option 붙이기-->
+					<span id='speaker_t<%=j_loc%>' class="fs-1"> <%= speaker_t.get(j_loc) %> </span>
 				</div>
-				
 				<div class="col-sm-7">
-				<select id='voice<%=j_loc%>' class='form-select fs-2' name='voice<%=j_loc%>' >
-					<%voiceRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
-					<option value=<%= voiceRS.getString("voice_name") %>><%= voiceRS.getString("voice_kr_name") %></option>
-					<% while(voiceRS.next()) { %>
-					<option value= <%=voiceRS.getString("voice_name")%>> <%=voiceRS.getString("voice_kr_name")%> </option>
-					<% } %>
-				</select> <br>
+					<!-- Voice Setting -->
+					<select id='voice<%=j_loc%>' class='form-select fs-2' name='voice<%=j_loc%>' >
+						<%for (int ls=0; ls<voiceSet.size(); ls++)  { %> 
+							<option value=<%= voiceSet.get(ls).getVoiceName() %>><%= voiceSet.get(ls).getVoiceKrName() %></option>
+						<% } %>
+					</select> <br>
 				</div>
-				<%} 
-				session.setAttribute("speaker_t", speaker_t);%>
+				<% } request.setAttribute("speaker_t", speaker_t);
+				request.setAttribute("story_name", book_title);
+				request.setAttribute("sent", sent);
+				request.setAttribute("speaker", speaker);%>
 			</div>
 		</div>
-		
-
 		
 		<br>
 			<%	//문장 수 만큼 div 생성
@@ -121,7 +110,7 @@
 				
 					<!-- speaker 붙이기-->
 					<div class="col-1 text-center fs-1 fw-bold" style="margin: 1%; color: #3A91DA;">
-					<span id='speaker<%=i%>'> <%= speaker.get(i) %> </span>
+						<span id='speaker<%=i%>'> <%= speaker.get(i) %> </span>
 					</div>
 					
 					<!-- emotion option 붙이기-->
@@ -130,10 +119,8 @@
 							<span class='iconify' data-inline='false' data-icon='noto:angry-face' ></span>
 						</label>
 						<select class='form-select fs-2' id='emotion<%=i%>' name='emotion<%=i%>' onchange="changeEmotion(<%=i%>)">
-			               <%emotionRS.first(); //레코드 맨 앞으로 이동 => 다시 처음부터 while 돌면서 출력%> 
-			               <option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
-			               <% while(emotionRS.next()){ %>
-			               <option value=<%= emotionRS.getString("emotion_name") %>><%= emotionRS.getString("emotion_kr_name") %></option>
+			               <% for (int ls=0; ls<emotionSet.size(); ls++)  { %> 
+							<option value=<%= emotionSet.get(ls).getEmotionName() %>><%= emotionSet.get(ls).getEmotionKrName() %></option>
 			               <% } %>
 			            </select>
 		            </div>
@@ -150,17 +137,13 @@
 				</div>
 			</div>
 		
-				<% 
-					} //for문 
-				}catch(SQLException e) {
-				e.printStackTrace();
-				}
+			<% 	} //for문
 				%>
 		</div>
 			<div class="btn">
 				<button type="SUBMIT" class="submit-btn"> 다음 단계로 >  </button>
 			</div>
-		</form>
+	</form>
 		<br>
 		
 

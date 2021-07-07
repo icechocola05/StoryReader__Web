@@ -21,46 +21,44 @@ import javax.servlet.jsp.PageContext;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import dto.Story;
 import model.*;
 
 @WebServlet("/fileConnection")
 public class FileConnection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public FileConnection() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ServletContext sc = getServletContext();
 		Connection conn = (Connection)sc.getAttribute("DBconnection");
-		DBUtils db = new DBUtils();
+		//DBUtils db = new DBUtils();
 		
-		ArrayList<File> audioFiles=new ArrayList<File>();
+		ArrayList<File> audioFiles = new ArrayList<File>();
 		
 		//json 형식의 text table data(session의 attribute) 가져오기
-		HttpSession session = request.getSession(true);
+		//HttpSession session = request.getSession(true);
 		JSONArray resultJson = new JSONArray();
-		resultJson = (JSONArray) session.getAttribute("resultJson");
-		System.out.println((int) session.getAttribute("i"));
-		int index = (int) session.getAttribute("i");
-		int story_id=(int)session.getAttribute("story_id");
-		System.out.println("hello");
+		resultJson = (JSONArray) request.getAttribute("resultJson");
+		int index = (int) request.getAttribute("i");
+		Story currStory = (Story) request.getAttribute("currStory");
+		int story_id = currStory.getStoryId();
+		//int story_id=(int)request.getAttribute("story_id");
+		//System.out.println("hello");
 		System.out.println(index);
-		session.setAttribute("lastNum", resultJson.size() - 1);
-		session.setAttribute("isBegan", 1);
+		request.setAttribute("lastNum", resultJson.size() - 1);
+		request.setAttribute("isBegan", 1);
 		
 		if (index== resultJson.size()) {
 			RequestDispatcher rd = request.getRequestDispatcher("/setImg.do");
 			rd.forward(request, response);
 			return;
 		} else {
-			session.setAttribute("i", index + 1);
+			request.setAttribute("i", index + 1);
 		}
 
 		try {
@@ -91,7 +89,7 @@ public class FileConnection extends HttpServlet {
 				
 				String path = getServletContext().getRealPath("output/");
 	            System.out.println(path);
-	            session.setAttribute("path", path);
+	            request.setAttribute("path", path);
 
 	            File fileSaveDir = new File(path);
 	            // 파일 경로 없으면 생성
@@ -106,7 +104,7 @@ public class FileConnection extends HttpServlet {
 				while ((read = is.read(bytes)) != -1) {
 					outputStream.write(bytes, 0, read); // wav 파일에 작성 
 				}
-				db.updateWav(conn, story_id, index, audioFile);
+				//db.updateWav(conn, story_id, index, audioFile);
 				
 				System.out.println("생성!");
 				outputStream.close();

@@ -44,10 +44,12 @@
 	</div>
 	
 	<% 
-		//저장한 문장 받아오기
-		String book_title = (String) request.getAttribute("story_name");
+		//저장한 이야기, 문장, 화자 정보 받아오기
+		Story currStory = (Story) request.getAttribute("currStory");
+		//String book_title = (String) request.getAttribute("story_name");
 		ArrayList<String> sent = (ArrayList<String>)request.getAttribute("sent");
 		ArrayList<String> speaker = (ArrayList<String>)request.getAttribute("speaker");
+		request.setAttribute("speaker", speaker);
 		int len = sent.size();
 		
 		//DB의 Emotion, Voice 가져오기
@@ -55,6 +57,7 @@
 		Connection con = (Connection)sc.getAttribute("DBconnection");
 		List<Voice> voiceSet = SettingDao.getVoice(con);
 		List<Emotion> emotionSet = SettingDao.getEmotion(con);
+	
 	%>
 	
 	<form method="Post" action="setVoiceEmotion" >
@@ -93,10 +96,15 @@
 						<% } %>
 					</select> <br>
 				</div>
-				<% } request.setAttribute("speaker_t", speaker_t);
-				request.setAttribute("story_name", book_title);
+				<% }
+				request.setAttribute("voiceSet", voiceSet);
+				request.setAttribute("emotionSet", emotionSet);
+				request.setAttribute("speaker_t", speaker_t);
+				//request.setAttribute("story_name", book_title);
 				request.setAttribute("sent", sent);
-				request.setAttribute("speaker", speaker);%>
+				//request.setAttribute("speaker", speaker);
+				
+				%>
 			</div>
 		</div>
 		
@@ -138,6 +146,7 @@
 			</div>
 		
 			<% 	} //for문
+				//pageContext.forward("setting.jsp"); jsp->servelt 부분에서 request를 쓰면 값이 전달이 안되더라구..
 				%>
 		</div>
 			<div class="btn">

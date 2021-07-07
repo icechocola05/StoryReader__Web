@@ -42,9 +42,12 @@ public class setImg extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession(true);
+		//HttpSession session = request.getSession(true);
+        
+        System.out.println("error here!!");
 		
-		int n=(int)session.getAttribute("story_id");//�쁽�옱 臾몄옣
+        int n = 10;
+		//int n=(int)session.getAttribute("story_id");
 		//int sentNum = 0;
 		//session.setAttribute("sentNum", sentNum);
 		ServletContext sc = getServletContext();
@@ -52,7 +55,7 @@ public class setImg extends HttpServlet {
 		
 		try {
 			
-			if((int)session.getAttribute("isBegan")==1) {
+			if((int)request.getAttribute("isBegan")==1) {
 				String query="SELECT sent_id,sent_txt,sent_speaker FROM sentence WHERE story_id=?";
 				PreparedStatement sent_ps = conn.prepareStatement(query,
                         ResultSet.TYPE_SCROLL_SENSITIVE, 
@@ -62,32 +65,32 @@ public class setImg extends HttpServlet {
 				
 				rsSent.next();
 				
-				session.setAttribute("rsSent", rsSent);
+				request.setAttribute("rsSent", rsSent);
 				
 				//이전 텍스트
-				session.setAttribute("pre-sent_id", -1);
-				session.setAttribute("pre-sentence",null);
-				session.setAttribute("pre-speaker",null);
+				request.setAttribute("pre-sent_id", -1);
+				request.setAttribute("pre-sentence",null);
+				request.setAttribute("pre-speaker",null);
 				
 				//현재 텍스트
-				session.setAttribute("sent_id", rsSent.getInt("sent_id"));
-				session.setAttribute("sentence",rsSent.getString("sent_txt"));
-				session.setAttribute("speaker",rsSent.getString("sent_speaker"));
+				request.setAttribute("sent_id", rsSent.getInt("sent_id"));
+				request.setAttribute("sentence",rsSent.getString("sent_txt"));
+				request.setAttribute("speaker",rsSent.getString("sent_speaker"));
 				
 				//다음 텍스트
 				if(rsSent.next()==true) {
-					session.setAttribute("next-sent_id", rsSent.getInt("sent_id"));
-					session.setAttribute("next-sentence",rsSent.getString("sent_txt"));
-					session.setAttribute("next-speaker",rsSent.getString("sent_speaker"));
+					request.setAttribute("next-sent_id", rsSent.getInt("sent_id"));
+					request.setAttribute("next-sentence",rsSent.getString("sent_txt"));
+					request.setAttribute("next-speaker",rsSent.getString("sent_speaker"));
 					rsSent.previous();
 				}
 				
-				session.setAttribute("sentNum", 0);
-				session.setAttribute("isBegan", 0);
+				request.setAttribute("sentNum", 0);
+				request.setAttribute("isBegan", 0);
 			}
 			else {
-				ResultSet rsSent=(ResultSet)session.getAttribute("rsSent");
-				int sentNum=(int)session.getAttribute("sentNum");
+				ResultSet rsSent=(ResultSet)request.getAttribute("rsSent");
+				int sentNum=(int)request.getAttribute("sentNum");
 				File sDir = new File(ATTACHES_DIR);
 		    	if (!sDir.exists())
 		    		sDir.mkdirs();
@@ -102,54 +105,53 @@ public class setImg extends HttpServlet {
 					if(!rsSent.next()) {//마지막 문장일 때
 						rsSent.previous();
 					}else {
-						session.setAttribute("sentNum", sentNum + 1);
+						request.setAttribute("sentNum", sentNum + 1);
 					}
 				}
 				
 				if(button.equals("pre")) {
 					if(!rsSent.previous()) {
 						rsSent.next();
-						session.setAttribute("sentNum", 0);
+						request.setAttribute("sentNum", 0);
 					}else {
 						//rsSent.previous();
-						session.setAttribute("sentNum", sentNum - 1);
+						request.setAttribute("sentNum", sentNum - 1);
 						}
 				}
 				if(button.equals("replay")) {
-					session.setAttribute("sentNum", 0);
-					session.setAttribute("isBegan", 1);
+					request.setAttribute("sentNum", 0);
+					request.setAttribute("isBegan", 1);
 					RequestDispatcher rd = request.getRequestDispatcher("/setImg.do");
 					rd.forward(request, response);
 					return;
 				}
 				
-				session.setAttribute("rsSent", rsSent);
+				request.setAttribute("rsSent", rsSent);
 				
 				//이전 텍스트
 				if(rsSent.previous()==true) {
-					session.setAttribute("pre-sent_id", rsSent.getInt("sent_id"));
-					session.setAttribute("pre-sentence",rsSent.getString("sent_txt"));
-					session.setAttribute("pre-speaker",rsSent.getString("sent_speaker"));
+					request.setAttribute("pre-sent_id", rsSent.getInt("sent_id"));
+					request.setAttribute("pre-sentence",rsSent.getString("sent_txt"));
+					request.setAttribute("pre-speaker",rsSent.getString("sent_speaker"));
 					rsSent.next();
 				}else rsSent.next();
 				
 				//현재 텍스트
-				session.setAttribute("sent_id", rsSent.getInt("sent_id"));
-				session.setAttribute("sentence",rsSent.getString("sent_txt"));
-				session.setAttribute("speaker",rsSent.getString("sent_speaker"));
+				request.setAttribute("sent_id", rsSent.getInt("sent_id"));
+				request.setAttribute("sentence",rsSent.getString("sent_txt"));
+				request.setAttribute("speaker",rsSent.getString("sent_speaker"));
 				
 				//다음 텍스트
 				if(rsSent.next()==true) {
-					session.setAttribute("next-sent_id", rsSent.getInt("sent_id"));
-					session.setAttribute("next-sentence",rsSent.getString("sent_txt"));
-					session.setAttribute("next-speaker",rsSent.getString("sent_speaker"));
+					request.setAttribute("next-sent_id", rsSent.getInt("sent_id"));
+					request.setAttribute("next-sentence",rsSent.getString("sent_txt"));
+					request.setAttribute("next-speaker",rsSent.getString("sent_speaker"));
 					rsSent.previous();
 				}else rsSent.previous();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		//�떎�쓬 臾몄옣 or �씠�쟾 臾몄옣 諛쏆븘�삤湲�
 			
 		RequestDispatcher rd = request.getRequestDispatcher("/result.jsp");
 		rd.forward(request, response);

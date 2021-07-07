@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.StoryDao;
+import dto.Story;
 import model.DBUtils;
 
 @WebServlet("/ConfirmScript")
@@ -37,14 +38,14 @@ public class ConfirmScript extends HttpServlet {
 		String book_author = request.getParameter("bookauthor");
 		
 		//DB에 story 넣기
-		int story_id = 0;
+		Story currStory = new Story();
 		try {
-			story_id = StoryDao.insertStory(conn, book_title, book_author);
+			currStory = StoryDao.insertStory(conn, book_title, book_author);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		request.setAttribute("story_id", story_id);
+		//request.setAttribute("story_id", story_id);
 		
 		//rawTxt 가공 후 저장
 		String rawTxt = request.getParameter("booktext");		
@@ -66,9 +67,10 @@ public class ConfirmScript extends HttpServlet {
 			}
 		}
 		
-		request.setAttribute("story_name", book_title);
-		request.setAttribute("sent", sent);
-		request.setAttribute("speaker", speaker);
+		request.setAttribute("currStory", currStory);
+		//request.setAttribute("story_name", book_title);
+		request.setAttribute("sent", sent); //모든 문장
+		request.setAttribute("speaker", speaker); //모든 화자
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/setting.jsp");
         rd.forward(request, response);

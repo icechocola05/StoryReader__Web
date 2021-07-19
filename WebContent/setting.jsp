@@ -45,19 +45,19 @@
 	
 	<% 
 		//저장한 이야기, 문장, 화자 정보 받아오기
-		Story currStory = (Story) request.getAttribute("currStory");
-		//String book_title = (String) request.getAttribute("story_name");
-		ArrayList<String> sent = (ArrayList<String>)request.getAttribute("sent");
-		ArrayList<String> speaker = (ArrayList<String>)request.getAttribute("speaker");
-		request.setAttribute("speaker", speaker);
-		int len = sent.size();
+		ArrayList<String> speaker = (ArrayList<String>) session.getAttribute("speaker");
+		ArrayList<String> speakerType = (ArrayList<String>) session.getAttribute("speakerType");
+		ArrayList<String> sentence = (ArrayList<String>) request.getAttribute("sentence");
 		
-		//DB의 Emotion, Voice 가져오기
+		
+		//DB의 Emotion, Voice 가져오기 + session에 저장
 		ServletContext sc = getServletContext();
 		Connection con = (Connection)sc.getAttribute("DBconnection");
 		List<Voice> voiceSet = SettingDao.getVoice(con);
 		List<Emotion> emotionSet = SettingDao.getEmotion(con);
-	
+		
+		session.setAttribute("voiceSet", voiceSet);
+		session.setAttribute("emotionSet", emotionSet);
 	%>
 	
 	<form method="Post" action="setVoiceEmotion" >
@@ -65,51 +65,29 @@
 		<div class="speakers" >
 			<div class="row">
 				<% 
-					//언급되는 화자만 추리기
-					ArrayList<String> speaker_t = new ArrayList<String>();//중복을 제외한 화자 리스트
-					int flag=0;//0-같은 speaker 없음.1-있음
-					int j_loc=0;
-					for(int i=0; i<speaker.size(); i++) { //문장 수 만큼 행 생성
-						System.out.println("==================i = "+i+"===================");
-						flag=0;
-						for(int j=0; j<speaker_t.size(); j++){
-							System.out.println("<<"+j+">>");
-							System.out.println(speaker_t.get(j));
-							System.out.println(speaker_t.get(j)+" vs "+speaker.get(i));
-							if(speaker.get(i).equals(speaker_t.get(j))){
-								flag=1;//이전 화자 목록에 현재 화자가 있는지
-								System.out.println("중복 확인");
-							}
-						}
-						if(flag==1) continue;
-						speaker_t.add(speaker.get(i));
-						j_loc = speaker_t.size()-1;
+					int speakerTypeSize = speakerType.size();
+					for(int i=0; i<speakerType.size(); i++) {
 				%>
 				<div class="col-sm-3">
-					<span id='speaker_t<%=j_loc%>' class="fs-1"> <%= speaker_t.get(j_loc) %> </span>
+					<span id='speakerType<%=i%>' class="fs-1"> <%= speakerType.get(i) %> </span>
 				</div>
 				<div class="col-sm-7">
 					<!-- Voice Setting -->
-					<select id='voice<%=j_loc%>' class='form-select fs-2' name='voice<%=j_loc%>' >
-						<%for (int ls=0; ls<voiceSet.size(); ls++)  { %> 
-							<option value=<%= voiceSet.get(ls).getVoiceName() %>><%= voiceSet.get(ls).getVoiceKrName() %></option>
+					<select id='voice<%=i%>' class='form-select fs-2' name='voice<%=i%>' >
+						<%
+							int voiceSetSize = voiceSet.size();
+							for (int j=0; j<voiceSetSize; j++)  { %> 
+								<option value=<%= voiceSet.get(j).getVoiceName() %>><%= voiceSet.get(j).getVoiceKrName() %></option>
 						<% } %>
 					</select> <br>
 				</div>
-				<% }
-				request.setAttribute("voiceSet", voiceSet);
-				request.setAttribute("emotionSet", emotionSet);
-				request.setAttribute("speaker_t", speaker_t);
-				//request.setAttribute("story_name", book_title);
-				request.setAttribute("sent", sent);
-				//request.setAttribute("speaker", speaker);
-				
-				%>
+				<% } %>
 			</div>
 		</div>
 		
 		<br>
 			<%	//문장 수 만큼 div 생성
+				int len = sentence.size();
 				for(int i=0; i<len; i++) { 
 			%>
 			
@@ -140,13 +118,12 @@
 					
 					<!-- sentence 붙이기-->
 					<div class="col-6 text-center " style="margin: 1%;">
-					<textarea id="sent<%=i%>" class="col-7 form-control fs-1" name="sent<%=i%>"><%= sent.get(i) %></textarea>
+					<textarea id="sentence<%=i%>" class="col-7 form-control fs-1" name="sentence<%=i%>"><%= sentence.get(i) %></textarea>
 					</div>
 				</div>
 			</div>
 		
 			<% 	} //for문
-				//pageContext.forward("setting.jsp"); jsp->servelt 부분에서 request를 쓰면 값이 전달이 안되더라구..
 				%>
 		</div>
 			<div class="btn">

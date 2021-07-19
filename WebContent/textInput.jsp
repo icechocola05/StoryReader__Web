@@ -24,18 +24,18 @@
 		</div>
 		
 		<div class="input">
-			<span id="title">텍스트를 직접 입력해주세요!</span> <br>
+			<span id="header">텍스트를 직접 입력해주세요!</span> <br>
 			
 			<div class="content">
 				<form method="Post" action="ConfirmScript">	
 					<div class="context-text">
-						<label for='bookname'>제목</label>
-						<input type="text" id="bookname" name="bookname" size=53 placeholder="  제목을 입력해주세요.  ">
+						<label for='title'>제목</label>
+						<input type="text" id="title" name="title" size=53 placeholder="  제목을 입력해주세요.  ">
 						<br>
-						<label for='bookauthor'>작가</label>
-						<input type="text" id="bookauthor" name="bookauthor" size=53 placeholder="  작가의 이름을 입력해주세요." />
+						<label for='author'>작가</label>
+						<input type="text" id="author" name="author" size=53 placeholder="  작가의 이름을 입력해주세요." />
 						<br><br>
-						<textarea rows="11" cols="63" id="booktext" name="booktext" placeholder="   이야기 내용을 입력해주세요.  &#13;&#10;   형식은 '화자 : 텍스트' 입니다. &#13;&#10;   화자를 설정하지 않으면 나레이션으로 지정됩니다.  &#13;&#10;   예시) 여우 : 황새야 맛있게 먹어  "></textarea>
+						<textarea rows="11" cols="63" id="mainTxt" name="mainTxt" placeholder="   이야기 내용을 입력해주세요.  &#13;&#10;   형식은 '화자 : 텍스트' 입니다. &#13;&#10;   화자를 설정하지 않으면 나레이션으로 지정됩니다.  &#13;&#10;   예시) 여우 : 황새야 맛있게 먹어  "></textarea>
 					</div>	
 				<button type="submit" id="submit-btn">전송</button>
 				</form>

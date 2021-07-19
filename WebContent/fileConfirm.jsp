@@ -17,9 +17,9 @@
 
 	<%
 		//텍스트 전달받기
-		String bookname = "";
+		String title = "";
 		String mainTxt = "";
-		if(request.getAttribute("bookname") != null) bookname = (String) request.getAttribute("bookname");
+		if(request.getAttribute("title") != null) title = (String) request.getAttribute("title");
 		if(request.getAttribute("mainTxt") != null) mainTxt = (String) request.getAttribute("mainTxt");
 	 %>
 	 
@@ -33,18 +33,18 @@
 		</div>
 		
 		<div class="input">
-			<span id="title">텍스트를 확인해주세요!</span> <br>
+			<span id="header">텍스트를 확인해주세요!</span> <br>
 			
 			<div class="content">
 				<form method="Post" action="ConfirmScript">	
 					<div class="context-text">
-						<label for='bookname'>제목</label>
-						<input type="text" id="bookname" name="bookname" size=53 value="<%=bookname%>" placeholder="  제목을 입력해주세요.  ">
+						<label for='title'>제목</label>
+						<input type="text" id="title" name="title" size=53 value="<%=title%>" placeholder="  제목을 입력해주세요.  ">
 						<br>
-						<label for='bookauthor'>작가</label>
-						<input type="text" id="bookauthor" name="bookauthor" size=53 placeholder="  작가의 이름을 입력해주세요." />
+						<label for='author'>작가</label>
+						<input type="text" id="author" name="author" size=53 placeholder="  작가의 이름을 입력해주세요." />
 						<br><br>
-						<textarea rows="11" cols="63" id="booktext" name="booktext"><%=mainTxt%></textarea>
+						<textarea rows="11" cols="63" id="mainTxt" name="mainTxt"><%=mainTxt%></textarea>
 					</div>	
 				<button type="submit" id="submit-btn">전송</button>
 				</form>

@@ -46,7 +46,7 @@ html,body {
 	margin-right: auto;
 }
 
-.input #title {
+.input #header {
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: bold;
@@ -85,7 +85,7 @@ label {
 	color: #000000;
 }
 
-#bookname, #bookauthor, #booktext {
+#title, #author, #mainTxt {
 	border: 2px solid #C4C4C4;
 	box-sizing: border-box;
 	border-radius: 20px;

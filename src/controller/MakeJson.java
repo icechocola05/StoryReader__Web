@@ -31,15 +31,14 @@ public class MakeJson extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//HttpSession session = request.getSession(true);
 		JSONArray jsonArray=new JSONArray();
 	   
 		//DB 정보로 json 만들기
 		ServletContext sc = getServletContext();
-		Connection con = (Connection)sc.getAttribute("DBconnection");
+		//Connection con = (Connection)sc.getAttribute("DBconnection");
+		HttpSession session = request.getSession(true);
 		
-		//int story_id = (int) session.getAttribute("story_id");
-		Story currStory = (Story) request.getAttribute("currStory");
+		Story currStory = (Story) session.getAttribute("currStory");
 		int story_id = currStory.getStoryId();
 		
 		List<Sentence> sentenceSet = (List<Sentence>) request.getAttribute("sentenceSet");
@@ -109,7 +108,7 @@ public class MakeJson extends HttpServlet {
 		}
 		
 		request.setAttribute("resultJson", jsonArray);
-		request.setAttribute("i", 0);//0으로 초기화?
+		session.setAttribute("i", 0);//0으로 초기화?
 		RequestDispatcher rd = request.getRequestDispatcher("/fileConnection");
         rd.forward(request, response);
 	}

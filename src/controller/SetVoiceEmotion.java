@@ -32,67 +32,58 @@ public class SetVoiceEmotion extends HttpServlet {
 		// for DB connection
 		ServletContext sc = getServletContext();
 		Connection con = (Connection)sc.getAttribute("DBconnection");
-		//DBUtils db = new DBUtils();
 
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		//HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(true);
 		
-		//문장마다 받아온 화자, 감정 정보 설정
-		//String book_title = (String) request.getAttribute("story_name");
-		Story currStory = (Story) request.getAttribute("currStory");
-		ArrayList<String> speak = (ArrayList<String>) request.getAttribute("speaker");
-		ArrayList<String> speak_t=(ArrayList<String>) request.getAttribute("speaker_t");
-		List<Voice> voiceSet = (List<Voice>) request.getAttribute("voiceSet");
-		List<Emotion> emotionSet = (List<Emotion>) request.getAttribute("emotionSet");
+		Story currStory = (Story) session.getAttribute("currStory");
+		ArrayList<String> speaker = (ArrayList<String>) session.getAttribute("speaker");
+		ArrayList<String> speakerType = (ArrayList<String>) session.getAttribute("speakerType");
+		List<Voice> voiceSet = (List<Voice>) session.getAttribute("voiceSet");
+		List<Emotion> emotionSet = (List<Emotion>) session.getAttribute("emotionSet");
 		
-		ArrayList<String> sent = new ArrayList<String>();
-		ArrayList<String> voice_t = new ArrayList<String>();
+		ArrayList<String> sentence = new ArrayList<String>();
+		ArrayList<String> voiceType = new ArrayList<String>();
 		List<Sentence> sentenceSet = new ArrayList<Sentence>();
 		String temp;
 		
-		//문장
-		System.out.println(speak.size()); //염병 왜 안되는지 모르겟어
-		for(int i=0; i<speak.size(); i++) {
-			temp=(String)request.getParameter("sent"+i);
-			sent.add(temp);
+		//문장 받아오기
+		for(int i=0; i<speaker.size(); i++) {
+			temp = (String)request.getParameter("sentence" + i);
+			sentence.add(temp);
 		}
 		
-		//문장 별 설정한 음성을 voice_t 배열에 저장한다.
-		for(int i=0;i<speak_t.size();i++) {
-			voice_t.add(request.getParameter("voice" + i));
+		//문장 별 설정한 음성을 voiceType 배열에 저장한다.
+		int speakerTypeSize = speakerType.size();
+		for(int i=0; i<speakerTypeSize; i++) {
+			voiceType.add(request.getParameter("voice" + i));
 		}
-		int len = sent.size();
 		
+		int sentenceSize = sentence.size();
 		//DB 등록
 		try {
-			String sentence, speaker, voiceVal, emotionVal;
+			String sentenceInput, speakerInput, voiceVal, emotionVal;
 			float intensity;
-			
-			//String voiceq = "SELECT voice_id FROM voice WHERE voice_name=?";
-			//String emotionq = "SELECT emotion_id FROM emotion WHERE emotion_name=?";
-			
-			//PreparedStatement voiceps = con.prepareStatement(voiceq);
-			//PreparedStatement emotionps = con.prepareStatement(emotionq);
-			
 			String n;
-			int j_loc=0;
+			int index = 0;
+			
 			//문장 별로 설정 값을 DB에 저장한다.
-			for (int i = 0; i < len; i++) {
+			for (int i = 0; i < sentenceSize; i++) {
 				n = Integer.toString(i);
-				speaker = speak.get(i);
-				sentence = sent.get(i);
+				speakerInput = speaker.get(i);
+				sentenceInput = sentence.get(i);
 				
 				//상단에서 설정한 화자의 목소리를 문장 별 화자를 찾아서 적용한다.
-				for(int j=0;j<speak_t.size();j++) {
-					if(speaker.equals(speak_t.get(j))) {
-						j_loc=j;
+				for(int j=0; j<speakerTypeSize; j++) {
+					if(speaker.equals(speakerType.get(j))) {
+						index = j;
 						break;
 					}
 				}
 				
 				//문장 별 설정 값들을 가져온다.
-				voiceVal = voice_t.get(j_loc);
+				voiceVal = voiceType.get(index);
 				emotionVal = request.getParameter("emotion" + n);
 				intensity = Float.parseFloat(request.getParameter("range" + n));
 				
@@ -100,47 +91,30 @@ public class SetVoiceEmotion extends HttpServlet {
 				int emotionId = 0;
 				int voiceId = 0;
 				for(int j=0; j<voiceSet.size(); j++) {
-					if(voiceSet.get(i).getVoiceName().equals(voiceVal)) {
-						voiceId = voiceSet.get(i).getVoiceId();
+					if(voiceSet.get(j).getVoiceName().equals(voiceVal)) {
+						voiceId = voiceSet.get(j).getVoiceId();
 					}
 				}
 				for(int j=0; j<emotionSet.size(); j++) {
-					if(emotionSet.get(i).getEmotionName().equals(emotionVal)) {
-						emotionId = emotionSet.get(i).getEmotionId();
+					if(emotionSet.get(j).getEmotionName().equals(emotionVal)) {
+						emotionId = emotionSet.get(j).getEmotionId();
 					}
 				}
-				
-				//voiceps.setString(1, voiceVal);
-				//emotionps.setString(1, emotionVal);
-				
-				
-				//ResultSet rsVoice = voiceps.executeQuery();
-				//rsVoice.next();
-				
-				//ResultSet rsEmotion = emotionps.executeQuery();
-				//rsEmotion.next();
-				
-				//int story_id = (int) session.getAttribute("story_id");
 				int story_id = currStory.getStoryId();
 				
 				// DB와 List 형태로 저장
-				
-				Sentence invidSent = SentenceDao.insertSent(con, sentence, speaker, emotionId, voiceId, intensity, story_id);
+				Sentence invidSent = SentenceDao.insertSent(con, sentenceInput, speakerInput, emotionId, voiceId, intensity, story_id);
 				invidSent.setEmotionName(emotionVal);
 				invidSent.setVoiceName(voiceVal);
 				sentenceSet.add(invidSent);
-				
-				//System.out.println(sentence + speaker + rsVoice.getInt(1) + rsEmotion.getInt(1) + intensity + story_id);
-				
-				
-				//db.insertSent(con, sentence, speaker, rsVoice.getInt(1), rsEmotion.getInt(1), intensity, story_id);
 			}
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		//session.setAttribute("isBegan", 1);
-		//session.setAttribute("playAll","false");
+		
+		request.setAttribute("isBegan", 1);
+		request.setAttribute("playAll","false");
 		request.setAttribute("sentenceSet", sentenceSet);
 		RequestDispatcher rd = request.getRequestDispatcher("/makeJsonServlet");
 		rd.forward(request, response);

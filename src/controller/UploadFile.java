@@ -29,15 +29,13 @@ public class UploadFile extends HttpServlet {
     	
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        //HttpSession session = request.getSession(true);
+        int maxSize = 1024 * 1024 * 100;
+    	String encType = "UTF-8";
 
         //텍스트 파일 서버에 저장
     	File sDir = new File(ATTACHES_DIR);
     	if (!sDir.exists())
     		sDir.mkdirs();
-
-    	int maxSize = 1024 * 1024 * 100;
-    	String encType = "UTF-8";
     	
     	//저장한 파일 업로드
     	MultipartRequest multipartRequest = new MultipartRequest(request, ATTACHES_DIR, maxSize, encType,
@@ -48,8 +46,7 @@ public class UploadFile extends HttpServlet {
     	String str="";
 		String title = "";
 		String mainTxt="";
-			
-		
+	
 		try {
 			//텍스트 파일 문장으로 읽기
 			FileInputStream ins = new FileInputStream(file);
@@ -75,10 +72,8 @@ public class UploadFile extends HttpServlet {
 		}
 		
 		
-		request.setAttribute("bookname", title);
-		request.setAttribute("mainTxt", mainTxt);
-		//session.setAttribute("bookname", title);
-		//session.setAttribute("mainTxt", mainTxt);
+		request.setAttribute("title", title); //책 제목
+		request.setAttribute("mainTxt", mainTxt); //책 본문
 		
     	RequestDispatcher rd = request.getRequestDispatcher("/fileConfirm.jsp");
         rd.forward(request, response);

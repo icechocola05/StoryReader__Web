@@ -35,21 +35,18 @@ public class FileConnection extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ServletContext sc = getServletContext();
-		Connection conn = (Connection)sc.getAttribute("DBconnection");
-		//DBUtils db = new DBUtils();
+		//Connection conn = (Connection)sc.getAttribute("DBconnection");
+		HttpSession session = request.getSession(true);
 		
-		ArrayList<File> audioFiles = new ArrayList<File>();
+		Story currStory = (Story) session.getAttribute("currStory");
+		int story_id = currStory.getStoryId();
 		
 		//json 형식의 text table data(session의 attribute) 가져오기
-		//HttpSession session = request.getSession(true);
 		JSONArray resultJson = new JSONArray();
 		resultJson = (JSONArray) request.getAttribute("resultJson");
-		int index = (int) request.getAttribute("i");
-		Story currStory = (Story) request.getAttribute("currStory");
-		int story_id = currStory.getStoryId();
-		//int story_id=(int)request.getAttribute("story_id");
-		//System.out.println("hello");
+		int index = (int) session.getAttribute("i");
 		System.out.println(index);
+		
 		request.setAttribute("lastNum", resultJson.size() - 1);
 		request.setAttribute("isBegan", 1);
 		
@@ -58,7 +55,7 @@ public class FileConnection extends HttpServlet {
 			rd.forward(request, response);
 			return;
 		} else {
-			request.setAttribute("i", index + 1);
+			session.setAttribute("i", index + 1);
 		}
 
 		try {
@@ -125,8 +122,6 @@ public class FileConnection extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
-		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/fileConnection");
 		rd.include(request, response);
